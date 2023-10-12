@@ -36,7 +36,20 @@ user_parameters:
               load_train_preprocess: False   ## (inference workflow 전용) True 이면, train preprocess 를 참조하여 진행
               handling_downsampling_interval: 0   ## 0, 1, 2,... (0 이면 사용하지 않음)
               downsampling_method: median #first"   ## first, last, mean, median 
-
+        
+        - step: sampling
+          args:
+            - sampling_type: none # none(실행안함) ,under(under sampling), over(over_sampilng - TBD)
+              sampling_method: negative # random(random sampling), cluster(density based clustering sampling), negative(negative sampling)
+              label_sampling: True # label 별 sampling 여부 선택 True, False
+              ignore_label_class: 1 # 특정 클래스에 있는 데이터 전부 사용. cat or cat,dog
+              negative_target_class: # negative sampling 시 target이 되는 class
+              label_sampling_num_type: compare # ratio, number, compare, mingroup
+              label_sampling_num: {1: 1, 0: 25}
+              sampling_groupkey_columns: # groupkey 컬럼 입력. 3개 까지 지원
+              sampling_num_type: # ratio, number, mingroup
+              sampling_num: 
+        
         - step: train ## 필수
           args:
             - model_type: classification ## supproted list: classification, regression
@@ -100,12 +113,20 @@ asset_source:
 
         - step: preprocess
           source:  ## git / local 지원
-            # code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/preprocess.git
-            code: local
+            code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/preprocess.git
+            # code: local
             branch: tcr 
             requirements:
               - pandas>=1.5.3
               - category_encoders
+
+        - step: sampling
+          source:
+            code: http://mod.lge.com/hub/smartdata/aiplatform/module/data_sampling.git
+            # code: local
+            branch: main
+            requirements:
+              - requirements.txt 
 
         - step: train
           source:
