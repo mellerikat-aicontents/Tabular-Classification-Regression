@@ -15,7 +15,7 @@ user_parameters:
         - step: input  ## 필수
           args:
             - input_path: train_missing
-              x_columns: Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max
+              x_columns: [Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max]
               use_all_x: False
               y_column: label #TRAIN_LABEL" #label"
               groupkey_columns:
@@ -74,7 +74,7 @@ user_parameters:
         - step: input  ## 필수
           args:
             - input_path: inf
-              x_columns: Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max
+              x_columns: [Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max]
               use_all_x: False
               y_column:  #TRAIN_LABEL" #label"
               groupkey_columns:
