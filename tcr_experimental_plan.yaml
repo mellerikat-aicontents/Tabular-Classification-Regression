@@ -109,8 +109,8 @@ asset_source:
 
         - step: train
           source:
-            # code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/train.git
-            code: local
+            code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/train.git
+            # code: local
             branch: tcr
             requirements:
               - requirements.txt 
