@@ -22,7 +22,7 @@ user_parameters:
 
         - step: preprocess
           args:
-            - handling_missing: dropna
+            - handling_missing: interpolation # dropna, interpolation, fill_number
               handling_outlier_x: none        #none, distribution, spec_limit, specout_drop, exponential
               handling_scaling_x: none  #none"         #none, standard, minmax, abs, robust
               handling_encoding_x_columns: #Budget Actual,Business Unit" # categorical columns 
@@ -68,7 +68,7 @@ user_parameters:
               
         - step: preprocess
           args:
-            - handling_missing: dropna
+            - handling_missing: interpolation
               handling_outlier_x: none        #none, distribution, spec_limit, specout_drop, exponential
               handling_scaling_x: none  #none"         #none, standard, minmax, abs, robust
               handling_encoding_x_columns: #Budget Actual,Business Unit" # categorical columns 
