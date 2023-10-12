@@ -4,7 +4,9 @@ external_path:
     - load_inference_data_path: /nas001/users/yoonji.suh/tcr_test_20231011/inf/
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
-    - load_s3_key_path: #/nas001/users/woosung.jang/aws_key
+
+external_path_permission:
+    - s3_private_key_file: /nas001/users/woosung.jang/aws_key
  
 ## 실험에 필요한 파라미터를 설정함 
 ## - 해당 위치에서 삭제되면, code 의 default 로 실행
@@ -164,7 +166,10 @@ asset_source:
      
 control:
     ## 1. 패키지 설치 및 asset 존재 여부를 실험 시마다 체크할지, 한번만 할지 결정
-    - check_asset_source: once ## once, every
+    ## 1-2 requirements.txt 및 종속 패키지들 한번만 설치할 지 매번 설치할지도 결정 
+    - get_asset_source: once ## once, every
+    # TODO 아래 get_external_data 제작하기
+    - get_external_data: once ## once, every
     ## 2. 생성된 artifacts 를 backup 할지를 결정 True/False
     - backup_artifacts: True
     ## 3. pipeline 로그를 backup 할지를 결정 True/False
