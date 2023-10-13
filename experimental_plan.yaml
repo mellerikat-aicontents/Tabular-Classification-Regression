@@ -6,7 +6,7 @@ external_path:
     - save_inference_artifacts_path:
 
 external_path_permission:
-    - s3_private_key_file: /nas001/users/woosung.jang/aws_key
+    - s3_private_key_file: 
  
 ## 실험에 필요한 파라미터를 설정함 
 ## - 해당 위치에서 삭제되면, code 의 default 로 실행
@@ -15,7 +15,7 @@ user_parameters:
         - step: input  ## 필수
           args:
             - input_path: train_missing
-              x_columns: Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max
+              x_columns: [Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max]
               use_all_x: False
               y_column: label #TRAIN_LABEL" #label"
               groupkey_columns:
@@ -74,7 +74,7 @@ user_parameters:
         - step: input  ## 필수
           args:
             - input_path: inf
-              x_columns: Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max
+              x_columns: [Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max]
               use_all_x: False
               y_column:  #TRAIN_LABEL" #label"
               groupkey_columns:
@@ -111,7 +111,7 @@ asset_source:
             # code: local
             branch: tabular
             requirements:
-              - pandas>=1.5.3
+              - pandas==1.5.3
 
         - step: preprocess
           source:  ## git / local 지원
@@ -119,7 +119,7 @@ asset_source:
             # code: local
             branch: tcr 
             requirements:
-              - pandas>=1.5.3
+              - pandas==1.5.3
               - category_encoders
 
         - step: sampling
@@ -137,6 +137,7 @@ asset_source:
             branch: tcr
             requirements:
               - requirements.txt 
+              - numpy==1.25.2 --force-reinstall 
    
     - inference_pipeline:
         - step: input
@@ -145,7 +146,7 @@ asset_source:
             # code: local
             branch: tabular
             requirements:
-              - pandas>=1.5.3
+              - pandas==1.5.3
 
         - step: preprocess
           source:  ## git / local 지원
@@ -153,7 +154,7 @@ asset_source:
             code: local
             branch: tcr
             requirements:
-              - pandas>=1.5.3
+              - pandas==1.5.3
 
         - step: inference
           source:
@@ -161,7 +162,7 @@ asset_source:
             # code: local
             branch: tcr
             requirements:
-              - pandas>=1.5.3
+              - pandas==1.5.3
            
      
 control:
