@@ -16,7 +16,7 @@
 
 샘플 데이터 설명: [Iris flower dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set)
 
-[데이터명세서](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)
+
 ## 주요 기능 소개
 .. 대표적인 기능 소개 ()
 [Documentation](http://알고리즘 설명 링크)
