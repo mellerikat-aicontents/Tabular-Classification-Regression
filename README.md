@@ -1,27 +1,3 @@
-
-## Getting started
-
-```
-git cloen http://mod.lge.com/hub/smartdata/ml-framework/alov2.git
-git checkout release-1.0
-```
-
-## Use your files
-
-
-```
-cd alov2
-cd config
-git pull http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git
-
-```
-
-## Use alov2
-```
-cd alov2
-python main.py --config {config_path}
-```
-
 # Welcome to TCR !
 
 ⚡ input/target data로 구성된 Tabular 형태의 데이터에 대해 분류/예측할 수 있는 AI 컨텐츠입니다. ⚡
@@ -45,7 +21,25 @@ python main.py --config {config_path}
 [Documentation](http://알고리즘 설명 링크)
 
 ## Quick Install Guide
-ALO / 콘텐츠 설치 코드
+
+
+```
+git cloen http://mod.lge.com/hub/smartdata/ml-framework/alov2.git
+git checkout release-1.0
+```
+
+
+```
+cd alov2
+cd config
+git pull http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git
+
+```
+
+```
+cd alov2
+python main.py --config {config_path}
+```
 
 ## Quick Run Guide
 코드 가이드 
