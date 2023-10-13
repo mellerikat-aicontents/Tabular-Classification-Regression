@@ -18,7 +18,7 @@
 4. 데이터 용량:	~100GB
 5. 카테고리 변수의 경우 변수 내 카테고리 종류가 총 데이터 수보다 작은가(cardinality 이슈. input, target 모두 해당)	
 6. 데이터의 항목명은 무조건 문자열로 이루어져 있으며 숫자로만 구성되면 안된다.	
-7. 현재 분류는 binary만 지원합니다.(hotfix 예정)
+7. 현재 분류 모델의 경우 binary만 지원합니다.(hotfix 예정)
 
 데이터 명세서 상세한 내용은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)를 참고해주세요.
 
