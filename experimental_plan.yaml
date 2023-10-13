@@ -6,7 +6,7 @@ external_path:
     - save_inference_artifacts_path:
 
 external_path_permission:
-    - s3_private_key_file: /nas001/users/woosung.jang/aws_key
+    - s3_private_key_file: 
  
 ## 실험에 필요한 파라미터를 설정함 
 ## - 해당 위치에서 삭제되면, code 의 default 로 실행
@@ -137,6 +137,7 @@ asset_source:
             branch: tcr
             requirements:
               - requirements.txt 
+              - numpy==1.25.2 --force-reinstall 
    
     - inference_pipeline:
         - step: input
