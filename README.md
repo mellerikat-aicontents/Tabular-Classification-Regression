@@ -36,17 +36,18 @@ git pull http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git
 
 ```
 
-```
-cd alov2
-python main.py --config {config_path}
-```
 
 ## Quick Run Guide
 코드 가이드 
 + 샘플데이터로 간단히 실행하는 예시
 
+```
+cd alov2
+python main.py --config {config_path}
+```
+
 ## Sample notebook
-Jupyter 환경에서 Workflow구동과정을 확인하고 다양한 경우를 실험해볼 수 있습니다 [Sample notebook](링크)
+Jupyter 환경에서 Workflow구동과정을 확인하고 다양한 경우를 실험해볼 수 있습니다 [Sample notebook](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_asset_run_template.ipynb)
 
 ## 관련 Collab
 [AICONTENTS](http://collab.lge.com/main/display/AICONTENTS)
