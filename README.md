@@ -14,7 +14,8 @@
 ## 데이터 준비
 데이터 명세서: [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)
 
-샘플 데이터 설명: [Iris flower dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set)
+샘플 데이터 설명: [Bolt Fastening inspection](http://collab.lge.com/main/pages/viewpage.action?pageId=1965439195&src=sidebar)
+ 
 
 
 ## 주요 기능 소개
