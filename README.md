@@ -12,10 +12,9 @@
 
 
 ## 데이터 준비
-. . 데이터 준비 내용 개요
-[Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)
+데이터 명세서: [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)
 
-[Sample Data](http://샘플데이터 설명 링크)
+샘플 데이터 설명: [Iris flower dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set)
 
 [데이터명세서](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)
 ## 주요 기능 소개
