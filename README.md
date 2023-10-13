@@ -13,7 +13,7 @@
 
 ## 데이터 준비
 . . 데이터 준비 내용 개요
-[Documentation](http://데이터명세서 링크)
+[Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)
 [Sample Data](http://샘플데이터 설명 링크)
 
 ## 주요 기능 소개
