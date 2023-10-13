@@ -60,7 +60,7 @@ Jupyter 환경에서 Workflow구동과정을 확인하고 다양한 경우를 �
 [AICONTENTS](http://collab.lge.com/main/display/AICONTENTS)
 
 ## 요청 및 문의
-담당자: 담당자 이메일
+담당자: yoonji.suh@lge.com
 신규 AI Contents나 추가 기능 요청을 등록하시면 검토 후 반영합니다  [Request CLM](http:/링크)
 
 
