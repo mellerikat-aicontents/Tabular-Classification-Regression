@@ -18,8 +18,10 @@
 
 
 ## 주요 기능 소개
-.. 대표적인 기능 소개 ()
-[Documentation](http://알고리즘 설명 링크)
+- 총 다섯가지 머신러닝 알고리즘에 대해 검증된 방식으로 데이터 분리 후 평가하여 가장 성능이 우수한 모델을 도출합니다.
+- 위 과정에서 병렬연산을 수행하여 빠르게 모델을 학습/도출할 수 있습니다.
+- 
+[Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2008478373)
 
 ## Quick Install Guide
 
