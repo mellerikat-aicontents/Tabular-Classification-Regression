@@ -24,7 +24,7 @@
 - 데이터가 아주 많거나 특정 유형의 데이터만 많은 경우 sampling 과정을 통해 데이터 편향을 줄일 수 있습니다.
 - 다른 asset과 조합하거나 custom asset과 결합하여 분석가가 원하는 수준의 모델을 개발할 수 있습니다.
 
-[Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2008478373)
+상세한 설명은 우측을 참고해주세요. [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2008478373)
 
 ## Quick Install Guide
 
