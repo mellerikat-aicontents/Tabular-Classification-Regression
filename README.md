@@ -12,7 +12,14 @@
 
 
 ## 데이터 준비
-데이터 명세서: [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)
+1. Single y target(label 혹은 float)으로 구성
+2. 추론 데이터의 라벨이 학습 데이터에 반드시 포함되어 있어야 한다
+3. 결손치 수가 10% 이하여야 한다.	
+4. 데이터 용량:	~100GB
+5. 카테고리 변수의 경우 변수 내 카테고리 종류가 총 데이터 수보다 작은가(cardinality 이슈. input, target 모두 해당)	
+6. 데이터의 항목명은 무조건 문자열로 이루어져 있으며 숫자로만 구성되면 안된다.	
+
+데이터 명세서 상세한 내용은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)를 참고해주세요.
 
 샘플 데이터 설명: [Bolt Fastening inspection](http://collab.lge.com/main/pages/viewpage.action?pageId=1965439195&src=sidebar)
  
