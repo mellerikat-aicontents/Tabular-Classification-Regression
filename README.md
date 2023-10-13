@@ -38,8 +38,9 @@ git pull http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git
 
 
 ## Quick Run Guide
-코드 가이드 
-+ 샘플데이터로 간단히 실행하는 예시
+- `{config_path}`에 원하는 설정 파일을 지정하여 실행하면 됩니다. default: `config/experimental_plan.yaml`
+- 학습 결과 파일 저장 경로: `.train_artifacts/models/train/`
+- 추론 결과 파일 저장 경로: `.inference_artifacts/output/inference/`
 
 ```
 cd alov2
