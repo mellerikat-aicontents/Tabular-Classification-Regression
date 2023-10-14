@@ -43,7 +43,8 @@ git cloen http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git
 conda create -n tcr python=3.10
 conda activate tcr 
 
-./install.sh
+source install.sh
+
 cd alo
 python main.py
 
