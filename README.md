@@ -37,19 +37,17 @@
 ## Quick Install Guide
 
 
-```
-git cloen http://mod.lge.com/hub/smartdata/ml-framework/alov2.git
-git checkout release-1.0
-```
+```console
+git cloen http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git
 
+conda create -n tcr python=3.10
+conda activate tcr 
+
+./install.sh
+cd alo
+python main.py
 
 ```
-cd alov2
-cd config
-git pull http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git
-
-```
-
 
 ## Quick Run Guide
 - `{config_path}`에 원하는 설정 파일을 지정하여 실행하면 됩니다. default: `config/experimental_plan.yaml`
