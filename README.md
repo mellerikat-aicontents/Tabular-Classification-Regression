@@ -63,22 +63,22 @@ python main.py --config {config_path}
 - 필수적으로 수정해야하는 ***arguments***는 아래와 같습니다. 
 ***
 external_path:  
-&emsp;- ***load_train_data_path***: ~/example/train_data_folder/ # 학습 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
-&emsp;- ***load_inference_data_path***: ~/example/inference_data_folder/# 추론 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
+&emsp;- ***load_train_data_path***: *~/example/train_data_folder/* # 학습 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
+&emsp;- ***load_inference_data_path***: *~/example/inference_data_folder/*# 추론 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
 user_parameters:  
 &emsp;- train_pipeline:  
 &emsp;&emsp;- step: input  
 &emsp;&emsp;&emsp;args:  
-&emsp;&emsp;&emsp;- ***input_path***: train_data_folder # 학습 데이터가 들어있는 폴더  
-&emsp;&emsp;&emsp;&ensp;***x_columns***: [column1,column2] # 분석 데이터의 X컬럼 명  
-&emsp;&emsp;&emsp;&ensp;***y_column***: label # 분석 데이터의 Y컬럼 명  
+&emsp;&emsp;&emsp;- ***input_path***: *train_data_folder* # 학습 데이터가 들어있는 폴더  
+&emsp;&emsp;&emsp;&ensp;***x_columns***: *[column1,column2]* # 분석 데이터의 X컬럼 명  
+&emsp;&emsp;&emsp;&ensp;***y_column***: *label* # 분석 데이터의 Y컬럼 명  
 &emsp;&emsp;&emsp;&ensp;...  
 &emsp;- inference_pipeline:  
 &emsp;&emsp;- step: input  
 &emsp;&emsp;&emsp;args:   
-&emsp;&emsp;&emsp;- ***input_path***: inference_data_folder # 추론 데이터가 들어있는 폴더  
-&emsp;&emsp;&emsp;&ensp;***x_columns***: [column1,column2] #분석 데이터의 X컬럼 명  
-&emsp;&emsp;&emsp;&ensp;***y_column***: label # 분석 데이터의 Y컬럼 명  
+&emsp;&emsp;&emsp;- ***input_path***: *inference_data_folder* # 추론 데이터가 들어있는 폴더  
+&emsp;&emsp;&emsp;&ensp;***x_columns***: *[column1,column2]* #분석 데이터의 X컬럼 명  
+&emsp;&emsp;&emsp;&ensp;***y_column***: *label* # 분석 데이터의 Y컬럼 명  
 &emsp;&emsp;&emsp;&ensp;...  
 ***
 - preprocess, sampling 및 TCR의 다양한 기능을 사용하고 싶으신 경우 [User Guide (TCR)](http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450)를 참고하여 yaml파일을 수정하시면 됩니다. 
