@@ -75,7 +75,7 @@ user_parameters:
 &emsp;&emsp;&emsp;&emsp;...  
 &emsp;&emsp;- step: preprocess   
 &emsp;&emsp;&emsp;args:   
-&emsp;&emsp;&emsp;- *handling_encoding_y*: ***label***   
+&emsp;&emsp;&emsp;- *handling_encoding_y*: ***label***     # 분석 데이터의 Y컬럼 명(input과 동일하게 입력)  
 &emsp;&emsp;&emsp;&emsp;...   
 &emsp;- inference_pipeline:  
 &emsp;&emsp;- step: input  
