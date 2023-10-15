@@ -61,26 +61,26 @@ python main.py --config {config_path}
 - TCR 구동을 위해서는 분석 데이터에 대한 정보 및 사용할 TCR 기능이 기록된 yaml파일이 필요합니다.  
 - TCR default yaml파일인 `experimental_plan.yaml`의 argument를 변경하여 데이터에 TCR을 적용할 수 있습니다.
 - 필수적으로 수정해야하는 ***arguments***는 아래와 같습니다. 
-```
+***
 external_path:  
-    - *load_train_data_path*: ***~/example/train_data_folder/***  # 학습 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
-    - *load_inference_data_path*: ***~/example/inference_data_folder/***  # 추론 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
+&emsp;- *load_train_data_path*: ***~/example/train_data_folder/***  # 학습 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
+&emsp;- *load_inference_data_path*: ***~/example/inference_data_folder/***  # 추론 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
 user_parameters:  
-    - train_pipeline:  
-        - step: input  
-            args:  
-            - *input_path*: ***train_data_folder***  # 학습 데이터가 들어있는 폴더  
-                *x_columns*: ***[column1,column2]***  # 분석 데이터의 X컬럼 명  
-                *y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
-                ...  
-    - inference_pipeline:  
-        - step: input  
-            args:   
-            - *input_path*: ***inference_data_folder***  # 추론 데이터가 들어있는 폴더  
-                *x_columns*: ***[column1,column2]***  #분석 데이터의 X컬럼 명  
-                *y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
-                ...  
-```
+&emsp;- train_pipeline:  
+&emsp;&emsp;- step: input  
+&emsp;&emsp;&emsp;args:  
+&emsp;&emsp;&emsp;- *input_path*: ***train_data_folder***  # 학습 데이터가 들어있는 폴더  
+&emsp;&emsp;&emsp;&emsp;*x_columns*: ***[column1,column2]***  # 분석 데이터의 X컬럼 명  
+&emsp;&emsp;&emsp;&emsp;*y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
+&emsp;&emsp;&emsp;&emsp;...  
+&emsp;- inference_pipeline:  
+&emsp;&emsp;- step: input  
+&emsp;&emsp;&emsp;args:   
+&emsp;&emsp;&emsp;- *input_path*: ***inference_data_folder***  # 추론 데이터가 들어있는 폴더  
+&emsp;&emsp;&emsp;&emsp;*x_columns*: ***[column1,column2]***  #분석 데이터의 X컬럼 명  
+&emsp;&emsp;&emsp;&emsp;*y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
+&emsp;&emsp;&emsp;&emsp;...  
+***
 - preprocess, sampling 및 TCR의 다양한 기능을 사용하고 싶으신 경우 [User Guide (TCR)](http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450)를 참고하여 yaml파일을 수정하시면 됩니다. 
 - 학습 결과 파일 저장 경로: `alo/.train_artifacts/models/train/`
 - 추론 결과 파일 저장 경로: `alo/.inference_artifacts/output/inference/`
