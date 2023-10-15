@@ -42,15 +42,15 @@ user_parameters:
         - step: sampling
           args:
             - sampling_type: none # none(실행안함) ,under(under sampling), over(over_sampilng - TBD)
-              sampling_method: negative # random(random sampling), cluster(density based clustering sampling), negative(negative sampling)
-              label_sampling: True # label 별 sampling 여부 선택 True, False
-              ignore_label_class: 1 # 특정 클래스에 있는 데이터 전부 사용. cat or cat,dog
+              sampling_method: ramdom # random(random sampling), cluster(density based clustering sampling), negative(negative sampling)
+              label_sampling: False # label 별 sampling 여부 선택 True, False
+              ignore_label_class: # 특정 클래스에 있는 데이터 전부 사용. cat or cat,dog
               negative_target_class: # negative sampling 시 target이 되는 class
-              label_sampling_num_type: compare # ratio, number, compare, mingroup
-              label_sampling_num: {1: 1, 0: 25}
+              label_sampling_num_type: # ratio, number, compare, mingroup
+              label_sampling_num: 
               sampling_groupkey_columns: # groupkey 컬럼 입력. 3개 까지 지원
-              sampling_num_type: # ratio, number, mingroup
-              sampling_num: 
+              sampling_num_type: ratio # ratio, number, mingroup
+              sampling_num: 0.8
         
         - step: train ## 필수
           args:
