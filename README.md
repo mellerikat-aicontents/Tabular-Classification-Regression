@@ -44,6 +44,10 @@ cd tcr
 conda create -n tcr python=3.10
 conda activate tcr 
 
+# jupyter 사용시 ipykernel 추가 필요
+# pip install ipykernel
+# python -m ipykernel install --user --name tcr 
+
 source install.sh
 
 cd alo
