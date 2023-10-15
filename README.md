@@ -63,7 +63,7 @@ python main.py --config {config_path}
 - 필수적으로 수정해야하는 파라미터는 아래와 같습니다. 
 ***
 external_path:  
-&emsp;- <span style='background-color: #fff5b1'>**load_train_data_path**</span>: ~/example/train_data_folder/ # 학습 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
+&emsp;- <span style='background-color: #fff5b1'>load_train_data_path</span>: ~/example/train_data_folder/ # 학습 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
 &emsp;- **load_inference_data_path**: ~/example/inference_data_folder/# 추론 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
 user_parameters:  
 &emsp;- train_pipeline:  
