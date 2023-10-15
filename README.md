@@ -53,7 +53,7 @@ source install.sh
 ```
 
 ## Quick Run Guide
-- 아래 코드 블럭의 `{config_path}`에 원하는 설정 파일을 지정하여 실행하면 됩니다. default: `config/experimental_plan.yaml`
+- 아래 코드 블럭의 `{config_path}`에 원하는 설정 파일을 지정하여 실행하면 됩니다. default: `experimental_plan.yaml`
 ```
 cd alo
 python main.py --config {config_path}
