@@ -12,12 +12,12 @@
 
 
 ## 데이터 준비
-1. Single y target(문자열 혹은 실수형 데이터)으로 구성되어야 합니다.
-2. 분류의 경우 추론 데이터의 라벨이 학습 데이터에 반드시 포함되어 있어야 합니다.
-3. 결손치 수가 10% 이하여야 합니다.
-4. 데이터 용량은 100GB이하로 준비해야 합니다.
-5. 카테고리 변수의 경우 최소한의 학습 성능을 보장하기 위해서 변수 내 카테고리 종류가 총 데이터 수보다 작아야 합니다.
-6. 데이터의 항목명은 무조건 문자열로 이루어져 있으며 숫자로만 구성되면 안됩니다.
+1. Single y target(문자열 혹은 실수형 데이터)으로 구성
+2. 분류의 경우 추론 데이터의 라벨이 학습 데이터에 반드시 포함되어 있어야 한다
+3. 결손치 수가 10% 이하여야 한다.	
+4. 데이터 용량:	~100GB
+5. 카테고리 변수의 경우 변수 내 카테고리 종류가 총 데이터 수보다 작은가(cardinality 이슈. input, target 모두 해당)	
+6. 데이터의 항목명은 무조건 문자열로 이루어져 있으며 숫자로만 구성되면 안된다.	
 7. 현재 분류 모델의 경우 binary만 지원합니다.(hotfix 예정)
 
 데이터 명세서 상세한 내용은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)를 참고해주세요.
@@ -63,23 +63,23 @@ python main.py --config {config_path}
 - 필수적으로 수정해야하는 ***arguments***는 아래와 같습니다. 
 ```
 external_path:  
-&emsp;- *load_train_data_path*: ***~/example/train_data_folder/***  # 학습 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
-&emsp;- *load_inference_data_path*: ***~/example/inference_data_folder/***  # 추론 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
+    - *load_train_data_path*: ***~/example/train_data_folder/***  # 학습 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
+    - *load_inference_data_path*: ***~/example/inference_data_folder/***  # 추론 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
 user_parameters:  
-&emsp;- train_pipeline:  
-&emsp;&emsp;- step: input  
-&emsp;&emsp;&emsp;args:  
-&emsp;&emsp;&emsp;- *input_path*: ***train_data_folder***  # 학습 데이터가 들어있는 폴더  
-&emsp;&emsp;&emsp;&ensp;*x_columns*: ***[column1,column2]***  # 분석 데이터의 X컬럼 명  
-&emsp;&emsp;&emsp;&ensp;*y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
-&emsp;&emsp;&emsp;&ensp;...  
-&emsp;- inference_pipeline:  
-&emsp;&emsp;- step: input  
-&emsp;&emsp;&emsp;args:   
-&emsp;&emsp;&emsp;- *input_path*: ***inference_data_folder***  # 추론 데이터가 들어있는 폴더  
-&emsp;&emsp;&emsp;&ensp;*x_columns*: ***[column1,column2]***  #분석 데이터의 X컬럼 명  
-&emsp;&emsp;&emsp;&ensp;*y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
-&emsp;&emsp;&emsp;&ensp;...  
+    - train_pipeline:  
+        - step: input  
+            args:  
+            - *input_path*: ***train_data_folder***  # 학습 데이터가 들어있는 폴더  
+                *x_columns*: ***[column1,column2]***  # 분석 데이터의 X컬럼 명  
+                *y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
+                ...  
+    - inference_pipeline:  
+        - step: input  
+            args:   
+            - *input_path*: ***inference_data_folder***  # 추론 데이터가 들어있는 폴더  
+                *x_columns*: ***[column1,column2]***  #분석 데이터의 X컬럼 명  
+                *y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
+                ...  
 ```
 - preprocess, sampling 및 TCR의 다양한 기능을 사용하고 싶으신 경우 [User Guide (TCR)](http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450)를 참고하여 yaml파일을 수정하시면 됩니다. 
 - 학습 결과 파일 저장 경로: `alo/.train_artifacts/models/train/`
