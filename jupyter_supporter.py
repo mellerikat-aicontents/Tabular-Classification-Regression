@@ -113,6 +113,5 @@ class Jsupport:
         else:
             return data, pipe_val
                     
-        
-        
-        
+    def get_arguments(self,pipelines,step):
+        return self.user_parameters[pipelines][step]['args'][0].copy()
