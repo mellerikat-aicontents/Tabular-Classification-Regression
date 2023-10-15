@@ -24,7 +24,7 @@ user_parameters:
 
         - step: preprocess
           args:
-            - handling_missing: interpolation # dropna, interpolation, fill_number
+            - handling_missing: dropna # dropna, interpolation, fill_number
               handling_outlier_x: none        #none, distribution, spec_limit, specout_drop, exponential
               handling_scaling_x: none  #none"         #none, standard, minmax, abs, robust
               handling_encoding_x_columns: #Budget Actual,Business Unit" # categorical columns 
@@ -83,9 +83,9 @@ user_parameters:
               
         - step: preprocess
           args:
-            - handling_missing: interpolation
-              handling_outlier_x: none        #none, distribution, spec_limit, specout_drop, exponential
-              handling_scaling_x: none  #none"         #none, standard, minmax, abs, robust
+            - handling_missing: dropna # dropna, interpolation, fill_number
+              handling_outlier_x: none  #none, distribution, spec_limit, specout_drop, exponential
+              handling_scaling_x: none  #none, standard, minmax, abs, robust
               handling_encoding_x_columns: #Budget Actual,Business Unit" # categorical columns 
               handling_encoding_y_column:  #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
               handling_encoding_x: none #onehot"    ## none, label, ordinal, binary, onehot, hashing
