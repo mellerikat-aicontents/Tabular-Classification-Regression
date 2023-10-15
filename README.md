@@ -60,7 +60,7 @@ python main.py --config {config_path}
 ```
 - TCR 구동을 위해서는 분석 데이터에 대한 정보 및 사용할 TCR 기능이 기록된 yaml파일이 필요합니다.  
 - TCR default yaml파일인 `experimental_plan.yaml`의 argument를 변경하여 데이터에 TCR을 적용할 수 있습니다.
-- 필수적으로 수정해야하는 ***파라미터***는 아래와 같습니다. 
+- 필수적으로 수정해야하는 ***arguments***는 아래와 같습니다. 
 ***
 external_path:  
 &emsp;- ***load_train_data_path***: ~/example/train_data_folder/ # 학습 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
