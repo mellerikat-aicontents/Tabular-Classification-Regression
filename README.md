@@ -37,7 +37,7 @@
 ## Quick Install Guide
 
 
-```console
+```python
 git clone http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git 
 cd tcr 
 
