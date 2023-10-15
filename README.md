@@ -57,37 +57,38 @@ python main.py
 
 ## Quick Run Guide
 - 아래 코드 블럭의 `{config_path}`에 원하는 설정 파일을 지정하여 실행하면 됩니다. default: `config/experimental_plan.yaml`
-    - TCR 구동을 위해서는 분석 데이터에 대한 정보 및 사용할 TCR 기능이 정의된 yaml파일이 필요합니다.  
-    - TCR default yaml파일인 `experimental_plan.yaml`의 argument를 변경하여 실험을 진행할 수 있습니다.
-    - 필수적으로 수정해야하는 파라미터는 아래와 같습니다. 
-    ```
-    external_path:
-        - load_train_data_path: ~/example/train_data_folder/ # 분석 데이터가 들어있는 폴더 경로 입력(csv 입력 X)
-        - load_inference_data_path ~/example/inference_data_folder/# 분석 데이터가 들어있는 폴더 경로 입력(csv 입력 X)
-    user_parameters:
-        - train_pipeline:
-            - step: input
-              args: 
-                - input_path: train_data_folder # 학습 데이터가 들어있는 폴더
-                  x_columns: 분석 데이터의 X컬럼 명
-                  y_column: 분석 데이터의 Y컬럼 명
-                  ...
-        - inference_pipeline:
-            - step: input
-              args: 
-                - input_path: inference_data_folder # 학습 데이터가 들어있는 폴더
-                  x_columns: 분석 데이터의 X컬럼 명
-                  y_column: 분석 데이터의 Y컬럼 명
-                  ...
-    ``` 
-    - preprocess, sampling 및 TCR의 다양한 기능을 사용하고 싶으신 경우 yaml 설정 가이드를 참고하시면 됩니다. [User Guide (TCR)](http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450)
-- 학습 결과 파일 저장 경로: `.train_artifacts/models/train/`
-- 추론 결과 파일 저장 경로: `.inference_artifacts/output/inference/`
-
 ```
 cd alov2
 python main.py --config {config_path}
 ```
+- TCR 구동을 위해서는 분석 데이터에 대한 정보 및 사용할 TCR 기능이 정의된 yaml파일이 필요합니다.  
+- TCR default yaml파일인 `experimental_plan.yaml`의 argument를 변경하여 실험을 진행할 수 있습니다.
+- 필수적으로 수정해야하는 파라미터는 아래와 같습니다. 
+```
+external_path:
+    - load_train_data_path: ~/example/train_data_folder/ # 분석 데이터가 들어있는 폴더 경로 입력(csv 입력 X)
+    - load_inference_data_path ~/example/inference_data_folder/# 분석 데이터가 들어있는 폴더 경로 입력(csv 입력 X)
+user_parameters:
+    - train_pipeline:
+        - step: input
+            args: 
+            - input_path: train_data_folder # 학습 데이터가 들어있는 폴더
+                x_columns: 분석 데이터의 X컬럼 명
+                y_column: 분석 데이터의 Y컬럼 명
+                ...
+    - inference_pipeline:
+        - step: input
+            args: 
+            - input_path: inference_data_folder # 학습 데이터가 들어있는 폴더
+                x_columns: 분석 데이터의 X컬럼 명
+                y_column: 분석 데이터의 Y컬럼 명
+                ...
+``` 
+- preprocess, sampling 및 TCR의 다양한 기능을 사용하고 싶으신 경우 yaml 설정 가이드를 참고하시면 됩니다. [User Guide (TCR)](http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450)
+- 학습 결과 파일 저장 경로: `.train_artifacts/models/train/`
+- 추론 결과 파일 저장 경로: `.inference_artifacts/output/inference/`
+
+
 
 ## Sample notebook
 Jupyter 환경에서 Workflow 단계마다 asset을 실행하고 setting을 바꿔 실험할 수 있습니다. [Sample notebook](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_asset_run_template.ipynb)
