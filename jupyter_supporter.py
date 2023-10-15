@@ -12,6 +12,10 @@ import copy
 os.chdir(os.path.abspath('alo'))
 from common import Logger, print_color, find_matching_strings, asset_info, extract_requirements_txt, check_install_requirements
 
+req_list = extract_requirements_txt("master")
+master_req = {"master": req_list}
+check_install_requirements(master_req)
+
 from alolib.asset import Asset
 from alolib.exception import print_color
 
