@@ -82,8 +82,8 @@ user_parameters:
                 ...
 ``` 
 - preprocess, sampling 및 TCR의 다양한 기능을 사용하고 싶으신 경우 [User Guide (TCR)](http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450)를 참고하여 yaml파일을 수정하시면 됩니다. 
-- 학습 결과 파일 저장 경로: `.train_artifacts/models/train/`
-- 추론 결과 파일 저장 경로: `.inference_artifacts/output/inference/`
+- 학습 결과 파일 저장 경로: `alo/.train_artifacts/models/train/`
+- 추론 결과 파일 저장 경로: `alo/.inference_artifacts/output/inference/`
 
 
 
