@@ -80,6 +80,7 @@ python main.py
                   y_column: 분석 데이터의 Y컬럼 명
                   ...
     ``` 
+    - preprocess, sampling 및 TCR의 다양한 기능을 사용하고 싶으신 경우 yaml 설정 가이드를 참고하시면 됩니다. [User Guide (TCR)](http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450)
 - 학습 결과 파일 저장 경로: `.train_artifacts/models/train/`
 - 추론 결과 파일 저장 경로: `.inference_artifacts/output/inference/`
 
