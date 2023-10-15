@@ -37,7 +37,7 @@
 ## Quick Install Guide
 
 
-```python
+```
 git clone http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git 
 cd tcr 
 
@@ -56,8 +56,8 @@ python main.py
 ```
 
 ## Quick Run Guide
-- `{config_path}`에 원하는 설정 파일을 지정하여 실행하면 됩니다. default: `config/experimental_plan.yaml`
--- test
+- 아래 코드 블럭의 `{config_path}`에 원하는 설정 파일을 지정하여 실행하면 됩니다. default: `config/experimental_plan.yaml`
+    - 
 - 학습 결과 파일 저장 경로: `.train_artifacts/models/train/`
 - 추론 결과 파일 저장 경로: `.inference_artifacts/output/inference/`
 
