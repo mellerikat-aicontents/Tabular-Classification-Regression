@@ -61,8 +61,8 @@ python main.py
 cd alov2
 python main.py --config {config_path}
 ```
-- TCR 구동을 위해서는 분석 데이터에 대한 정보 및 사용할 TCR 기능이 정의된 yaml파일이 필요합니다.  
-- TCR default yaml파일인 `experimental_plan.yaml`의 argument를 변경하여 실험을 진행할 수 있습니다.
+- TCR 구동을 위해서는 분석 데이터에 대한 정보 및 사용할 TCR 기능이 기록된 yaml파일이 필요합니다.  
+- TCR default yaml파일인 `experimental_plan.yaml`의 argument를 변경하여 분석 데이터에 TCR을 적용할 수 있습니다.
 - 필수적으로 수정해야하는 파라미터는 아래와 같습니다. 
 ```
 external_path:
