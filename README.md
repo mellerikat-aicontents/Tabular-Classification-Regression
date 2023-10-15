@@ -38,7 +38,8 @@
 
 
 ```console
-git cloen http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git .
+git clone http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git 
+cd tcr 
 
 conda create -n tcr python=3.10
 conda activate tcr 
