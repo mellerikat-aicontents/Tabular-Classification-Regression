@@ -22,7 +22,7 @@
 
 데이터 명세서 상세한 내용은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)를 참고해주세요.
 
-샘플 데이터 설명: [Bolt Fastening inspection](http://collab.lge.com/main/pages/viewpage.action?pageId=1965439195&src=sidebar)
+샘플 데이터 설명: [iris flower dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set)
  
 
 
