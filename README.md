@@ -20,7 +20,7 @@
 6. 데이터의 항목명은 무조건 문자열로 이루어져 있으며 숫자로만 구성되면 안됩니다.
 7. 현재 분류 모델의 경우 binary만 지원합니다.(hotfix 예정)
 
-데이터 명세서 상세한 내용은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2082913519)를 참고해주세요.
+데이터 명세서 상세한 내용은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2178808470)를 참고해주세요.
 
 샘플 데이터 설명: [iris flower dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set)
  
@@ -32,7 +32,7 @@
 - 위 과정에서 병렬연산을 수행하여 빠르게 모델을 학습/도출할 수 있습니다.
 - 다른 asset과 조합하거나 custom asset과 결합하여 분석가가 원하는 수준의 모델을 개발할 수 있습니다.
 
-상세한 설명은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2008478373)을 참고해주세요. 
+상세한 설명은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2178808489)을 참고해주세요. 
 
 ## Quick Install Guide
 
