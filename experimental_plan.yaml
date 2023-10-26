@@ -42,7 +42,7 @@ user_parameters:
         - step: sampling
           args:
             - sampling_type: none # none(실행안함) ,under(under sampling), over(over_sampilng - TBD)
-              sampling_method: ramdom # random(random sampling), cluster(density based clustering sampling), negative(negative sampling)
+              sampling_method: random # random(random sampling), cluster(density based clustering sampling), negative(negative sampling)
               label_sampling: False # label 별 sampling 여부 선택 True, False
               ignore_label_class: # 특정 클래스에 있는 데이터 전부 사용. cat or cat,dog
               negative_target_class: # negative sampling 시 target이 되는 class
