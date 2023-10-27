@@ -24,20 +24,12 @@ user_parameters:
 
         - step: preprocess
           args:
-            - handling_missing: dropna # dropna, interpolation, fill_number
-              handling_outlier_x: none        #none, distribution, spec_limit, specout_drop, exponential
-              handling_scaling_x: none  #none"         #none, standard, minmax, abs, robust
-              handling_encoding_x_columns: #Budget Actual,Business Unit" # categorical columns 
-              handling_encoding_y_column: target #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
-              handling_encoding_x: none #onehot"    ## none, label, ordinal, binary, onehot, hashing
+            - handling_encoding_y_column: target #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
               handling_encoding_y: label    ## none, label, ordinal, binary, onehot, hashing
-              limit_encoding_categories: 30 # onehot이나 hashing 인코딩 등을 진행 시 컬럼이 너무 많아지는 것에 대한 한계치 설정 
-              handling_imputer_x: none #mean"  ## none, mean, median, most_frequent
-              handling_imputer_y: none  ## none, mean, median, most_frequent
+              handling_missing: dropna # dropna, interpolation, fill_number
+              handling_scaling_x: none  #none"         #none, standard, minmax, abs, robust
               drop_duplicate_time: True   ## group 단위로 중복 확인 (time_column 없으면 미진행)
               load_train_preprocess: False   ## (inference workflow 전용) True 이면, train preprocess 를 참조하여 진행
-              handling_downsampling_interval: 0   ## 0, 1, 2,... (0 이면 사용하지 않음)
-              downsampling_method: median #first"   ## first, last, mean, median 
         
         - step: sampling
           args:
@@ -83,20 +75,12 @@ user_parameters:
               
         - step: preprocess
           args:
-            - handling_missing: dropna # dropna, interpolation, fill_number
-              handling_outlier_x: none  #none, distribution, spec_limit, specout_drop, exponential
-              handling_scaling_x: none  #none, standard, minmax, abs, robust
-              handling_encoding_x_columns: #Budget Actual,Business Unit" # categorical columns 
-              handling_encoding_y_column: target #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
-              handling_encoding_x: none #onehot"    ## none, label, ordinal, binary, onehot, hashing
+            - handling_encoding_y_column: target #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
               handling_encoding_y: label    ## none, label, ordinal, binary, onehot, hashing
-              limit_encoding_categories: 30 # onehot이나 hashing 인코딩 등을 진행 시 컬럼이 너무 많아지는 것에 대한 한계치 설정 
-              handling_imputer_x: none #mean"  ## none, mean, median, most_frequent
-              handling_imputer_y: none  ## none, mean, median, most_frequent
+              handling_missing: dropna # dropna, interpolation, fill_number
+              handling_scaling_x: none  #none, standard, minmax, abs, robust
               drop_duplicate_time: True   ## group 단위로 중복 확인 (time_column 없으면 미진행)
               load_train_preprocess: True   ## (inference workflow 전용) True 이면, train preprocess 를 참조하여 진행
-              handling_downsampling_interval: 0   ## 0, 1, 2,... (0 이면 사용하지 않음)
-              downsampling_method: median #first"   ## first, last, mean, median 
 
         - step: inference ## 필수
           args:
