@@ -108,7 +108,7 @@ asset_source:
 
         - step: sampling
           source:
-            code: http://mod.lge.com/hub/smartdata/aiplatform/module/data_sampling.git
+            code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
             # code: local
             branch: main
             requirements:
