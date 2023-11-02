@@ -78,8 +78,8 @@ user_parameters:
               encoding: # cp949 
         - step: preprocess
           args:
-            - handling_encoding_y_column: target #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
-              handling_encoding_y: label    ## none, label, ordinal, binary, onehot, hashing
+            - handling_encoding_y_column: #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
+              handling_encoding_y:     ## none, label, ordinal, binary, onehot, hashing
               handling_missing: dropna # dropna, interpolation, fill_number
               handling_scaling_x: none  #none, standard, minmax, abs, robust
               drop_duplicate_time: True   ## group 단위로 중복 확인 (time_column 없으면 미진행)
