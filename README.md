@@ -2,7 +2,7 @@
 
 ⚡ input/target data로 구성된 Tabular 형태의 데이터에 대해 분류/예측할 수 있는 AI 컨텐츠입니다. ⚡
 
-[![Generic badge](https://img.shields.io/badge/release-v1.0.0-green.svg?style=for-the-badge)](http://링크)
+[![Generic badge](https://img.shields.io/badge/release-v1.1.0-green.svg?style=for-the-badge)](http://링크)
 [![Generic badge](https://img.shields.io/badge/last_update-2023.10.16-002E5F?style=for-the-badge)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Generic badge](https://img.shields.io/badge/python-3.10.12-purple.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
@@ -13,12 +13,11 @@
 
 ## 데이터 준비
 1. Single y target(문자열 혹은 실수형 데이터)으로 구성되어야 합니다.
-2. 분류의 경우 추론 데이터의 라벨이 학습 데이터에 반드시 포함되어 있어야 합니다.
+2. 분류의 경우 추론 데이터의 라벨의 유형이 학습 데이터에 반드시 포함되어 있어야 합니다.
 3. 결손치 수가 10% 이하여야 합니다.
 4. 데이터 용량은 100GB이하로 준비해야 합니다.
 5. 카테고리 변수의 경우 최소한의 학습 성능을 보장하기 위해서 변수 내 카테고리 종류가 총 데이터 수보다 작아야 합니다.
-6. 데이터의 항목명은 무조건 문자열로 이루어져 있으며 숫자로만 구성되면 안됩니다.
-7. 현재 분류 모델의 경우 binary만 지원합니다.(hotfix 예정)
+6. 데이터의 항목명은 문자열로 이루어져 있으며 숫자로만 구성되면 안됩니다.
 
 데이터 명세서 상세한 내용은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2178808470)를 참고해주세요.
 
