@@ -41,6 +41,7 @@ git clone http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git
 cd tcr 
 
 conda create -n tcr python=3.10
+conda init bash
 conda activate tcr 
 
 #jupyter 사용시 ipykernel 추가 필요
