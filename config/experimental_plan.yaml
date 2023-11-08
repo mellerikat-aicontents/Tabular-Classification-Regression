@@ -87,7 +87,7 @@ user_parameters:
         - step: inference ## 필수
           args:
             - model_type: classification
-   
+              run_shapley: True   
 ## asset 의 설치 정보를 기록       
 asset_source:
     - train_pipeline:
@@ -120,7 +120,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr.git
             # code: local
-            branch: tcr_v1.1.0
+            branch: main
             requirements:
               - requirements.txt 
               - numpy==1.25.2 --force-reinstall 
@@ -146,7 +146,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr.git
             # code: local
-            branch: tcr_v1.1.0
+            branch: main
             requirements:
               - pandas==1.5.3
            
