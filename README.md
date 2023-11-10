@@ -2,7 +2,7 @@
 
 ⚡ input/target data로 구성된 Tabular 형태의 데이터에 대해 분류/예측할 수 있는 AI 컨텐츠입니다. ⚡
 
-[![Generic badge](https://img.shields.io/badge/release-v1.1.1-green.svg?style=for-the-badge)](http://링크)
+[![Generic badge](https://img.shields.io/badge/release-v1.1.2-green.svg?style=for-the-badge)](http://링크)
 [![Generic badge](https://img.shields.io/badge/last_update-2023.10.16-002E5F?style=for-the-badge)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Generic badge](https://img.shields.io/badge/python-3.10.12-purple.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
