@@ -1,0 +1,71 @@
+## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
+external_path:
+    - load_train_data_path: /nas001/users/sujin2.lee/share/techtalk_sampling_1030/train/
+    - load_inference_data_path: /nas001/users/sujin2.lee/share/techtalk_sampling_1030/test/
+    - save_train_artifacts_path:
+    - save_inference_artifacts_path:
+
+external_path_permission:
+    - s3_private_key_file: 
+ 
+## 실험에 필요한 파라미터를 설정함 
+## - 해당 위치에서 삭제되면, code 의 default 로 실행
+user_parameters:
+    - train_pipeline:
+        - step: input  ## 필수
+          args:
+            - input_path: train
+              x_columns: [Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max]
+              use_all_x: False
+              y_column: label #TRAIN_LABEL" #label"
+              groupkey_columns:
+              drop_columns:
+              time_column:
+        
+        - step: sampling
+          args:
+            - sampling_type: none # none(실행안함) ,under(under sampling), over(over_sampilng - TBD)
+              sampling_method: random # random(random sampling), cluster(density based clustering sampling), negative(negative sampling)
+              label_sampling: False # label 별 sampling 여부 선택 True, False
+              ignore_label_class: # 특정 클래스에 있는 데이터 전부 사용. cat or cat,dog
+              negative_target_class: # negative sampling 시 target이 되는 class
+              label_sampling_num_type: # ratio, number, compare, mingroup
+              label_sampling_num: 
+              sampling_groupkey_columns: # groupkey 컬럼 입력. 3개 까지 지원
+              sampling_num_type: ratio # ratio, number, mingroup
+              sampling_num: 0.8
+   
+## asset 의 설치 정보를 기록       
+asset_source:
+    - train_pipeline:
+        - step: input
+          source:  ## git / local 지원
+            code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/input.git
+            # code: local
+            branch: tabular
+            requirements:
+              - pandas==1.5.3
+
+        - step: sampling
+          source:
+            code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
+            # code: local
+            branch: main
+            requirements:
+              - requirements.txt 
+     
+control:
+    ## 1. 패키지 설치 및 asset 존재 여부를 실험 시마다 체크할지, 한번만 할지 결정
+    ## 1-2 requirements.txt 및 종속 패키지들 한번만 설치할 지 매번 설치할지도 결정 
+    - get_asset_source: once ## once, every
+    # TODO 아래 get_external_data 제작하기
+    - get_external_data: once ## once, every
+    ## 2. 생성된 artifacts 를 backup 할지를 결정 True/False
+    - backup_artifacts: True
+    ## 3. pipeline 로그를 backup 할지를 결정 True/False
+    - backup_log: True
+    ## 4. 저장 공간 사이즈를 결정 (단위 MB)
+    - backup_size: 1000
+ 
+    ## 5. Asset 사이 데이터 전달 방법으로 memory, file 를 지원
+    - interface_mode: memory
