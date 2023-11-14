@@ -58,6 +58,11 @@ source install.sh
 cd alo
 python main.py 
 ```
+<details><summary>실행 과정 도중 permission error가 발생한 경우</summary>
+오류가 발생한 파일(예: config/experimental_plan.yaml)에 대해 하단 코드를 실행해주세요.
+sudo chmod 777 config/experimental_plan.yaml
+</details>
+
 - TCR 구동을 위해서는 분석 데이터에 대한 정보 및 사용할 TCR 기능이 기록된 yaml파일이 필요합니다.  
 - TCR default yaml파일인 `alo/config/experimental_plan.yaml`의 argument를 변경하여 분석하고 싶은 데이터에 TCR을 적용할 수 있습니다.
 - 필수적으로 수정해야하는 ***arguments***는 아래와 같습니다. 
