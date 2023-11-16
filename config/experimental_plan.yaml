@@ -123,7 +123,8 @@ asset_source:
             branch: main
             requirements:
               - requirements.txt 
-              - numpy==1.25.2 --force-reinstall 
+              - numpy==1.25.2 --force-reinstall
+              - missingno 
    
     - inference_pipeline:
         - step: input
@@ -149,6 +150,7 @@ asset_source:
             branch: main
             requirements:
               - pandas==1.5.3
+              - missingno
            
      
 control:
