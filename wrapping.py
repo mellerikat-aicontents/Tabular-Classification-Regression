@@ -54,9 +54,9 @@ class Wrapper(ALO):
         
         
     def get_args(self, step=None):
-        if step is None:
-            step = self.step
-        self.args = super().get_args(self.pipeline, step)
+        if step is not None:
+            self.step = step
+        self.args = super().get_args(self.pipeline, self.step)
         self.asset_structure.args = self.args
         self.args_checker = 1
 
@@ -66,14 +66,14 @@ class Wrapper(ALO):
         if self.args_checker==0:
             self.get_args()
         
-        if step is None:
-            step = self.step
+        if step is not None:
+            self.step = step
         if args is not None:
             self.asset_structure.args = args
         if data is not None:
             self.asset_structure.data = data
             
-        self.asset_structure = self.process_asset_step(self.asset_source[self.pipeline][step], step, self.pipeline, self.asset_structure)
+        self.asset_structure = self.process_asset_step(self.asset_source[self.pipeline][self.step], self.step, self.pipeline, self.asset_structure)
         
         self.data = self.asset_structure.data
         self.args = self.asset_structure.args
@@ -81,7 +81,7 @@ class Wrapper(ALO):
         
         if self.eval_report:
             self.save_pkl(self)
-        
+
         self.step += 1
         self.args_checker = 0
         
