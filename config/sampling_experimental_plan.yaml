@@ -1,7 +1,7 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: /nas001/users/sujin2.lee/share/techtalk_sampling_1030/train/
-    - load_inference_data_path: /nas001/users/sujin2.lee/share/techtalk_sampling_1030/test/
+    - load_train_data_path: 
+    - load_inference_data_path: 
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
 
@@ -14,7 +14,7 @@ user_parameters:
     - train_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: train
+            - input_path: sampling_train
               x_columns: [Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max]
               use_all_x: False
               y_column: label #TRAIN_LABEL" #label"
@@ -51,7 +51,7 @@ user_parameters:
     - inference_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: inf
+            - input_path: default_inference
               x_columns: [input_x0, input_x1, input_x2, input_x3]
               use_all_x: False
               y_column:  #TRAIN_LABEL" #label"
@@ -115,9 +115,9 @@ asset_source:
 control:
     ## 1. 패키지 설치 및 asset 존재 여부를 실험 시마다 체크할지, 한번만 할지 결정
     ## 1-2 requirements.txt 및 종속 패키지들 한번만 설치할 지 매번 설치할지도 결정 
-    - get_asset_source: every ## once, every
+    - get_asset_source: once ## once, every
     # TODO 아래 get_external_data 제작하기
-    - get_external_data: every ## once, every
+    - get_external_data: once ## once, every
     ## 2. 생성된 artifacts 를 backup 할지를 결정 True/False
     - backup_artifacts: True
     ## 3. pipeline 로그를 backup 할지를 결정 True/False
