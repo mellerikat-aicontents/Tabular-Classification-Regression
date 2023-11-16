@@ -1,7 +1,7 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: /nas001/users/sujin2.lee/share/techtalk_sampling_1030/train/
-    - load_inference_data_path: /nas001/users/sujin2.lee/share/techtalk_sampling_1030/test/
+    - load_train_data_path:
+    - load_inference_data_path: 
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
 
@@ -14,15 +14,24 @@ user_parameters:
     - train_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: train
-              x_columns: [Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max]
+            - input_path: default_train
+              x_columns: [input_x0, input_x1, input_x2, input_x3]
               use_all_x: False
-              y_column: label #TRAIN_LABEL" #label"
+              y_column: target #TRAIN_LABEL" #label"
               groupkey_columns:
               drop_columns:
               time_column:
               concat_dataframes: True
               encoding: # cp949 
+
+        - step: preprocess
+          args:
+            - handling_encoding_y_column: target #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
+              handling_encoding_y: label    ## none, label, ordinal, binary, onehot, hashing
+              handling_missing: dropna # dropna, interpolation, fill_number
+              handling_scaling_x: none  #none"         #none, standard, minmax, abs, robust
+              drop_duplicate_time: True   ## group 단위로 중복 확인 (time_column 없으면 미진행)
+              load_train_preprocess: False   ## (inference workflow 전용) True 이면, train preprocess 를 참조하여 진행
         
         - step: sampling
           args:
@@ -36,22 +45,28 @@ user_parameters:
               sampling_groupkey_columns: # groupkey 컬럼 입력. 3개 까지 지원
               sampling_num_type: ratio # ratio, number, mingroup
               sampling_num: 0.8
-    
+        
         - step: train ## 필수
           args:
             - model_type: classification ## supproted list: classification, regression
               data_split_method: cross_validate # supproted list: cross_validate, train_test_split
               evaluation_metric: accuracy ## classification: accuracy, precision, recall, f1-score
               model_list: [lgb, rf, cb] # 알고리즘 선택(param_range를 사용할 경우, classification의 경우 rf, gbm, lgb, cb만 가능)
-              num_hpo: 0 # HPO 횟수 설정, 0 인 경우 하기 설정을 무시하고 위에서 선택한 알고리즘에 대해서 default로 실행됨
-              param_range: {} # 탐색하고 싶은 parameter [min, max] 설정, 숫자만 입력할 경우 해당 parameter는 고정됨
+              num_hpo: 3 # HPO 횟수 설정, 0 인 경우 하기 설정을 무시하고 위에서 선택한 알고리즘에 대해서 default로 실행됨
+              param_range: {
+                rf: {max_depth: 6, n_estimators: [300, 500]},
+                gbm: {max_depth: [5, 7], n_estimators: [300, 500]},
+                ngb: {col_sample: [0.6, 0.8], n_estimators:[100, 300]},               
+                lgb: {max_depth:[5, 9], n_estimators:[300, 500]},
+                cb: {max_depth:[5, 9], n_estimators:[100, 500]},
+              } # 탐색하고 싶은 parameter [min, max] 설정, 숫자만 입력할 경우 해당 parameter는 고정됨
               ## num_hpo=3, max_depth=[1, 3]인 경우 hpo 과정에서 max_depth가 1, 2, 3인 경우에 대해 실행됨.(소수점인 경우 integer로 실행)
               shap_ratio: 1.
    
     - inference_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: inf
+            - input_path: default_inference
               x_columns: [input_x0, input_x1, input_x2, input_x3]
               use_all_x: False
               y_column:  #TRAIN_LABEL" #label"
@@ -60,6 +75,14 @@ user_parameters:
               time_column:
               concat_dataframes: True
               encoding: # cp949 
+        - step: preprocess
+          args:
+            - handling_encoding_y_column: #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
+              handling_encoding_y:     ## none, label, ordinal, binary, onehot, hashing
+              handling_missing: dropna # dropna, interpolation, fill_number
+              handling_scaling_x: none  #none, standard, minmax, abs, robust
+              drop_duplicate_time: True   ## group 단위로 중복 확인 (time_column 없으면 미진행)
+              load_train_preprocess: True   ## (inference workflow 전용) True 이면, train preprocess 를 참조하여 진행
 
         - step: inference ## 필수
           args:
@@ -72,14 +95,22 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/input.git
             # code: local
-            branch: tabular_2.0
+            branch: tabular_2.0 # tabular 
             requirements:
               - pandas==1.5.3
-              - missingno
+
+        - step: preprocess
+          source:  ## git / local 지원
+            code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/preprocess.git
+            # code: local
+            branch: release-1.2
+            requirements:
+              - pandas==1.5.3
+              - category_encoders
 
         - step: sampling
           source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
+            code: http://mod.lge.com/hub/smartdata/aiplatform/module/data_sampling.git
             # code: local
             branch: release-1.2
             requirements:
@@ -94,13 +125,21 @@ asset_source:
               - requirements.txt 
               - numpy==1.25.2 --force-reinstall
               - missingno 
-
+   
     - inference_pipeline:
         - step: input
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/input.git
             # code: local
             branch: tabular_dev #tabular
+            requirements:
+              - pandas==1.5.3
+
+        - step: preprocess
+          source:  ## git / local 지원
+            # code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/preprocess.git
+            code: local
+            branch: tcr
             requirements:
               - pandas==1.5.3
 
@@ -112,12 +151,14 @@ asset_source:
             requirements:
               - pandas==1.5.3
               - missingno
+           
+     
 control:
     ## 1. 패키지 설치 및 asset 존재 여부를 실험 시마다 체크할지, 한번만 할지 결정
     ## 1-2 requirements.txt 및 종속 패키지들 한번만 설치할 지 매번 설치할지도 결정 
-    - get_asset_source: every ## once, every
-    # TODO 아래 get_external_data 제작하기
-    - get_external_data: every ## once, every
+    - get_asset_source: once ## once, every
+    ## 1-3 external path로 부터 data load 관련하여 한번만 가져올 지 매번 가져올지 결정 
+    - get_external_data: once ## once, every
     ## 2. 생성된 artifacts 를 backup 할지를 결정 True/False
     - backup_artifacts: True
     ## 3. pipeline 로그를 backup 할지를 결정 True/False
@@ -126,4 +167,4 @@ control:
     - backup_size: 1000
  
     ## 5. Asset 사이 데이터 전달 방법으로 memory, file 를 지원
-    - interface_mode: memory
+    - interface_mode: file

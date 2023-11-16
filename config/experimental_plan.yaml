@@ -1,7 +1,7 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path:
-    - load_inference_data_path: 
+    - load_train_data_path: [/nas001/users/yoonji.suh/tcr_test_20231016/train_multiclass/]
+    - load_inference_data_path:  /nas001/users/yoonji.suh/tcr_test_20231016/inf/
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
 
@@ -14,7 +14,7 @@ user_parameters:
     - train_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: default_train
+            - input_path: train_multiclass
               x_columns: [input_x0, input_x1, input_x2, input_x3]
               use_all_x: False
               y_column: target #TRAIN_LABEL" #label"
@@ -66,7 +66,7 @@ user_parameters:
     - inference_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: default_inference
+            - input_path: inf
               x_columns: [input_x0, input_x1, input_x2, input_x3]
               use_all_x: False
               y_column:  #TRAIN_LABEL" #label"
