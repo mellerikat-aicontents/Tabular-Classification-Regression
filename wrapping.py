@@ -1,26 +1,42 @@
 import argparse
 import time
 import os
-os.chdir(os.path.abspath(os.path.join('./alo')))
+if os.path.abspath('.').split('/')[-1]!='alo':
+    os.chdir(os.path.abspath(os.path.join('./alo')))
 from src.alo import ALO
 from src.alo import AssetStructure
 from src.external import external_load_data, external_save_artifacts
 import pickle
 from glob import glob
-import seaborn as sns
-from sklearn.metrics import classification_report, confusion_matrix
-import pandas as pd
-import matplotlib.pyplot as plt
-import missingno as msno
-
+import_libraries = False
+try:
+    import seaborn as sns
+    from sklearn.metrics import classification_report, confusion_matrix
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import missingno as msno
+    import_libraries = True
+except:
+    pass
+    
 EVAL_PATH = './evaluation_data'
 PIPELINE_DICT = {'train_pipeline':'train', 'inference_pipeline':'inference'}
 CARDINALITY_LIMIT = 20
 
 class Wrapper(ALO):
-    def __init__(self, nth_pipeline, eval_report=True):
+    def __init__(self, nth_pipeline, exp_plan_file='config/experimental_plan.yaml', eval_report=True):
+        global import_libraries
         super().__init__()
+        self.exp_plan_file = exp_plan_file
         self.preset()
+        if not import_libraries:
+            import seaborn as sns
+            from sklearn.metrics import classification_report, confusion_matrix
+            import pandas as pd
+            import matplotlib.pyplot as plt
+            import missingno as msno
+            import_libraries = True
+    
         pipelines = list(self.asset_source.keys())
         self.pipeline = pipelines[nth_pipeline]
         self.eval_report = eval_report
