@@ -93,7 +93,6 @@ asset_source:
             requirements:
               - requirements.txt 
               - numpy==1.25.2 --force-reinstall
-              - missingno 
 
     - inference_pipeline:
         - step: input
@@ -110,8 +109,7 @@ asset_source:
             # code: local
             branch: main
             requirements:
-              - pandas==1.5.3
-              - missingno
+              - requirements.txt
 control:
     ## 1. 패키지 설치 및 asset 존재 여부를 실험 시마다 체크할지, 한번만 할지 결정
     ## 1-2 requirements.txt 및 종속 패키지들 한번만 설치할 지 매번 설치할지도 결정 
