@@ -100,7 +100,7 @@ user_parameters:
 Jupyter 환경에서 Workflow 단계마다 asset을 실행하고 setting을 바꿔 실험할 수 있습니다. [Sample notebook 링크](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_user.ipynb)
 각 asset에 대한 자세한 설명은 하단 guide notebook을 참고해주세요.
 - [Preprocess - TBD]()
-- [Sampling - TBD]()
+- [Sampling](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_guide_sampling.ipynb)
 - [Train/inference](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_guide_modeling.ipynb)
 - [Evaluation report for classification](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/Evaluation_report_classification.ipynb)
 
