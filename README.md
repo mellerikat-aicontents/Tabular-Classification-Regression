@@ -2,8 +2,8 @@
 
 ⚡ input/target data로 구성된 Tabular 형태의 데이터에 대해 분류/예측할 수 있는 AI 컨텐츠입니다. ⚡
 
-[![Generic badge](https://img.shields.io/badge/release-v1.1.2-green.svg?style=for-the-badge)](http://링크)
-[![Generic badge](https://img.shields.io/badge/last_update-2023.10.16-002E5F?style=for-the-badge)]()
+[![Generic badge](https://img.shields.io/badge/release-v1.1.3-green.svg?style=for-the-badge)](http://링크)
+[![Generic badge](https://img.shields.io/badge/last_update-2023.11.17-002E5F?style=for-the-badge)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Generic badge](https://img.shields.io/badge/python-3.10.12-purple.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Generic badge](https://img.shields.io/badge/dependencies-up_to_date-green.svg?style=for-the-badge&logo=python&logoColor=white)](requirement링크)
@@ -100,7 +100,7 @@ user_parameters:
 Jupyter 환경에서 Workflow 단계마다 asset을 실행하고 setting을 바꿔 실험할 수 있습니다. [Sample notebook 링크](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_user.ipynb)
 각 asset에 대한 자세한 설명은 하단 guide notebook을 참고해주세요.
 - [Preprocess - TBD]()
-- [Sampling - TBD]()
+- [Sampling](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_guide_sampling.ipynb)
 - [Train/inference](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_guide_modeling.ipynb)
 - [Evaluation report for classification](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/Evaluation_report_classification.ipynb)
 
