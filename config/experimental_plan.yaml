@@ -1,7 +1,7 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: [/nas001/users/yoonji.suh/tcr_test_20231016/train_multiclass/]
-    - load_inference_data_path:  /nas001/users/yoonji.suh/tcr_test_20231016/inf/
+    - load_train_data_path: [/nas001/users/sujin2.lee/share/sample_data/titanic/train]
+    - load_inference_data_path:  /nas001/users/sujin2.lee/share/sample_data/titanic/test
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
 
@@ -14,10 +14,10 @@ user_parameters:
     - train_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: train_multiclass
-              x_columns: [input_x0, input_x1, input_x2, input_x3]
+            - input_path: train
+              x_columns: [Pclass,Name,Sex,Age,SibSp,Ticket,Fare,Cabin,Embarked]
               use_all_x: False
-              y_column: target #TRAIN_LABEL" #label"
+              y_column: Survived #TRAIN_LABEL" #label"
               groupkey_columns:
               drop_columns:
               time_column:
@@ -26,12 +26,16 @@ user_parameters:
 
         - step: preprocess
           args:
-            - handling_encoding_y_column: target #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
-              handling_encoding_y: label    ## none, label, ordinal, binary, onehot, hashing
-              handling_missing: dropna # dropna, interpolation, fill_number
-              handling_scaling_x: none  #none"         #none, standard, minmax, abs, robust
-              drop_duplicate_time: True   ## group 단위로 중복 확인 (time_column 없으면 미진행)
-              load_train_preprocess: False   ## (inference workflow 전용) True 이면, train preprocess 를 참조하여 진행
+            - mode: auto # auto, custom
+              custom: {}
+
+            # custom 코드 예시
+            # - mode: custom
+            #   custom: {category_columns: [Pclass, SibSp],
+            #            handle_missing: {fill_mean: [Age,Fare]},
+            #            numeric_scaler: {standard: [Fare], minmax: [Age]}
+            #            }
+            # argument 설명: http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450 configuration> Preprocess asset 부분 
         
         - step: sampling
           args:
@@ -66,8 +70,8 @@ user_parameters:
     - inference_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: inf
-              x_columns: [input_x0, input_x1, input_x2, input_x3]
+            - input_path: test
+              x_columns: [Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked]
               use_all_x: False
               y_column:  #TRAIN_LABEL" #label"
               groupkey_columns:
@@ -75,14 +79,11 @@ user_parameters:
               time_column:
               concat_dataframes: True
               encoding: # cp949 
+
         - step: preprocess
           args:
-            - handling_encoding_y_column: #TRAIN_LABEL" # y (=label)이 categorical인 경우 설정
-              handling_encoding_y:     ## none, label, ordinal, binary, onehot, hashing
-              handling_missing: dropna # dropna, interpolation, fill_number
-              handling_scaling_x: none  #none, standard, minmax, abs, robust
-              drop_duplicate_time: True   ## group 단위로 중복 확인 (time_column 없으면 미진행)
-              load_train_preprocess: True   ## (inference workflow 전용) True 이면, train preprocess 를 참조하여 진행
+            - mode: auto # auto, custom
+              custom: {}
 
         - step: inference ## 필수
           args:
@@ -101,12 +102,11 @@ asset_source:
 
         - step: preprocess
           source:  ## git / local 지원
-            code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/preprocess.git
+            code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: release-1.2
+            branch: develop
             requirements:
-              - pandas==1.5.3
-              - category_encoders
+              - requirements.txt
 
         - step: sampling
           source:
@@ -139,9 +139,9 @@ asset_source:
           source:  ## git / local 지원
             # code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/preprocess.git
             code: local
-            branch: tcr
+            branch: develop
             requirements:
-              - pandas==1.5.3
+              - requirements.txt
 
         - step: inference
           source:
