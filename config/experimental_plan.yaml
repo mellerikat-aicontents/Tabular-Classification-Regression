@@ -1,7 +1,7 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: [/nas001/users/sujin2.lee/share/sample_data/titanic/train]
-    - load_inference_data_path:  /nas001/users/sujin2.lee/share/sample_data/titanic/test
+    - load_train_data_path: ../../sample_data/default_train/
+    - load_inference_data_path: ../../sample_data/default_inference/
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
 
@@ -14,10 +14,10 @@ user_parameters:
     - train_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: train
-              x_columns: [Pclass,Name,Sex,Age,SibSp,Ticket,Fare,Cabin,Embarked]
+            - input_path: default_train
+              x_columns: [input_x0, input_x1, input_x2, input_x3]
               use_all_x: False
-              y_column: Survived #TRAIN_LABEL" #label"
+              y_column: target #TRAIN_LABEL" #label"
               groupkey_columns:
               drop_columns:
               time_column:
@@ -70,8 +70,8 @@ user_parameters:
     - inference_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: test
-              x_columns: [Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked]
+            - input_path: default_inference
+              x_columns: [input_x0, input_x1, input_x2, input_x3]
               use_all_x: False
               y_column:  #TRAIN_LABEL" #label"
               groupkey_columns:
