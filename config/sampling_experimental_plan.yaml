@@ -1,7 +1,7 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: /nas001/users/sujin2.lee/share/techtalk_sampling_1030/train/
-    - load_inference_data_path: /nas001/users/sujin2.lee/share/techtalk_sampling_1030/test/
+    - load_train_data_path: ../../sample_data/sampling_train/ 
+    - load_inference_data_path: ../../sample_data/default_inference/
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
 
@@ -14,7 +14,7 @@ user_parameters:
     - train_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: train
+            - input_path: sampling_train
               x_columns: [Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max]
               use_all_x: False
               y_column: label #TRAIN_LABEL" #label"
@@ -48,23 +48,6 @@ user_parameters:
               ## num_hpo=3, max_depth=[1, 3]인 경우 hpo 과정에서 max_depth가 1, 2, 3인 경우에 대해 실행됨.(소수점인 경우 integer로 실행)
               shap_ratio: 1.
    
-    - inference_pipeline:
-        - step: input  ## 필수
-          args:
-            - input_path: test
-              x_columns: [Count,Converted Torque,angle_min,angle_mean,angle_median,angle_std,angle_max,torque_min,torque_mean,torque_median,torque_std,torque_max]
-              use_all_x: False
-              y_column:  #TRAIN_LABEL" #label"
-              groupkey_columns:
-              drop_columns:
-              time_column:
-              concat_dataframes: True
-              encoding: # cp949 
-
-        - step: inference ## 필수
-          args:
-            - model_type: classification
-              run_shapley: True   
 ## asset 의 설치 정보를 기록       
 asset_source:
     - train_pipeline:
@@ -89,27 +72,11 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr.git
             # code: local
-            branch: tcr_v1.1.3
+            branch: tcr_v1.1.4
             requirements:
               - requirements.txt 
               - numpy==1.25.2 --force-reinstall
 
-    - inference_pipeline:
-        - step: input
-          source:  ## git / local 지원
-            code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/input.git
-            # code: local
-            branch: tabular_dev #tabular
-            requirements:
-              - pandas==1.5.3
-
-        - step: inference
-          source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/tcr.git
-            # code: local
-            branch: tcr_v1.1.3
-            requirements:
-              - requirements.txt
 control:
     ## 1. 패키지 설치 및 asset 존재 여부를 실험 시마다 체크할지, 한번만 할지 결정
     ## 1-2 requirements.txt 및 종속 패키지들 한번만 설치할 지 매번 설치할지도 결정 
