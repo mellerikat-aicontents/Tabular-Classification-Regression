@@ -104,13 +104,13 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: develop
+            branch: prep_v1.0.0
             requirements:
               - requirements.txt
 
         - step: sampling
           source:
-            code: http://mod.lge.com/hub/smartdata/aiplatform/module/data_sampling.git
+            code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
             # code: local
             branch: release-1.2
             requirements:
@@ -120,11 +120,10 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr.git
             # code: local
-            branch: main
+            branch: tcr_v1.1.4
             requirements:
               - requirements.txt 
               - numpy==1.25.2 --force-reinstall
-              - missingno 
    
     - inference_pipeline:
         - step: input
@@ -139,7 +138,7 @@ asset_source:
           source:  ## git / local 지원
             # code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/preprocess.git
             code: local
-            branch: develop
+            branch: prep_v1.0.0
             requirements:
               - requirements.txt
 
@@ -147,10 +146,9 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr.git
             # code: local
-            branch: main
+            branch: tcr_v1.1.4
             requirements:
-              - pandas==1.5.3
-              - missingno
+              - requirements.txt
            
      
 control:
