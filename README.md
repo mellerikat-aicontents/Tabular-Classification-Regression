@@ -21,7 +21,7 @@
 
 데이터 명세서 상세한 내용은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2178808470)를 참고해주세요.
 
-샘플 데이터 설명: [iris flower dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set)
+샘플 데이터 설명: [titanic dataset](https://www.openml.org/search?type=data&sort=runs&id=40945&status=active)
  
 
 
