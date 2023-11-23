@@ -24,11 +24,15 @@ PIPELINE_DICT = {'train_pipeline':'train', 'inference_pipeline':'inference'}
 CARDINALITY_LIMIT = 20
 
 class Wrapper(ALO):
-    def __init__(self, nth_pipeline, exp_plan_file='config/experimental_plan.yaml', eval_report=True):
+    def __init__(self, nth_pipeline, exp_plan_file='experimental_plan.yaml', eval_report=True):
         global import_libraries
         super().__init__()
         self.exp_plan_file = exp_plan_file
+        
+        self.set_proc_logger()
         self.preset()
+        self.set_asset_structure()
+        
         if not import_libraries:
             import seaborn as sns
             from sklearn.metrics import classification_report, confusion_matrix
@@ -43,8 +47,7 @@ class Wrapper(ALO):
         
         external_load_data(pipelines[nth_pipeline], self.external_path, self.external_path_permission, self.control['get_external_data'])
         self.install_steps(self.pipeline, self.control["get_asset_source"])
-        envs, args, data, config = {}, {}, {}, {}
-        self.asset_structure = AssetStructure(envs, args, data, config)
+        
         self.set_proc_logger()
         self.step = 0
         self.args_checker = 0
