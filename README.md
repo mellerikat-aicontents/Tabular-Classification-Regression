@@ -24,6 +24,12 @@
 샘플 데이터 설명: [titanic dataset](https://www.openml.org/search?type=data&sort=runs&id=40945&status=active)
  
 
+| target | x1 | x2 | ... |
+| ------ | ------ | ------ | ------ |
+|OK| 0 | bolt1 | ... |
+|NG| 0 | bolt2 | ... |
+|OK| 1 | bolt1 | ... |
+|...| ... | ... | ... |
 
 ## 주요 기능 소개
 - 총 다섯가지 머신러닝 알고리즘에 대해 HPO를 수행하여 가장 성능이 우수한 모델을 도출합니다.
