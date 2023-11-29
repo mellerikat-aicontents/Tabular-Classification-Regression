@@ -32,6 +32,14 @@ class Wrapper(ALO):
         self.set_proc_logger()
         self.preset()
         self.set_asset_structure()
+            
+        pipelines = list(self.asset_source.keys())
+        self.pipeline = pipelines[nth_pipeline]
+        self.eval_report = eval_report
+        
+        external_load_data(pipelines[nth_pipeline], self.external_path, self.external_path_permission, self.control['get_external_data'])
+        self.install_steps(self.pipeline, self.control["get_asset_source"])
+        
         
         if not import_libraries:
             import seaborn as sns
@@ -40,13 +48,6 @@ class Wrapper(ALO):
             import matplotlib.pyplot as plt
             import missingno as msno
             import_libraries = True
-    
-        pipelines = list(self.asset_source.keys())
-        self.pipeline = pipelines[nth_pipeline]
-        self.eval_report = eval_report
-        
-        external_load_data(pipelines[nth_pipeline], self.external_path, self.external_path_permission, self.control['get_external_data'])
-        self.install_steps(self.pipeline, self.control["get_asset_source"])
         
         self.set_proc_logger()
         self.step = 0
