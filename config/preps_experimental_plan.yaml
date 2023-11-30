@@ -1,7 +1,7 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: ../../sample_data/default_train/
-    - load_inference_data_path: ../../sample_data/default_inference/
+    - load_train_data_path: ../../sample_data/preps_train/
+    - load_inference_data_path: ../../sample_data/preps_inference/
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
 
@@ -14,10 +14,10 @@ user_parameters:
     - train_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: default_train
-              x_columns: [input_x0, input_x1, input_x2, input_x3]
+            - input_path: preps_train
+              x_columns: [Pclass,Name,Gender,Age,SibSp,Ticket,Fare,Cabin,Embarked]
               use_all_x: False
-              y_column: target #TRAIN_LABEL" #label"
+              y_column: Survived #TRAIN_LABEL" #label"
               groupkey_columns:
               drop_columns:
               time_column:
@@ -36,19 +36,6 @@ user_parameters:
             #            numeric_scaler: {standard: [Fare], minmax: [Age]}
             #            }
             # argument 설명: http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450 configuration> Preprocess asset 부분 
-        
-        - step: sampling
-          args:
-            - sampling_type: none # none(실행안함) ,under(under sampling), over(over_sampilng - TBD)
-              sampling_method: random # random(random sampling), cluster(density based clustering sampling), negative(negative sampling)
-              label_sampling: False # label 별 sampling 여부 선택 True, False
-              ignore_label_class: # 특정 클래스에 있는 데이터 전부 사용. cat or cat,dog
-              negative_target_class: # negative sampling 시 target이 되는 class
-              label_sampling_num_type: # ratio, number, compare, mingroup
-              label_sampling_num: 
-              sampling_groupkey_columns: # groupkey 컬럼 입력. 3개 까지 지원
-              sampling_num_type: ratio # ratio, number, mingroup
-              sampling_num: 0.8
         
         - step: train ## 필수
           args:
@@ -70,8 +57,8 @@ user_parameters:
     - inference_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: default_inference
-              x_columns: [input_x0, input_x1, input_x2, input_x3]
+            - input_path: preps_inference
+              x_columns: [Pclass,Name,Gender,Age,SibSp,Ticket,Fare,Cabin,Embarked]
               use_all_x: False
               y_column:  #TRAIN_LABEL" #label"
               groupkey_columns:
@@ -107,14 +94,6 @@ asset_source:
             branch: prep_v1.1.0
             requirements:
               - requirements.txt
-
-        - step: sampling
-          source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
-            # code: local
-            branch: release-1.2
-            requirements:
-              - requirements.txt 
 
         - step: train
           source:
