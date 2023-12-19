@@ -64,6 +64,11 @@ source install.sh
 cd alo
 python main.py 
 ```
+- `alo/config/` 폴더 내 다른 실험 파일이 있는 경우 하기 명령어를 통해 실행할 수 있습니다. 
+```
+python main.py --config=./preps_experimental_plan.yaml
+```
+
 <details><summary>실행 과정 도중 permission error가 발생한 경우</summary>
 오류가 발생한 파일(예: config/experimental_plan.yaml)에 대해 하단 코드를 실행해주세요.
 sudo chmod 777 config/experimental_plan.yaml
