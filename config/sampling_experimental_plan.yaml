@@ -64,7 +64,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
             # code: local
-            branch: release-1.2
+            branch: spl_v1.2.1
             requirements:
               - requirements.txt 
 
