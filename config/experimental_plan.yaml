@@ -79,10 +79,11 @@ user_parameters:
               time_column:
               concat_dataframes: True
               encoding: # cp949 
-
+        
+        # inference시 preprocess asset은 auto로 설정(train preprocess의 설정이 그대로 적용 됩니다.)
         - step: preprocess
           args:
-            - mode: auto # auto, custom
+            - mode: auto # auto
               custom: {}
 
         - step: inference ## 필수
