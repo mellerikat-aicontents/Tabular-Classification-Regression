@@ -171,12 +171,13 @@ ui_args_detail:
                 range:
                   - 1
                   - 1000000
+
         - step: train
           args:
               - name: model_type
                 description: 학습 유형을 선택합니다.
                 type: single_selection
-                default: accuracy
+                default: classification
                 selectable:
                   - classification
                   - regression
@@ -196,7 +197,7 @@ ui_args_detail:
                 type: float
                 default: 0.1
                 range:
-                  - 0.01
+                  - 0.001
                   - 0.99
 
     - inference_pipeline:
