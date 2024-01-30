@@ -182,7 +182,7 @@ ui_args_detail:
                   - regression
 
               - name: evaluation_metric
-                description: TCR 학습 시 best 모델 기준을 선정합니다.
+                description: TCR 학습 시 best 모델 선정 기준을 선택합니다.
                 type: single_selection
                 default: accuracy
                 selectable:
@@ -191,15 +191,14 @@ ui_args_detail:
                   - recall
                   - f1-score
 
-              - name: run_shapley
-                description: shapley value를 출력할 지 선택합니다.
-                type: single_selection
-                default: accuracy
-                selectable:
-                  - accuracy
-                  - precision
-                  - recall
-                  - f1-score
+              - name: shap_ratio
+                description: 학습에 사용된 데이터 중 입력한 비율 만큼 shapley value를 출력합니다.
+                type: float
+                default: 0.1
+                range:
+                  - 0.01
+                  - 0.99
+
     - inference_pipeline:
         - step: input 
           args:
@@ -210,6 +209,7 @@ ui_args_detail:
                 range:
                   - 1
                   - 1000000
+
         - step: inference
           args:
               - name: run_shapley
