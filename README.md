@@ -119,7 +119,7 @@ Jupyter 환경에서 Workflow 단계마다 asset을 실행하고 setting을 바�
 [AICONTENTS](http://collab.lge.com/main/display/AICONTENTS)
 
 ## 요청 및 문의
-담당자: 서윤지(yoonji.suh@lge.com)
+담당자: 이수진(sujin2.lee@lge.com)
 
 신규 AI Contents나 추가 기능 요청을 등록하시면 검토 후 반영합니다  [Request CLM](http://clm.lge.com/issue/projects/AICONTENTS/summary)
 
