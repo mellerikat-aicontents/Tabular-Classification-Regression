@@ -1,7 +1,7 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: ../../sample_data/default_train/
-    - load_inference_data_path: ../../sample_data/default_inference/
+    - load_train_data_path: ./solution/sample_data/train/
+    - load_inference_data_path: ./solution/sample_data/test/
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
 
@@ -14,7 +14,7 @@ user_parameters:
     - train_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: default_train
+            - input_path: train 
               x_columns: [input_x0, input_x1, input_x2, input_x3]
               use_all_x: False
               y_column: target #TRAIN_LABEL" #label"
@@ -23,32 +23,14 @@ user_parameters:
               time_column:
               concat_dataframes: True
               encoding: # cp949 
+          ui_args: 
+            - x_columns
+            - y_column
 
         - step: preprocess
           args:
             - mode: auto # auto, custom
               custom: {}
-
-            # custom 코드 예시
-            # - mode: custom
-            #   custom: {category_columns: [Pclass, SibSp],
-            #            handle_missing: {fill_mean: [Age,Fare]},
-            #            numeric_scaler: {standard: [Fare], minmax: [Age]}
-            #            }
-            # argument 설명: http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450 configuration> Preprocess asset 부분 
-        
-        - step: sampling
-          args:
-            - sampling_type: none # none(실행안함) ,under(under sampling), over(over_sampilng - TBD)
-              sampling_method: random # random(random sampling), cluster(density based clustering sampling), negative(negative sampling)
-              label_sampling: False # label 별 sampling 여부 선택 True, False
-              ignore_label_class: # 특정 클래스에 있는 데이터 전부 사용. cat or cat,dog
-              negative_target_class: # negative sampling 시 target이 되는 class
-              label_sampling_num_type: # ratio, number, compare, mingroup
-              label_sampling_num: 
-              sampling_groupkey_columns: # groupkey 컬럼 입력. 3개 까지 지원
-              sampling_num_type: ratio # ratio, number, mingroup
-              sampling_num: 0.8
         
         - step: train ## 필수
           args:
@@ -66,11 +48,15 @@ user_parameters:
               } # 탐색하고 싶은 parameter [min, max] 설정, 숫자만 입력할 경우 해당 parameter는 고정됨
               ## num_hpo=3, max_depth=[1, 3]인 경우 hpo 과정에서 max_depth가 1, 2, 3인 경우에 대해 실행됨.(소수점인 경우 integer로 실행)
               shap_ratio: 1.
-   
+          ui_args:
+            - model_type
+            - evaluation_metric
+            - shap_ratio
+
     - inference_pipeline:
         - step: input  ## 필수
           args:
-            - input_path: default_inference
+            - input_path: test
               x_columns: [input_x0, input_x1, input_x2, input_x3]
               use_all_x: False
               y_column:  #TRAIN_LABEL" #label"
@@ -79,17 +65,22 @@ user_parameters:
               time_column:
               concat_dataframes: True
               encoding: # cp949 
-        
-        # inference시 preprocess asset은 auto로 설정(train preprocess의 설정이 그대로 적용 됩니다.)
+          
+          ui_args:
+            - x_columns
+
         - step: preprocess
           args:
-            - mode: auto # auto
+            - mode: auto # auto, custom
               custom: {}
 
         - step: inference ## 필수
           args:
             - model_type: classification
               run_shapley: True   
+          ui_args:
+            - run_shapley
+
 ## asset 의 설치 정보를 기록       
 asset_source:
     - train_pipeline:
@@ -97,7 +88,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/input.git
             # code: local
-            branch: tabular_2.0 # tabular 
+            branch: tabular_dev_solution # tabular 
             requirements:
               - pandas==1.5.3
 
@@ -105,23 +96,15 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: prep_v1.1.0
+            branch: prep_dev_solution
             requirements:
               - requirements.txt
-
-        - step: sampling
-          source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
-            # code: local
-            branch: spl_v1.2.1
-            requirements:
-              - requirements.txt 
 
         - step: train
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr.git
             # code: local
-            branch: tcr_v1.1.4
+            branch: tcr_dev_solution
             requirements:
               - requirements.txt 
               - numpy==1.25.2 --force-reinstall
@@ -131,7 +114,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/input.git
             # code: local
-            branch: tabular_2.0 #tabular
+            branch: tabular_dev_solution #tabular
             requirements:
               - pandas==1.5.3
 
@@ -139,7 +122,7 @@ asset_source:
           source:  ## git / local 지원
             # code: http://mod.lge.com/hub/smartdata/ml-framework/alov2-module/preprocess.git
             code: local
-            branch: prep_v1.1.0
+            branch: prep_dev_solution
             requirements:
               - requirements.txt
 
@@ -147,7 +130,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr.git
             # code: local
-            branch: tcr_v1.1.4
+            branch: tcr_dev_solution
             requirements:
               - requirements.txt
            
@@ -167,3 +150,72 @@ control:
  
     ## 5. Asset 사이 데이터 전달 방법으로 memory, file 를 지원
     - interface_mode: file
+
+########
+ui_args_detail:
+    - train_pipeline:
+        - step: input 
+          args:
+              - name: x_columns
+                description: TCR 모델링에 사용될 x columns를 ','로 구분하여 기입합니다. ex) x_column1, x_column2
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+ 
+              - name: y_column
+                description: TCR 모델링에 사용될 y column명을 기입합니다. ex) y_column
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+        - step: train
+          args:
+              - name: model_type
+                description: 학습 유형을 선택합니다.
+                type: single_selection
+                default: accuracy
+                selectable:
+                  - classification
+                  - regression
+
+              - name: evaluation_metric
+                description: TCR 학습 시 best 모델 기준을 선정합니다.
+                type: single_selection
+                default: accuracy
+                selectable:
+                  - accuracy
+                  - precision
+                  - recall
+                  - f1-score
+
+              - name: run_shapley
+                description: shapley value를 출력할 지 선택합니다.
+                type: single_selection
+                default: accuracy
+                selectable:
+                  - accuracy
+                  - precision
+                  - recall
+                  - f1-score
+    - inference_pipeline:
+        - step: input 
+          args:
+              - name: x_columns
+                description: TCR 모델링에 사용될 x columns를 ','로 구분하여 기입합니다. ex) x_column1, x_column2
+                type: string
+                default:
+                range:
+                  - 1
+                  - 1000000
+        - step: inference
+          args:
+              - name: run_shapley
+                description: "inference시 shapley value 출력 여부를 결정합니다 (shapley value 출력: True)"
+                type: single_selection
+                default: True
+                selectable:
+                  - True
+                  - False
