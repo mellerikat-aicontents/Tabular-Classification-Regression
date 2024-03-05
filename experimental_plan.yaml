@@ -1,7 +1,7 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: ./solution/sample_data/train_prep/ # ./solution/sample_data/train/
-    - load_inference_data_path: ./solution/sample_data/test_prep/ # ./solution/sample_data/test/
+    - load_train_data_path: ./solution/sample_data/train/
+    - load_inference_data_path:  ./solution/sample_data/test/
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
     - load_model_path:
@@ -21,8 +21,8 @@ user_parameters:
         
         - step: readiness
           args:
-            - x_columns: ['Age', 'Fare', 'Embarked','SibSp','Cabin']
-              y_column: 'Survived'
+            - x_columns: ['input_x0', 'input_x1', 'input_x2', 'input_x3']
+              y_column: 'target'
               column_types: 'auto'
               task_type: 'classification'
           ui_args:
