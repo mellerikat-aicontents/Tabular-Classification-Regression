@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <title>Parameter Guide</title>
     <style>
         table {
@@ -22,6 +23,7 @@
 
 
     <h2>TCR User Arguments Guide</h2>
+    
     <p><strong>User arguments란?</strong><br>
         User arguments는 각 asset 별 동작 설정을 위한 파라미터로 experimental_plan.yaml의 각 asset step의 "args"밑에 기입해 사용합니다.
         TCR의 pipeline을 구성하는 asset마다 사용자가 다양한 기능을 데이터에 적용할 수 있도록 user arguments를 제공하고 있습니다.
@@ -181,7 +183,7 @@ user_parameters:
                     <li><b>csv (default)</b></li>
                 </ul>
             </td>
-            <td>file_type: csv <button onclick="copyToClipboard('file_type: csv')">Copy</button></td>
+            <td>file_type: csv</td>
             <td>O</td>
         </tr>
         <tr>
@@ -199,7 +201,7 @@ user_parameters:
                     <li><b>utf-8 (default)</b></li>
                 </ul>
             </td>
-            <td>encoding: utf-8 <button onclick="copyToClipboard('encoding: utf-8')">Copy</button></td>
+            <td>encoding: utf-8</td>
             <td>O</td>
         </tr>
         <tr>
@@ -233,7 +235,7 @@ user_parameters:
                     <li>컬럼 명 list</li>
                 </ul>
             </td>
-            <td>x_columns: [col1, col2] <button onclick="copyToClipboard('x_columns: [col1, col2]')">Copy</button></td>
+            <td>x_columns: [col1, col2]</td>
             <td>O</td>
         </tr>
         <tr>
@@ -251,7 +253,7 @@ user_parameters:
                     <li>컬럼 명</li>
                 </ul>
             </td>
-            <td>y_column: target <button onclick="copyToClipboard('y_column: target')">Copy</button></td>
+            <td>y_column: target</td>
             <td>O</td>
 
         </tr>
@@ -270,8 +272,7 @@ user_parameters:
                     <li>regression</li>
                 </ul>
             </td>
-            <td>task_type: classification <button onclick="copyToClipboard('task_type: classification')">Copy</button>
-            </td>
+            <td>task_type: classification</td>
             <td>O</td>
         </tr>
         <tr>
@@ -308,7 +309,7 @@ user_parameters:
                     <li>라벨 값 list</li>
                 </ul>
             </td>
-            <td>target_label: _major <button onclick="copyToClipboard('target_label: _major')">Copy</button></td>
+            <td>target_label: _major</td>
             <td>O</td>
         </tr>
         <tr>
@@ -334,7 +335,7 @@ user_parameters:
                     <li>{categorical_columns: 컬럼 명 list, numeric_columns: 컬럼 명 list}</li>
                 </ul>
             </td>
-            <td>column_types: auto <button onclick="copyToClipboard('column_types: auto')">Copy</button></td>
+            <td>column_types: auto</td>
             <td>X</td>
         </tr>
         <tr>
@@ -360,7 +361,7 @@ user_parameters:
                     <li>컬럼 명 list</li>
                 </ul>
             </td>
-            <td>drop_x_columns: [] <button onclick="copyToClipboard('drop_x_columns: []')">Copy</button></td>
+            <td>drop_x_columns: []</td>
             <td>O</td>
         </tr>
         <tr>
@@ -390,8 +391,7 @@ user_parameters:
                     <li>컬럼 명</li>
                 </ul>
             </td>
-            <td>groupkey_columns: [col1, col2] <button
-                    onclick="copyToClipboard('groupkey_columns: [col1, col2]')">Copy</button></td>
+            <td>groupkey_columns: [col1, col2]</td>
             <td>O</td>
         </tr>
         <tr>
@@ -420,7 +420,7 @@ user_parameters:
                     <li>숫자 값</li>
                 </ul>
             </td>
-            <td>min_rows: 50 <button onclick="copyToClipboard('min_rows: 50')">Copy</button></td>
+            <td>min_rows: 50</td>
             <td>O</td>
         </tr>
         <tr>
@@ -440,7 +440,7 @@ user_parameters:
                     <li>숫자 값</li>
                 </ul>
             </td>
-            <td>cardinality: 50 <button onclick="copyToClipboard('cardinality: 50')">Copy</button></td>
+            <td>cardinality: 50</td>
             <td>O</td>
         </tr>
         <tr>
@@ -460,7 +460,7 @@ user_parameters:
                     <li>숫자 값</li>
                 </ul>
             </td>
-            <td>num_cat_split: 10 <button onclick="copyToClipboard('num_cat_split: 10')">Copy</button></td>
+            <td>num_cat_split: 10</td>
             <td>O</td>
         </tr>
         <tr>
@@ -490,8 +490,7 @@ user_parameters:
                     <li>0~1사이 float 값</li>
                 </ul>
             </td>
-            <td>ignore_new_category: False <button onclick="copyToClipboard('ignore_new_category: False')">Copy</button>
-            </td>
+            <td>ignore_new_category: False</td>
             <td>X</td>
         </tr>
         <!-- Add more rows as needed -->
@@ -539,9 +538,7 @@ user_parameters:
                     <li>{방법론1: 컬럼 list, 방법론2: 컬럼 list}</li>
                 </ul>
             </td>
-            <td>categorical_encoding: {onehot: [col1], label: [col2]} <button
-                    onclick="copyToClipboard('categorical_encoding: {onehot: [col1], label: [col2]}')">Copy</button>
-            </td>
+            <td>categorical_encoding: {onehot: [col1], label: [col2]}</td>
             <td>X</td>
         </tr>
         <tr>
@@ -592,8 +589,7 @@ user_parameters:
                     <li>{방법론1: 컬럼 list, 방법론2: 컬럼 list}</li>
                 </ul>
             </td>
-            <td>handle_missing: {fill_1: [col1], fill_2: [col2]} <button
-                    onclick="copyToClipboard('handle_missing: {fill_1: [col1], fill_2: [col2]}')">Copy</button></td>
+            <td>handle_missing: {fill_1: [col1], fill_2: [col2]}</td>
             <td>X</td>
         </tr>
         <tr>
@@ -618,8 +614,7 @@ user_parameters:
                     <li>{방법론: 컬럼 list}</li>
                 </ul>
             </td>
-            <td>numeric_outlier: {normal: [col1, col2]} <button
-                    onclick="copyToClipboard('numeric_outlier: {normal: [col1, col2]}')">Copy</button></td>
+            <td>numeric_outlier: {normal: [col1, col2]}</td>
             <td>X</td>
         </tr>
         <tr>
@@ -648,8 +643,7 @@ user_parameters:
                     <li>{방법론: 컬럼 list}</li>
                 </ul>
             </td>
-            <td>numeric_outlier: {standard: [col1], minmax: [col2]} <button
-                    onclick="copyToClipboard('numeric_outlier: {standard: [col1], minmax: [col2]}')">Copy</button></td>
+            <td>numeric_outlier: {standard: [col1], minmax: [col2]}</td>
             <td>X</td>
         </tr>
         <!-- Add more rows as needed -->
@@ -704,8 +698,7 @@ user_parameters:
                     </ul>
                 </ul>
             </td>
-            <td>evaluation_metric: accuracy <button
-                    onclick="copyToClipboard('evaluation_metric: accuracy')">Copy</button></td>
+            <td>evaluation_metric: accuracy</td>
             <td>O</td>
         </tr>
         <tr>
@@ -724,7 +717,7 @@ user_parameters:
                     <li>True</li>
                 </ul>
             </td>
-            <td>shapley_value: False <button onclick="copyToClipboard('shapley_value: False')">Copy</button></td>
+            <td>shapley_value: False</td>
             <td>O</td>
         </tr>
         <tr>
@@ -752,8 +745,7 @@ user_parameters:
                     <li><b>[rf, gbm, lgbm, cb, ngb] (default. []로 입력해도 동일)</b></li>
                 </ul>
             </td>
-            <td>model_list: [rf, gbm, lgbm, cb, ngb] <button
-                    onclick="copyToClipboard('model_list: [rf, gbm, lgbm, cb, ngb]')">Copy</button></td>
+            <td>model_list: [rf, gbm, lgbm, cb, ngb]</td>
             <td>O</td>
         </tr>
         <tr>
@@ -782,8 +774,7 @@ user_parameters:
                     <li>{method: 방법론, options: 값}</li>
                 </ul>
             </td>
-            <td>data_split: {method: cross_validation, options: 5} <button
-                    onclick="copyToClipboard('data_split: {method: cross_validation, options: 5}')">Copy</button></td>
+            <td>data_split: {method: cross_validation, options: 5}</td>
             <td>X</td>
         </tr>
         <tr>
@@ -828,9 +819,7 @@ user_parameters:
                     <li>{모델명: {parameter1: search list, tcr_param_mix: 'one_to_one'}}</li>
                 </ul>
             </td>
-            <td>hpo_settings: {max_depth: [100, 300], n_estimators: 300 tcr_param_mix: ‘one_to_one’}} <button
-                    onclick="copyToClipboard('hpo_settings: {max_depth: [100, 300], n_estimators: 300 tcr_param_mix: ‘one_to_one’}}')">Copy</button>
-            </td>
+            <td>hpo_settings: {max_depth: [100, 300], n_estimators: 300 tcr_param_mix: ‘one_to_one’}}</td>
             <td>O</td>
         </tr>
         <tr>
@@ -857,7 +846,7 @@ user_parameters:
                     <li>1보다 큰 int</li>
                 </ul>
             </td>
-            <td>shapley_sampling: 10000 <button onclick="copyToClipboard('shapley_sampling: 10000')">Copy</button></td>
+            <td>shapley_sampling: 10000</td>
             <td>X</td>
         </tr>
 
