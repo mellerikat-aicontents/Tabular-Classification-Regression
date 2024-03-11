@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Parameter Guide</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body style="background-color: white; color: black;">
+
+
+    <h2>TCR User Arguments Guide</h2>
+    <p><strong>User arguments란?</strong><br>
+        User arguments는 각 asset 별 동작 설정을 위한 파라미터로 experimental_plan.yaml의 각 asset step의 "args"밑에 기입해 사용합니다.
+        TCR의 pipeline을 구성하는 asset마다 사용자가 다양한 기능을 데이터에 적용할 수 있도록 user arguments를 제공하고 있습니다.
+        TCR 사용자는 아래 가이드를 참고해서 user arguments를 변경, 추가하여 데이터에 맞는 모델링을 할 수 있습니다.</p>
+    <p>
+        아래 예시에서 user arguments는 "file_type", "encoding" 두 개 입니다.
+        train pipeline시 input asset의 user arguments로 file_type과 encoding을 기입한 상황입니다.
+    <pre>
+<code>
+user_parameters: 
+- train_pipeline:
+    - step: input 
+        args:
+        - file_type: csv    
+          encoding: utf-8
+        ui_args: 
+</code>
+</pre>
+    </p>
+    <p>User arguments는 experimental_plan.yaml에 미리 작성되어있는 "필수 arguments"와 사용자가 가이드를 보고 추가하는 "Custom arguments"로 구분됩니다.
+    </p>
+    <ol>
+        <li><strong>필수 arguments</strong>
+            <ul>
+                <li>필수 arguments는 experimental_plan.yaml에 바로 보여지는 기본 arguments 입니다.</li>
+                <li>대부분의 필수 arguments는 default 값이 내장되어 있습니다. default 값이 있는 arguments의 경우에는 유저가 별도로 값을 설정하지 않아도 동작합니다.
+                </li>
+                <li>experimental_plan.yaml의 필수 arguments에 공란이 있는 경우 유저가 필수로 값을 설정해주어야 합니다. (ex. x_columns, y_column)
+                </li>
+            </ul>
+        </li>
+        <li><strong>Custom arguments</strong>
+            <ul>
+                <li>Custom arguments는 experimental_plan.yaml에 보여지지 않지만, asset에서 제공하고 있는 기능으로 사용자가
+                    experimental_plan.yaml에 기입하여 사용할 수 있습니다.</li>
+                <li>각 asset 별 필수 arguments 밑에 추가하여 사용합니다.</li>
+            </ul>
+        </li>
+    </ol>
+    <p>
+        TCR의 pipeline은 <b>Input-Readiness-Preprocess-Train-Output</b> asset 순으로 구성되어 있으며
+        각 asset의 기능에 맞추어 user arguments가 다르게 구성되어 있습니다.
+        experimental_plan.yaml에 기입되어 있는 필수 user arguments를 먼저 사용해보시고,
+        user arguments를 추가하여 데이터에 딱 맞는 TCR 모델을 만들어보세요!</p>
+    <br>
+    <hr>
+    <h3>Asset 별 user arguments 가이드</h3>
+    <p>
+        다음은 asset 별 user arguments 사용가이드 입니다. 가이드를 보고 필요한 user arguments를 experimental_plan.yaml에 넣어 사용해주세요
+        아래는 train pipeline의 user arguments입니다. inference시에는 train에서 사용한 arguments값을 가져옵니다.
+    </p>
+    <br>
+    <div style="border-style: dotted;">
+        <nav>
+            <h4>User arguments list</h4>
+            <ul>
+                <li><a href="#Input asset">Input asset</a></li>
+                <ul>
+                    <li>필수</li>
+                    <ul>
+                        <li><a href="#file_type">file_type</a></li>
+                        <li><a href="#encoding">encoding</a></li>
+                    </ul>
+                </ul>
+                <li><a href="#Readiness asset">Readiness asset</a></li>
+                <ul>
+                    <li>필수</li>
+                    <ul>
+                        <li><a href="#x_columns">x_columns</a></li>
+                        <li><a href="#y_column">y_column</a></li>
+                        <li><a href="#task_type">task_type</a></li>
+                        <li><a href="#target_label">target_label</a></li>
+                        <li><a href="#column_types">column_types</a></li>
+                    </ul>
+                    <li>Custom</li>
+                    <ul>
+                        <li><a href="#drop_x_columns">drop_x_columns</a></li>
+                        <li><a href="#groupkey_columns">groupkey_columns</a></li>
+                        <li><a href="#min_rows">min_rows</a></li>
+                        <li><a href="#cardinality">cardinality</a></li>
+                        <li><a href="#num_cat_split">num_cat_split</a></li>
+                        <li><a href="#ignore_new_category">ignore_new_category</a></li>
+                    </ul>
+                </ul>
+                <li><a href="#Preprocess asset">Preprocess asset</a></li>
+                <ul>
+                    <li>Custom</li>
+                    <ul>
+                        <li><a href="#categorical_encoding">categorical_encoding</a></li>
+                        <li><a href="#handle_missing">handle_missing</a></li>
+                        <li><a href="#numeric_outlier">numeric_outlier</a></li>
+                        <li><a href="#numeric_scaler">numeric_scaler</a></li>
+                    </ul>
+                </ul>
+                <li><a href="#Train asset">Train asset</a></li>
+                <ul>
+                    <li>필수</li>
+                    <ul>
+                        <li><a href="#evaluation_metric">evaluation_metric</a></li>
+                        <li><a href="#shapley_value">shapley_value</a></li>
+                    </ul>
+                    <li>Custom</li>
+                    <ul>
+                        <li><a href="#model_list">model_list</a></li>
+                        <li><a href="#data_split">data_split</a></li>
+                        <li><a href="#hpo_settings">hpo_settings</a></li>
+                        <li><a href="#shapley_sampling">shapley_sampling</a></li>
+                    </ul>
+                </ul>
+            </ul>
+        </nav>
+    </div>
+    <br>
+    <h4>Asset 별 User arguments 설명</h4>
+    <p>
+        아래 표의 각 항목은 다음을 의미합니다.
+    <ul>
+        <li>arguments type: 필수/Custom arguments 여부</li>
+        <li>arguments 명: user arguments 명</li>
+        <li>설명: user arguments에 대한 설명</li>
+        <li>입력 type: user arguments의 데이터 type입니다.</li>
+        <li>입력가능한 값: user arguments의 default 값과 입력가능한 값의 형태를 보여줍니다.</li>
+        <li>사용법: 사용 예시이며 값을 복사해서 experimental_plan.yaml에 붙여넣으면 됩니다.</li>
+        <ul><li>copy 버튼은 웹 브라우저에서 가이드를 띄울 때만 사용 가능합니다.</li></ul>
+        <li>ui_args: experimental_plan.yaml의 ui_args로 등록이 가능한지 여부를 나타냅니다.</li>
+    </ul>
+
+    </p>
+    <!-- table start -->
+    <table>
+        <tr>
+            <td colspan="7">
+                <b id="Input asset">Input asset</b>
+            </td>
+        </tr>
+        <tr>
+            <th>arguments type</th>
+            <th>argument 명</th>
+            <th>설명</th>
+            <th>입력 type </th>
+            <th>입력가능한 값</th>
+            <th>사용법</th>
+            <th>ui_args</th>
+        </tr>
+        <tr>
+            <td>필수</td>
+            <td id="file_type">file_type</td>
+            <td>
+                <ul>
+                    <li>input data의 파일 확장자를 입력합니다.</li>
+                    <li>현재 AI Solution 개발은 csv 파일만 가능합니다.</li>
+                </ul>
+            </td>
+            <td>string</td>
+            <td>
+                <ul>
+                    <li><b>csv (default)</b></li>
+                </ul>
+            </td>
+            <td>file_type: csv <button onclick="copyToClipboard('file_type: csv')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>필수</td>
+            <td id="encoding">encoding</td>
+            <td>
+                <ul>
+                    <li>input data의 encoding type을 입력합니다.</li>
+                    <li>현재 AI Solution 개발은 utf-8 파일만 가능합니다.</li>
+                </ul>
+            </td>
+            <td>string</td>
+            <td>
+                <ul>
+                    <li><b>utf-8 (default)</b></li>
+                </ul>
+            </td>
+            <td>encoding: utf-8 <button onclick="copyToClipboard('encoding: utf-8')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td colspan="7">
+                <b id="Readiness asset">Readiness asset</b>
+            </td>
+        </tr>
+        <tr>
+            <th>arguments type</th>
+            <th>argument 명</th>
+            <th>설명</th>
+            <th>type</th>
+            <th>입력가능한 값</th>
+            <th>사용법</th>
+            <th>ui_args</th>
+        </tr>
+        <tr>
+            <td>필수</td>
+            <td id="x_columns">x_columns</td>
+            <td>
+                <ul>
+                    <li>Dataframe에 있는 학습 대상 x 컬럼 명을 list 형태로 입력합니다.</li>
+                    <li>만약 입력할 컬럼 명이 많을 경우, custom argument인 drop_x_columns를 사용하면 dataframe 전체 컬럼을 학습 대상으로 지정할 수 있습니다.
+                    </li>
+                    <li>ex) x_columns: [col1, col2]</li>
+                </ul>
+            </td>
+            <td>list</td>
+            <td>
+                <ul>
+                    <li>컬럼 명 list</li>
+                </ul>
+            </td>
+            <td>x_columns: [col1, col2] <button onclick="copyToClipboard('x_columns: [col1, col2]')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>필수</td>
+            <td id="y_column">y_column</td>
+            <td>
+                <ul>
+                    <li>Dataframe에 있는 y 컬럼 명을 입력합니다.</li>
+                    <li>ex) y_column: target</li>
+                </ul>
+            </td>
+            <td>string</td>
+            <td>
+                <ul>
+                    <li>컬럼 명</li>
+                </ul>
+            </td>
+            <td>y_column: target <button onclick="copyToClipboard('y_column: target')">Copy</button></td>
+            <td>O</td>
+
+        </tr>
+        <tr>
+            <td>필수</td>
+            <td id="task_type">task_type</td>
+            <td>
+                <ul>
+                    <li>Solution 과제의 유형(classification/regression)을 입력합니다.</li>
+                </ul>
+            </td>
+            <td>string</td>
+            <td>
+                <ul>
+                    <li><b>classification (default)</b></li>
+                    <li>regression</li>
+                </ul>
+            </td>
+            <td>task_type: classification <button onclick="copyToClipboard('task_type: classification')">Copy</button>
+            </td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>필수</td>
+            <td id="target_label">target_label</td>
+            <td>
+                <ul>
+                    <li>classification model을 train할 때, y_column의 어떤 class를 기준으로 모델을 평가할지 정합니다.</li>
+                    <li>아래는 target_label에 들어갈 수 있는 값에 대한 설명입니다.</li>
+                    <li>y_column이 binary일 때와 multiclass일 때 사용할 수 있는 case가 다릅니다.
+                        <ul>
+                            <li>_major: y_column에서 가장 개수가 많은 class를 선택합니다. (binary,multiclass 모두 가능)</li>
+                            <li>_minor: y_column에서 가장 개수가 적은 class를 선택합니다. (binary,multiclass 모두 가능)</li>
+                            <li>_all: y_column의 모든 class 명을 기준으로 합니다.(multiclass만 가능)</li>
+                            <li>라벨 값: y_column의 class 명 하나를 입력합니다. (binary,multiclass 모두 가능)</li>
+                            <ul>
+                                <li>ex) target_label: setosa</li>
+                            </ul>
+                            <li>라벨 값 list: y_column의 class 명 여러개를 입력합니다. (multiclass만 가능)</li>
+                            <ul>
+                                <li>ex) target_label: [setosa, versicolor]</li>
+                            </ul>
+                        </ul>
+                    </li>
+                </ul>
+            </td>
+            <td>string, list</td>
+            <td>
+                <ul>
+                    <li><b>_major (default)</b></li>
+                    <li>_minor</li>
+                    <li>_all</li>
+                    <li>라벨 값</li>
+                    <li>라벨 값 list</li>
+                </ul>
+            </td>
+            <td>target_label: _major <button onclick="copyToClipboard('target_label: _major')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>필수</td>
+            <td id="column_types">column_types</td>
+            <td>
+                <ul>
+                    <li>학습 컬럼(x_columns) 유형의 numeric/categorical 여부를 입력합니다.</li>
+                    <li>Default 값인 'auto'를 사용하면 자동으로 numeric/categorical 여부를 분류합니다.</li>
+                    <li>특정 컬럼을 항상 numeric 또는 categorical 컬럼으로 지정해야 할 경우 아래와 같이 작성합니다. 입력하지 않은 컬럼들은 자동으로 auto 로직이 적용되어
+                        numeric/categorical 컬럼으로 분류됩니다.</li>
+                    <ul>
+                        <li>ex) column_types: {categorical_columns: [col1, col2]}</li>
+                        <li>ex) column_types: {numeric_columns: [col1, col2]}</li>
+                        <li>ex) column_types: {categorical_columns: [col1], numeric_columns: [col2]}</li>
+                    </ul>
+                </ul>
+            </td>
+            <td>string, dictionary</td>
+            <td>
+                <ul>
+                    <li><b>auto (default)</b></li>
+                    <li>{categorical_columns: 컬럼 명 list, numeric_columns: 컬럼 명 list}</li>
+                </ul>
+            </td>
+            <td>column_types: auto <button onclick="copyToClipboard('column_types: auto')">Copy</button></td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="drop_x_columns">drop_x_columns</td>
+            <td>
+                <ul>
+                    <li>입력할 컬럼명이 많은 경우, x_columns 대신 drop_x_columns를 사용하면 dataframe의 전체 컬럼 명을 불러와 삭제할 컬럼 명을 입력합니다.</li>
+                    <li><b>x_columns와 drop_x_columns 중 하나만 사용해야 합니다. (둘 중 사용하지 않는 arguments는 yaml에서 제거하거나 주석처리 합니다.)</b>
+                    </li>
+                    <li>drop_x_columns가 []일 때는 학습 컬럼은 '전체 dataframe의 컬럼 - groupkey 컬럼 - y_column'이 됩니다.</li>
+                    <li>drop_x_columns에 학습에 제외할 컬럼 명 list를 입력할 경우, 학습 컬럼은 '전체 dataframe의 컬럼 - drop_x_columns - groupkey
+                        컬럼 - y_column'이 됩니다.</li>
+                    <ul>
+                        <li>ex) 전체 컬럼: x0,x1,x2,x3,x4,y 일 떄, drop_x_columns=[x0], groupkey_columns=[x1], y_column=y 일
+                            경우, 학습 대상 컬럼은 x2,x3,x4가 됩니다.</li>
+                    </ul>
+                </ul>
+            </td>
+            <td>list</td>
+            <td>
+                <ul>
+                    <li>컬럼 명 list</li>
+                </ul>
+            </td>
+            <td>drop_x_columns: [] <button onclick="copyToClipboard('drop_x_columns: []')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="groupkey_columns">groupkey_columns</td>
+            <td>
+                <ul>
+                    <li>groupkey 컬럼을 입력하면 해당 컬럼의 value 값을 기준으로 dataframe을 grouping합니다.</li>
+                    <li>Grouping 된 dataframe 별로 preprocess, train이 진행됩니다.</li>
+                    <li>groupkey_columns에 여러 컬럼명을 입력한 경우, readiness asset은 groupkey_columns의 각 값을 concat한 하나의 통합
+                        groupkey 컬럼을 생성합니다.</li>
+                    <ul>
+                        <li>ex) groupkey_columns=[Gender, Pclass]를 입력할 경우, 'Gender_Pclass' 라는 새로운 groupkey 컬럼이 input
+                            dataframe에 추가 됩니다.</li>
+                    </ul>
+                    <li>classification일 경우, groupkey 컬럼의 y_column의 class 종류는 동일해야 합니다. y_column의 class 종류가 다른
+                        그룹(groupkey)은 학습에서 제외됩니다.</li>
+                    <ul>
+                        <li>모든 그룹의 y_column 값이 A,B,C일 때, 특정 그룹의 y_column이 A,B로만 구성되어 있을 경우 해당 그룹은 학습에서 제외 됩니다. </li>
+                    </ul>
+                    <li>그 외 readiness 학습 조건을 만족하지 않는 그룹(groupkey)은 학습에서 제외됩니다. </li>
+                </ul>
+            </td>
+            <td>string</td>
+            <td>
+                <ul>
+                    <li>컬럼 명</li>
+                </ul>
+            </td>
+            <td>groupkey_columns: [col1, col2] <button
+                    onclick="copyToClipboard('groupkey_columns: [col1, col2]')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="min_rows">min_rows</td>
+            <td>
+                <ul>
+                    <li>학습 시 필요한 최소 row 수를 지정합니다.</li>
+                    <li>현재 default 값은 아래와 같이 설정되어 있습니다.</li>
+                    <ul>
+                        <li>classification: 30 (y_column의 class 별 30개 이상이어야 함)</li>
+                        <li>regression: 100 (전체 데이터 수가 100개 이상이어야 함)</li>
+                    </ul>
+                </ul>
+            </td>
+            <td>int</td>
+            <td>
+                <ul>
+                    <li>
+                        <b>default</b>
+                    </li>
+                    <ul>
+                        <li>30 (classification)</li>
+                        <li>100 (regression)</li>
+                    </ul>
+                    <li>숫자 값</li>
+                </ul>
+            </td>
+            <td>min_rows: 50 <button onclick="copyToClipboard('min_rows: 50')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="cardinality">cardinality</td>
+            <td>
+                <ul>
+                    <li>categorical/numeric 컬럼 자동 분류 기능을 사용할 때 categorical_columns가 갖추어야 하는 cardinality 조건입니다.</li>
+                    <li>컬럼 type이 object일 경우, 컬럼의 unique값(cardinality)이 arguments 값보다 같거나 작아야 categorical 컬럼으로 분류합니다.
+                    </li>
+                </ul>
+            </td>
+            <td>int</td>
+            <td>
+                <ul>
+                    <li><b>50 (default)</b></li>
+                    <li>숫자 값</li>
+                </ul>
+            </td>
+            <td>cardinality: 50 <button onclick="copyToClipboard('cardinality: 50')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="num_cat_split">num_cat_split</td>
+            <td>
+                <ul>
+                    <li>categorical/numeric 컬럼 자동 분류 기능을 사용할 때(column_types: auto), 자주 등장하는 top N 데이터의 numeric/object
+                        여부를 검사하여 numeric/categorical 컬럼을 분류합니다.</li>
+                    <li>num_cat_split은 N값을 지정합니다.</li>
+                </ul>
+            </td>
+            <td>int</td>
+            <td>
+                <ul>
+                    <li><b>10 (default)</b></li>
+                    <li>숫자 값</li>
+                </ul>
+            </td>
+            <td>num_cat_split: 10 <button onclick="copyToClipboard('num_cat_split: 10')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="ignore_new_category">ignore_new_category</td>
+            <td>
+                <ul>
+                    <li>inference시 categorical 컬럼에 학습에 사용되지 않은 카테고리 값이 들어왔을 때 동작을 결정합니다.</li>
+                    <li>아래 값을 사용하여 학습에 사용되지 않은 카테고리 값이 들어왔을 때 동작을 제어합니다.</li>
+                    <ul>
+                        <li>False: inference시 학습에 사용하지 않은 카테고리 값이 들어오면 Error가 발생합니다.</li>
+                        <li>True: inference시 학습에 사용하지 않은 카테고리 값이 들어오면 해당 row를 제거하고 inference를 진행합니다.</li>
+                        <li>float 값. ex) 0.3</li>
+                        <ul>
+                            <li>전체 데이터에서 학습에 사용되지 않은 카테고리 값이 있는 행의 비율이 0.3 미만일 경우에는 해당 행을 삭제하고 inference를 진행합니다.</li>
+                            <li>전체 데이터에서 학습에 사용되지 않은 카테고리 값이 있는 행의 비율이 0.3 이상일 경우에는 error가 발생합니다.(groupkey컬럼이 있을 경우 해당
+                                그룹을 학습에서 제외)</li>
+                        </ul>
+                    </ul>
+                </ul>
+            </td>
+            <td>boolean, float</td>
+            <td>
+                <ul>
+                    <li><b>False (default)</b></li>
+                    <li>True</li>
+                    <li>0~1사이 float 값</li>
+                </ul>
+            </td>
+            <td>ignore_new_category: False <button onclick="copyToClipboard('ignore_new_category: False')">Copy</button>
+            </td>
+            <td>X</td>
+        </tr>
+        <!-- Add more rows as needed -->
+
+        <tr>
+            <td colspan="7">
+                <b id="Preprocess asset">Preprocess asset</b>
+            </td>
+        </tr>
+        <tr>
+            <th>arguments type</th>
+            <th>argument 명</th>
+            <th>설명</th>
+            <th>입력 type </th>
+            <th>입력가능한 값</th>
+            <th>사용법</th>
+            <th>ui_args</th>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="categorical_encoding">categorical_encoding</td>
+            <td>
+                <ul>
+                    <li>categorical_encoding은 category 컬럼에 적용할 인코딩 방법론을 지정합니다. {방법론: 값}의 dictionary형태로 입력합니다.</li>
+                    <li>
+                        {방법론: 값}의 '값'에는 방법론을 적용할 컬럼 list 또는 all을 입력할 수 있습니다. 이 때, all은 categorical 컬럼 전체입니다.
+                    </li>
+                    <li>현재 default로 모든 categorical 컬럼은 onehot인코딩을 적용합니다.</li>
+                    <li>categorical_encoding을 사용할 때, 일부 컬럼을 지정하면 나머지 컬럼은 자동으로 default rule(onehot)이 적용됩니다.</li>
+                    <ul>
+                        <li>ex) categorical_encoding: {label:[col1]}일 경우, col1을 제외한 나머지 categorical 컬럼에는 onehot
+                            encoding이 적용됩니다.</li>
+                    </ul>
+                    <li>현재 지원하는 categorical encoding은 아래와 같습니다.</li>
+                    <ul>
+                        <li>onehot: onehot encoding</li>
+                        <li>label: label encoding</li>
+                    </ul>
+                </ul>
+            </td>
+            <td>dictionary</td>
+            <td>
+                <ul>
+                    <li><b>{onehot: all} (default)</b></li>
+                    <li>{방법론1: 컬럼 list, 방법론2: 컬럼 list}</li>
+                </ul>
+            </td>
+            <td>categorical_encoding: {onehot: [col1], label: [col2]} <button
+                    onclick="copyToClipboard('categorical_encoding: {onehot: [col1], label: [col2]}')">Copy</button>
+            </td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="handle_missing">handle_missing</td>
+            <td>
+                <ul>
+                    <li>handle_missing은 categorical, numeric 컬럼에 적용할 결측치 처리 방식을 지정합니다. {방법론: 값}의 dictionary형태로 입력합니다.
+                    </li>
+                    <li>categorical/numeric 컬럼 유형에 따라 적용할 수 있는 방법론이 다릅니다.</li>
+                    <ul>
+                        <li>categorical 컬럼에만 적용 가능</li>
+                        <ul>
+                            <li>{방법론: 값} 값에 'categorical 컬럼 list' 및 'all'을 입력할 수 있습니다. (all 입력 시 categorical 컬럼 전체)</li>
+                            <li>frequent: 가장 많이 등장한 값으로 결측치를 채웁니다.</li>
+                        </ul>
+                        <li>numeric 컬럼에만 적용 가능</li>
+                        <ul>
+                            <li>{방법론: 값} 값에 'numeric 컬럼 list' 및 'all'을 입력할 수 있습니다. (all 입력 시 numeric 컬럼 전체)</li>
+                            <li>mean: 평균 값으로 결측치를 채웁니다.</li>
+                            <li>median: 중앙값을 기준으로 결측치를 채웁니다.</li>
+                            <li>interpolation: 주변 값의 평균으로 값을 채웁니다.</li>
+                        </ul>
+                        <li>모든 컬럼 유형에 적용 가능한 방법론</li>
+                        <ul>
+                            <li>{방법론: 값} 값에 '컬럼 list' 및 'all', 'categorical_all', 'numeric_all'을 입력할 수 있습니다. (all 입력 시
+                                컬럼 전체)</li>
+                            <li>drop: 결측치가 있는 행을 제거합니다.</li>
+                            <li>fill_값: '값'에 입력한 값으로 결측치를 채웁니다.</li>
+                        </ul>
+                    </ul>
+                    <li>default 값은 아래와 같이 설정되어 있습니다.</li>
+                    <ul>
+                        <li>결측치 10% 이하: {drop: all}</li>
+                        <li>결측치 10% 초과: {frequent: all, median: all}</li>
+                    </ul>
+                    <li>handle_missing을 사용할 때, 일부 컬럼을 지정하면 나머지 컬럼은 자동으로 default rule이 적용됩니다.</li>
+                </ul>
+            </td>
+            <td>dictionary</td>
+            <td>
+                <ul>
+                    <li><b>default</b></li>
+                    <ul>
+                        <li>결측치 10% 이하: {drop: all}</li>
+                        <li>결측치 10% 초과: {frequent: all, median: all}</li>
+                    </ul>
+                    <li>{방법론1: 컬럼 list, 방법론2: 컬럼 list}</li>
+                </ul>
+            </td>
+            <td>handle_missing: {fill_1: [col1], fill_2: [col2]} <button
+                    onclick="copyToClipboard('handle_missing: {fill_1: [col1], fill_2: [col2]}')">Copy</button></td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="numeric_outlier">numeric_outlier</td>
+            <td>
+                <ul>
+                    <li>numeric 컬럼에 적용할 outlier 제거 방법을 선택합니다. {방법론: 값}의 dictionary형태로 입력합니다.</li>
+                    <li>
+                        {방법론: 값}의 '값'에는 방법론을 적용할 컬럼 list 또는 all을 입력할 수 있습니다. 이 때, all은 numeric 컬럼 전체입니다.
+                    </li>
+                    <li>현재 지원하는 outlier 제거 방법론은 아래와 같습니다.</li>
+                    <ul>
+                        <li>normal: 현재 데이터 분포에서 3sigma 넘는 이상치를 제거</li>
+                    </ul>
+                </ul>
+            </td>
+            <td>dictionary</td>
+            <td>
+                <ul>
+                    <li>default X</li>
+                    <li>{방법론: 컬럼 list}</li>
+                </ul>
+            </td>
+            <td>numeric_outlier: {normal: [col1, col2]} <button
+                    onclick="copyToClipboard('numeric_outlier: {normal: [col1, col2]}')">Copy</button></td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="numeric_scaler">numeric_scaler</td>
+            <td>
+                <ul>
+                    <li>numeric 컬럼에 적용할 scaling방법을 선택합니다. {방법론: 값}의 dictionary형태로 입력합니다.</li>
+                    <li>
+                        {방법론: 값}의 '값'에는 방법론을 적용할 컬럼 list 또는 all을 입력할 수 있습니다. 이 때, all은 numeric 컬럼 전체입니다.
+                    </li>
+                    <li>현재 지원하는 scaling 방법론은 아래와 같습니다.</li>
+                    <ul>
+                        <li>standard: 평균과 표준편차를 사용한 scaling. z=(x-u)/s (u: mean, s: std)</li>
+                        <li>minmax: 최대값이 1, 최소값이 0이 되도록 분포를 유지하며 scaling.</li>
+                        <li>robust: 평균과 분산 대신 중간값과 사분위값 사용하여 scaling. </li>
+                        <li>maxabs: 데이터의 최대 절댓값이 1, 0값은 0이 되도록 scaling </li>
+                        <li>normalizer: 컬럼 기준이 아닌 행마다 정규화가 진행. 한 행의 모든 feature 사이의 유클리드 거리가 1이 되도록 scaling</li>
+                    </ul>
+                </ul>
+            </td>
+            <td>dictionary</td>
+            <td>
+                <ul>
+                    <li>default X</li>
+                    <li>{방법론: 컬럼 list}</li>
+                </ul>
+            </td>
+            <td>numeric_outlier: {standard: [col1], minmax: [col2]} <button
+                    onclick="copyToClipboard('numeric_outlier: {standard: [col1], minmax: [col2]}')">Copy</button></td>
+            <td>X</td>
+        </tr>
+        <!-- Add more rows as needed -->
+        <tr>
+            <td colspan="7">
+                <b id="Train asset">Train asset</b>
+            </td>
+        </tr>
+        <tr>
+            <th>arguments type</th>
+            <th>argument 명</th>
+            <th>설명</th>
+            <th>입력 type </th>
+            <th>입력가능한 값</th>
+            <th>사용법</th>
+            <th>ui_args</th>
+        </tr>
+        <tr>
+            <td>필수</td>
+            <td id="evaluation_metric">evaluation_metric</td>
+            <td>
+                <ul>
+                    <li>HPO시 모델을 선택하기 위한 평가 metric을 선택합니다. </li>
+                    <li>Default 값인 'auto'를 사용하면 아래와 같이 metric이 적용됩니다.</li>
+                    <ul>
+                        <li>classification: accuracy</li>
+                        <li>regression: mse</li>
+                    </ul>
+                    <li>사용 가능한 metric은 아래와 같습니다</li>
+                    <ul>
+                        <li>classification: accuracy, f1, recall, precision</li>
+                        <li>regression: mse, r2, mae, rmse</li>
+                    </ul>
+                </ul>
+            </td>
+            <td>string</td>
+            <td>
+                <ul>
+                    <li>task_type: classification일 때</li>
+                    <ul>
+                        <li><b>accuracy (default)</b></li>
+                        <li>f1</li>
+                        <li>recall</li>
+                        <li>precision</li>
+                    </ul>
+                    <li>task_type: regression일 때</li>
+                    <ul>
+                        <li><b>mse (default)</b></li>
+                        <li>r2</li>
+                        <li>mae</li>
+                        <li>rmse</li>
+                    </ul>
+                </ul>
+            </td>
+            <td>evaluation_metric: accuracy <button
+                    onclick="copyToClipboard('evaluation_metric: accuracy')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>필수</td>
+            <td id="shapley_value">shapley_value</td>
+            <td>
+                <ul>
+                    <li>shapley value를 계산하여 output.csv에 출력할지 결정합니다.</li>
+                    <li>'False'일 때는 출력하지 않고 'True'일 때는 출력합니다.</li>
+                </ul>
+            </td>
+            <td>boolean</td>
+            <td>
+                <ul>
+                    <li><b>False (default)</b></li>
+                    <li>True</li>
+                </ul>
+            </td>
+            <td>shapley_value: False <button onclick="copyToClipboard('shapley_value: False')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="model_list">model_list</td>
+            <td>
+                <ul>
+                    <li>HPO로 비교할 모델을 선택합니다.</li>
+                    <li>유저가 새롭게 추가한 모델에 대해서도 HPO 리스트에 추가하기 위해서는, 파일의 요약어를 model_list에 추가합니다.</li>
+                    <li>hpo_setting에 값을 입력하더라도, model_list에 해당 모델 명이 없으면 HPO에 추가되지 않습니다.</li>
+                    <li>현재 사용가능한 TCR의 default 모델 list는 아래와 같습니다.</li>
+                    <ul>
+                        <li>rf: random forest</li>
+                        <li>gbm: gradient boosting machine</li>
+                        <li>lgbm: light gradient boosting machine</li>
+                        <li>cb: catoost</li>
+                        <li>ngb: Natural Gradient Boosting</li>
+                    </ul>
+                    <li>model_list: []이면 default([rf, gbm, lgbm, cb, ngb])로 반영됩니다.</li>
+                </ul>
+            </td>
+            <td>list</td>
+            <td>
+                <ul>
+                    <li><b>[rf, gbm, lgbm, cb, ngb] (default. []로 입력해도 동일)</b></li>
+                </ul>
+            </td>
+            <td>model_list: [rf, gbm, lgbm, cb, ngb] <button
+                    onclick="copyToClipboard('model_list: [rf, gbm, lgbm, cb, ngb]')">Copy</button></td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="data_split">data_split</td>
+            <td>
+                <ul>
+                    <li>HPO시 train/validation set 구성 방법론을 선택합니다. {method: 방법론, options: 값}의 dictionary형태로 입력합니다.</li>
+                    <li>입력할 수 있는 값은 아래와 같습니다.</li>
+                    <ul>
+                        <li>{method: cross_validation, options: 5}</li>
+                        <ul>
+                            <li>cross-validation 방법론을 사용하며, kfold 수는 5입니다.</li>
+                        </ul>
+                        <li>{method: train_test, options: 0.3}</li>
+                        <ul>
+                            <li>options에 validation set의 비율을 입력합니다. 위 예시는 train:test = 7:3으로 샘플링하여 학습됩니다.</li>
+                        </ul>
+                    </ul>
+                </ul>
+            </td>
+            <td>dictionary</td>
+            <td>
+                <ul>
+                    <li><b>{method: cross_validation, options: 5} (default)</b></li>
+                    <li>{method: 방법론, options: 값}</li>
+                </ul>
+            </td>
+            <td>data_split: {method: cross_validation, options: 5} <button
+                    onclick="copyToClipboard('data_split: {method: cross_validation, options: 5}')">Copy</button></td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="hpo_settings">hpo_settings</td>
+            <td>
+                <ul>
+                    <li>model_list의 모델에 대해 parameter를 변경합니다. {모델명: {parameter1: search list, tcr_param_mix:
+                        'one_to_one'}}의 형태로 입력합니다.</li>
+                    <li>
+                        ex) {rf: {max_depth: [100, 300, 500], n_estimators: [300, 400, 500], min_sample_leaf: 3,
+                        tcr_param_mix: ‘one_to_one’}}
+                    </li>
+                    <li>위 예시의 경우, max_depth의 경우에는 100,300,500, n_estimators에 대해서는 300,400,500이 검사 조건입니다.</li>
+                    <li>위 예시의 경우, mean_sample_leaf은 3이 입력되어 있는데 parameter에 list가 아닌 숫자 값이 들어가면 해당 값으로 parameter를 고정합니다.
+                    </li>
+                    <li>tcr_param_mix의 기능은 다음과 같습니다.</li>
+                    <ul>
+                        <li>
+                            one_to_one: 각 element끼리 1:1 대응하여 HPO를 진행합니다. parameter value가 list인 경우에는 elements 수 가 동일해야
+                            합니다.
+                        </li>
+                        <li>
+                            one_to_one일 때, 위 예시는 {max_depth: 100, n_estimators: 300}, {max_depth: 300, n_estimators:
+                            400}, {max_depth: 500, n_estimators: 500}가 됩니다.
+                        </li>
+                        <li>
+                            all: 입력한 parameter list의 모든 경우의 수 case를 계산하여 HPO를 진행합니다.
+                        </li>
+                        <li>
+                            all일 때, 위 예시는 {max_depth: 100, n_estimators: 300}, {max_depth: 100, n_estimators:
+                            400},...,{max_depth: 500, n_estimators: 500}와 같이 모든 case에 대해 계산합니다.
+                        </li>
+                    </ul>
+                    <li>hpo_settings에 기입되지 않은 모델의 경우 모델 파일 내 기재된 default parameter를 사용합니다.</li>
+                </ul>
+            </td>
+            <td>dictionary</td>
+            <td>
+                <ul>
+                    <li><b>모델 파일의 default parameter set 사용 (default)</b></li>
+                    <li>{모델명: {parameter1: search list, tcr_param_mix: 'one_to_one'}}</li>
+                </ul>
+            </td>
+            <td>hpo_settings: {max_depth: [100, 300], n_estimators: 300 tcr_param_mix: ‘one_to_one’}} <button
+                    onclick="copyToClipboard('hpo_settings: {max_depth: [100, 300], n_estimators: 300 tcr_param_mix: ‘one_to_one’}}')">Copy</button>
+            </td>
+            <td>O</td>
+        </tr>
+        <tr>
+            <td>Custom</td>
+            <td id="shapley_sampling">shapley_sampling</td>
+            <td>
+                <ul>
+                    <li>shapley_value 값이 True일 때, 모든 데이터에 대해 sampling하지 않고 일부 만 sampilng 하여 shapley value를 출력할 수 있습니다.
+                    </li>
+                    <li>데이터가 많을 때 모든 값에 대해 shapley value 값을 구할 시 학습 시간이 오래 걸리는 것을 방지하기 위함입니다.</li>
+                    <li>사용 가능한 값은 아래와 같습니다.</li>
+                    <ul>
+                        <li>0 < arg < 1 소수 값(float): 해당 비율 만큼 sampling 합니다. ex) 0.8 - 80% 샘플링</li>
+                        <li>arg = 1: 모든 값에 대해 sampling 합니다</li>
+                        <li>arg > 1: 입력 값 만큼 sampling 합니다. ex) 10000 – 만개 sampling</li>
+                    </ul>
+                </ul>
+            </td>
+            <td>float, int</td>
+            <td>
+                <ul>
+                    <li><b>10000 (default)</b></li>
+                    <li>0~1 사이의 float</li>
+                    <li>1보다 큰 int</li>
+                </ul>
+            </td>
+            <td>shapley_sampling: 10000 <button onclick="copyToClipboard('shapley_sampling: 10000')">Copy</button></td>
+            <td>X</td>
+        </tr>
+
+        <!-- Add more rows as needed -->
+    </table>
+
+
+    <script>
+        function copyToClipboard(text) {
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        }
+
+    </script>
+
+</body>
+
+</html>

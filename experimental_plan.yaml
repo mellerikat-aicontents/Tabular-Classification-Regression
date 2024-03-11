@@ -1,6 +1,6 @@
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: ./solution/sample_data/train/
+    - load_train_data_path: ./solution/sample_data/train1/
     - load_inference_data_path:  ./solution/sample_data/test/
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
@@ -15,17 +15,22 @@ user_parameters:
     - train_pipeline:
         - step: input  ## 필수
           args:
-            - file_type: 'csv'
-              encoding: 'utf-8'
+            - file_type: csv
+              encoding: utf-8
           ui_args: 
         
         - step: readiness
           args:
-            - x_columns: ['input_x0', 'input_x1', 'input_x2', 'input_x3']
-              y_column: 'target'
-              column_types: 'auto'
-              task_type: 'classification'
+            - x_columns: [input_x0, input_x1, input_x2, input_x3, new_num_col, new_cat_col]
+              y_column: target
+              groupkey_columns: ['groupkey']
+              column_types: auto
+              task_type: classification
+              target_label: _major
+              min_rows: 1
           ui_args:
+            - x_columns
+            - y_column
 
         - step: preprocess
           args:
@@ -33,11 +38,9 @@ user_parameters:
 
         - step: train
           args:
-            - pos_label: '_major'
-              evaluation_metric: 'auto'
+              evaluation_metric: auto
               shapley_value: False 
           ui_args:
-            - pos_label
             - evaluation_metric
             - shapley_value
 
@@ -45,26 +48,26 @@ user_parameters:
           args:
           ui_args:
 
-    - inference_pipeline:
-        - step: input  ## 필수
-          args:
-          ui_args: 
+    # - inference_pipeline:
+    #     - step: input  ## 필수
+    #       args:
+    #       ui_args: 
         
-        - step: readiness
-          args:
-          ui_args:
+    #     - step: readiness
+    #       args:
+    #       ui_args:
 
-        - step: preprocess
-          args:
-          ui_args:
+    #     - step: preprocess
+    #       args:
+    #       ui_args:
 
-        - step: inference
-          args:
-          ui_args:
+    #     - step: inference
+    #       args:
+    #       ui_args:
 
-        - step: output
-          args:
-          ui_args:
+    #     - step: output
+    #       args:
+    #       ui_args:
 
 ## asset 의 설치 정보를 기록       
 asset_source:
@@ -81,7 +84,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: tcr-0.9.0
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -89,7 +92,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: prep_dev
+            branch: prep_dev_sujin
             requirements:
               - requirements.txt
 
@@ -97,7 +100,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: dev_pre_release
+            branch: dev_adx_pre
             requirements:
               - requirements.txt 
     
@@ -109,46 +112,46 @@ asset_source:
             requirements:
               - requirements.txt
    
-    - inference_pipeline:
-        - step: input
-          source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/input.git
-            # code: local
-            branch: tabular_jhong # tabular 
-            requirements:
-              - pandas==1.5.3
+    # - inference_pipeline:
+    #     - step: input
+    #       source:  ## git / local 지원
+    #         code: http://mod.lge.com/hub/dxadvtech/assets/input.git
+    #         # code: local
+    #         branch: tabular_jhong # tabular 
+    #         requirements:
+    #           - pandas==1.5.3
 
-        - step: readiness
-          source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
-            # code: local
-            branch: tcr-0.9.0
-            requirements:
-              - requirements.txt
+    #     - step: readiness
+    #       source:  ## git / local 지원
+    #         code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
+    #         # code: local
+    #         branch: tcr_dev
+    #         requirements:
+    #           - requirements.txt
 
-        - step: preprocess
-          source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
-            # code: local
-            branch: prep_dev
-            requirements:
-              - requirements.txt
+    #     - step: preprocess
+    #       source:  ## git / local 지원
+    #         code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
+    #         # code: local
+    #         branch: prep_dev_sujin
+    #         requirements:
+    #           - requirements.txt
 
-        - step: inference
-          source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
-            # code: local
-            branch: dev_pre_release
-            requirements:
-              - requirements.txt 
+    #     - step: inference
+    #       source:
+    #         code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
+    #         # code: local
+    #         branch: dev_adx_pre
+    #         requirements:
+    #           - requirements.txt 
     
-        - step: output
-          source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/output.git
-            # code: local
-            branch: output_dev
-            requirements:
-              - requirements.txt
+    #     - step: output
+    #       source:
+    #         code: http://mod.lge.com/hub/dxadvtech/assets/output.git
+    #         # code: local
+    #         branch: output_dev
+    #         requirements:
+    #           - requirements.txt
            
      
 control:
