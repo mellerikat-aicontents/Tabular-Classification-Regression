@@ -4,22 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Parameter Guide</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-        th,
-        td {
-            border: 1px solid black;
-            padding: 15px;
-            text-align: left;
-        }
-    </style>
+th,
+td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+}
+.fixed_col {
+    width: 500px;
+    min-width: 500px;
+    max-width: 500px;
+}
+table {
+  font-size: 13px;
+}
+
+</style>
 </head>
 
-<body style="background-color: white; color: black;">
+<body style="background-color: white; color: black; font-size: 13px;">
 
 
     <h2>TCR User Arguments Guide</h2>
@@ -162,7 +171,7 @@ user_parameters:
         <tr>
             <th>arguments type</th>
             <th>argument 명</th>
-            <th>설명</th>
+            <th class="info_column">설명</th>
             <th>입력 type </th>
             <th>입력가능한 값</th>
             <th>사용법</th>
@@ -171,7 +180,7 @@ user_parameters:
         <tr>
             <td>필수</td>
             <td id="file_type">file_type</td>
-            <td>
+            <td class="info_column">
                 <ul>
                     <li>input data의 파일 확장자를 입력합니다.</li>
                     <li>현재 AI Solution 개발은 csv 파일만 가능합니다.</li>
@@ -212,7 +221,7 @@ user_parameters:
         <tr>
             <th>arguments type</th>
             <th>argument 명</th>
-            <th>설명</th>
+            <th class='fixed_col'>설명</th>
             <th>type</th>
             <th>입력가능한 값</th>
             <th>사용법</th>
