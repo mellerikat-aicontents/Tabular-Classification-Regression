@@ -3,8 +3,8 @@ version: 2.0.0
 
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: ./solution/sample_data/train/
-    - load_inference_data_path:  ./solution/sample_data/test/
+    - load_train_data_path: /data001/keewon/AIA/MQL지수/trainset/light
+    - load_inference_data_path:  /data001/keewon/AIA/MQL지수/testset/light
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
     - load_model_path:
@@ -24,10 +24,11 @@ user_parameters:
         
         - step: readiness
           args:
-            - x_columns: [input_x0, input_x1, input_x2, input_x3]
-              y_column: target
+            - drop_x_columns: [customer_idx]
+              y_column: lead_status
               column_types: auto
               task_type: classification
+              ignore_new_category: True
           ui_args:
             - x_columns
             - y_column
@@ -38,8 +39,9 @@ user_parameters:
 
         - step: train
           args:
-              evaluation_metric: auto
+            - evaluation_metric: auto
               shapley_value: False 
+              model_list: ['rf','lgbm']
           ui_args:
             - evaluation_metric
             - shapley_value
@@ -76,7 +78,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: tabular_jhong # tabular 
+            branch: v1.0.0_tabular_pre # tabular 
             requirements:
               - pandas==1.5.3
 
@@ -84,7 +86,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.0.0_tcr_pre
             requirements:
               - requirements.txt
 
@@ -92,7 +94,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: prep_dev_sujin
+            branch: v2.0.0_pre
             requirements:
               - requirements.txt
 
@@ -100,7 +102,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: dev_adx_pre
+            branch: v2.0.0_pre
             requirements:
               - requirements.txt 
     
@@ -108,7 +110,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/output.git
             # code: local
-            branch: output_dev
+            branch: v1.0.0_pre
             requirements:
               - requirements.txt
    
@@ -117,7 +119,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: tabular_jhong # tabular 
+            branch: v1.0.0_tabular_pre # tabular 
             requirements:
               - pandas==1.5.3
 
@@ -125,7 +127,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.0.0_tcr_pre
             requirements:
               - requirements.txt
 
@@ -133,7 +135,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: prep_dev_sujin
+            branch: v2.0.0_pre
             requirements:
               - requirements.txt
 
@@ -141,7 +143,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: dev_adx_pre
+            branch: v2.0.0_pre
             requirements:
               - requirements.txt 
     
@@ -149,7 +151,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/output.git
             # code: local
-            branch: output_dev
+            branch: v1.0.0_pre
             requirements:
               - requirements.txt
            
@@ -207,7 +209,7 @@ ui_args_detail:
                 type: single_selection
                 default: classification
                 selectable:
-                  - classification
+                  - got
                   - regression
               - name: target_label
                 description: classification시 y_column의 어떤 class를 기준으로 모델을 평가할지 정합니다. 여러 class일 경우 ','로 구분하여 입력하세요.
