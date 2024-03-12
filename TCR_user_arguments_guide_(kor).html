@@ -430,7 +430,7 @@ user_parameters:
                 </ul>
             </td>
             <td>min_rows: 50</td>
-            <td>O</td>
+            <td>X</td>
         </tr>
         <tr>
             <td>Custom</td>
@@ -450,7 +450,7 @@ user_parameters:
                 </ul>
             </td>
             <td>cardinality: 50</td>
-            <td>O</td>
+            <td>X</td>
         </tr>
         <tr>
             <td>Custom</td>
@@ -470,7 +470,7 @@ user_parameters:
                 </ul>
             </td>
             <td>num_cat_split: 10</td>
-            <td>O</td>
+            <td>X</td>
         </tr>
         <tr>
             <td>Custom</td>
@@ -755,7 +755,7 @@ user_parameters:
                 </ul>
             </td>
             <td>model_list: [rf, gbm, lgbm, cb, ngb]</td>
-            <td>O</td>
+            <td>X</td>
         </tr>
         <tr>
             <td>Custom</td>
@@ -829,7 +829,7 @@ user_parameters:
                 </ul>
             </td>
             <td>hpo_settings: {max_depth: [100, 300], n_estimators: 300 tcr_param_mix: ‘one_to_one’}}</td>
-            <td>O</td>
+            <td>X</td>
         </tr>
         <tr>
             <td>Custom</td>
@@ -863,17 +863,6 @@ user_parameters:
     </table>
 
 
-    <script>
-        function copyToClipboard(text) {
-            var dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = text;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-        }
-
-    </script>
 
 </body>
 
