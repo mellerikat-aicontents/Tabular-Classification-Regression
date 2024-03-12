@@ -172,67 +172,83 @@ ui_args_detail:
     - train_pipeline:
         - step: input 
           args:
-              - name: x_columns
-                description: TCR 모델링에 사용될 x columns를 ','로 구분하여 기입합니다. ex) x_column1, x_column2
+              - name: file_type
+                description: input data의 파일 확장자를 입력합니다.(현재 AI Solution 등록은 csv만 가능합니다.)
+                type: single_selection
+                default: csv
+                selectable:
+                  - csv
+                  # - parquet
+              - name: encoding
+                description: input data의 encoding type을 입력합니다.(현재 AI Solution 등록은 utf-8만 가능합니다.)
                 type: string
-                default: ''
+                default: utf-8
                 range:
                   - 1
                   - 1000000
- 
-              - name: y_column
-                description: TCR 모델링에 사용될 y column명을 기입합니다. ex) y_column
-                type: string
-                default: ''
-                range:
-                  - 1
-                  - 1000000
-
-        - step: train
+        - step: readiness 
           args:
-              - name: model_type
-                description: 학습 유형을 선택합니다.
+              - name: x_columns
+                description: Dataframe에 있는 학습 대상 x 컬럼 명을 ','로 구분하여 입력합니다.
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+              - name: y_column
+                description: Dataframe에 있는 y 컬럼 명을 입력합니다.
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+              - name: task_type
+                description: Solution 과제의 유형(classification/regression)을 입력합니다.
                 type: single_selection
                 default: classification
                 selectable:
                   - classification
                   - regression
-
+              - name: target_label
+                description: classification시 y_column의 어떤 class를 기준으로 모델을 평가할지 정합니다. 여러 class일 경우 ','로 구분하여 입력하세요.
+                type: string
+                default: _major
+                range:
+                  - 1
+                  - 1000000
+              - name: drop_x_columns
+                description: dataframe의 전체 컬럼을 학습 대상으로 지정하고, drop_x_columns에 입력한 컬럼을 제외합니다. 컬럼 여러개는 ','로 구분하여 입력하세요.
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+              - name: groupkey_columns
+                description: groupkey 컬럼을 입력하면 해당 컬럼의 value 값을 기준으로 dataframe을 grouping합니다. 컬럼이 여러개면 ','로 구분하여 입력합니다.
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+        - step: train 
+          args:
               - name: evaluation_metric
-                description: TCR 학습 시 best 모델 선정 기준을 선택합니다.
+                description: HPO시 모델을 선택하기 위한 평가 metric을 선택합니다.
                 type: single_selection
                 default: accuracy
                 selectable:
                   - accuracy
-                  - precision
+                  - f1
                   - recall
-                  - f1-score
-
-              - name: shap_ratio
-                description: 학습에 사용된 데이터 중 입력한 비율 만큼 shapley value를 출력합니다.
-                type: float
-                default: 0.1
-                range:
-                  - 0.001
-                  - 0.99
-
-    - inference_pipeline:
-        - step: input 
-          args:
-              - name: x_columns
-                description: TCR 모델링에 사용될 x columns를 ','로 구분하여 기입합니다. ex) x_column1, x_column2
-                type: string
-                default:
-                range:
-                  - 1
-                  - 1000000
-
-        - step: inference
-          args:
-              - name: run_shapley
-                description: "inference시 shapley value 출력 여부를 결정합니다 (shapley value 출력: True)"
+                  - precision
+                  - mse
+                  - r2
+                  - mae
+                  - rmse    
+              - name: shapley_value
+                description: shapley value를 계산하여 output.csv에 출력할지 결정합니다.
                 type: single_selection
-                default: True
+                default: False
                 selectable:
-                  - True
                   - False
+                  - True
