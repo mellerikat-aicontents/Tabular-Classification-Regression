@@ -18,10 +18,6 @@
 4. 최소 데이터 수는 100개 이상, 데이터 용량은 100GB이하로 준비해야 합니다.
 5. 카테고리 변수의 경우 최소한의 학습 성능을 보장하기 위해서 변수 내 카테고리 종류가 총 데이터 수보다 작아야 합니다.
 6. 데이터의 항목명은 문자열로 이루어져 있으며 숫자로만 구성되면 안됩니다.
-
-데이터 명세서 상세한 내용은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2178808470)를 참고해주세요.
-
-샘플 데이터 설명: [titanic dataset](https://www.openml.org/search?type=data&sort=runs&id=40945&status=active)
  
 
 | target | x1 | x2 | ... |
@@ -37,45 +33,33 @@
 - 위 과정에서 병렬연산을 수행하여 빠르게 모델을 학습/도출할 수 있습니다.
 - 다른 asset과 조합하거나 custom asset과 결합하여 분석가가 원하는 수준의 모델을 개발할 수 있습니다.
 
-상세한 설명은 [Documentation](http://collab.lge.com/main/pages/viewpage.action?pageId=2178808489)을 참고해주세요. 
+상세한 설명은 [Documentation](http://collab.lge.com/main/x/Wx1hiw)을 참고해주세요. 
 
 ## Quick Install Guide
 
 
 ```
-git clone http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git 
-cd tcr 
+git clone http://mod.lge.com/hub/dxadvtech/aicontents-framework/alo.git {solution_name}
 
-conda create -n tcr python=3.10
-conda init bash
-conda activate tcr 
+conda create -n {solution_name} python=3.10 ## 3.10 필수
+conda activate {solution_name}
+pip install -r requirements.txt
 
-#jupyter 사용시 ipykernel 추가 필요
-#pip install ipykernel
-#python -m ipykernel install --user --name tcr 
+cd {solution_name}
+git clone http://mod.lge.com/hub/dxadvtech/aicontents/tcr.git solution
 
-source install.sh
 
 ```
 
 ## Quick Run Guide
-- 아래 코드 블럭을 실행하면 TCR이 실행되고 이때 자동으로 `alo/config/experimental_plan.yaml`을 참조합니다. 
+- 아래 코드 블럭을 실행하면 TCR이 실행되고 이때 자동으로 `alo/solution/experimental_plan.yaml`을 참조합니다. 
 ```
-cd alo
-python main.py 
+cd .. # alo 위치로 되돌아갑니다.
+python main.py
 ```
-- `alo/config/` 폴더 내 다른 실험 파일이 있는 경우 하기 명령어를 통해 실행할 수 있습니다. 
-```
-python main.py --config=./preps_experimental_plan.yaml
-```
-
-<details><summary>실행 과정 도중 permission error가 발생한 경우</summary>
-오류가 발생한 파일(예: config/experimental_plan.yaml)에 대해 하단 코드를 실행해주세요.
-sudo chmod 777 config/experimental_plan.yaml
-</details>
 
 - TCR 구동을 위해서는 분석 데이터에 대한 정보 및 사용할 TCR 기능이 기록된 yaml파일이 필요합니다.  
-- TCR default yaml파일인 `alo/config/experimental_plan.yaml`의 argument를 변경하여 분석하고 싶은 데이터에 TCR을 적용할 수 있습니다.
+- TCR default yaml파일인 `solution/experimental_plan.yaml`의 argument를 변경하여 분석하고 싶은 데이터에 TCR을 적용할 수 있습니다.
 - 필수적으로 수정해야하는 ***arguments***는 아래와 같습니다. 
 ***
 external_path:  
@@ -83,40 +67,17 @@ external_path:
 &emsp;- *load_inference_data_path*: ***~/example/inference_data_folder/***  # 추론 데이터가 들어있는 폴더 경로 입력(csv 입력 X)  
 user_parameters:  
 &emsp;- train_pipeline:  
-&emsp;&emsp;- step: input  
+&emsp;&emsp;- step: readiness  
 &emsp;&emsp;&emsp;args:  
 &emsp;&emsp;&emsp;- *input_path*: ***train_data_folder***  # 학습 데이터가 들어있는 폴더  
 &emsp;&emsp;&emsp;&emsp;*x_columns*: ***[column1,column2]***  # 분석 데이터의 X컬럼 명  
 &emsp;&emsp;&emsp;&emsp;*y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
-&emsp;&emsp;&emsp;&emsp;...  
-&emsp;&emsp;- step: preprocess   
-&emsp;&emsp;&emsp;args:   
-&emsp;&emsp;&emsp;- *handling_encoding_y*: ***label***     # 분석 데이터의 Y컬럼 명(input과 동일하게 입력)  
-&emsp;&emsp;&emsp;&emsp;...   
-&emsp;- inference_pipeline:  
-&emsp;&emsp;- step: input  
-&emsp;&emsp;&emsp;args:   
-&emsp;&emsp;&emsp;- *input_path*: ***inference_data_folder***  # 추론 데이터가 들어있는 폴더  
-&emsp;&emsp;&emsp;&emsp;*x_columns*: ***[column1,column2]***  #분석 데이터의 X컬럼 명  
-&emsp;&emsp;&emsp;&emsp;*y_column*: ***label***  # 분석 데이터의 Y컬럼 명  
+&emsp;&emsp;&emsp;&emsp;*task_type*: ***classification***  # 현재 Task가 classification인지 regression인지 입력  
 &emsp;&emsp;&emsp;&emsp;...  
 ***
-- preprocess, sampling 및 TCR의 다양한 기능을 사용하고 싶으신 경우 [User Guide (TCR)](http://collab.lge.com/main/pages/viewpage.action?pageId=2184973450)를 참고하여 yaml파일을 수정하시면 됩니다. 
-- 학습 결과 파일 저장 경로: `alo/.train_artifacts/models/train/`
-- 추론 결과 파일 저장 경로: `alo/.inference_artifacts/output/inference/`
-
-
-
-## Sample notebook
-Jupyter 환경에서 Workflow 단계마다 asset을 실행하고 setting을 바꿔 실험할 수 있습니다. [Sample notebook 링크](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_user.ipynb)
-각 asset에 대한 자세한 설명은 하단 guide notebook을 참고해주세요.
-- [Preprocess - TBD]()
-- [Sampling](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_guide_sampling.ipynb)
-- [Train/inference](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/TCR_guide_modeling.ipynb)
-- [Evaluation report for classification](http://mod.lge.com/hub/dxadvtech/aicontents/tcr/-/blob/main/Evaluation_report_classification.ipynb)
-
-## 관련 Collab
-[AICONTENTS](http://collab.lge.com/main/display/AICONTENTS)
+- preprocess, sampling 및 TCR의 다양한 기능을 사용하고 싶으신 경우 [Tabular Classification/Regression Parameter](http://collab.lge.com/main/x/3EC9jw)를 참고하여 yaml파일을 수정하시면 됩니다. 
+- 학습 결과 파일 저장 경로: `alo/train_artifacts/output/output.csv`
+- 추론 결과 파일 저장 경로: `alo/inference_artifacts/output/output.csv`
 
 ## 요청 및 문의
 담당자: 이수진(sujin2.lee@lge.com)
