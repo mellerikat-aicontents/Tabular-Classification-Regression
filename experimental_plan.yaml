@@ -85,7 +85,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.0.0_tcr
             requirements:
               - requirements.txt
 
@@ -93,7 +93,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: prep_dev_sujin
+            branch: v2.0.0
             requirements:
               - requirements.txt
 
@@ -101,7 +101,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: dev_adx_pre
+            branch: v2.0.0
             requirements:
               - requirements.txt 
     
@@ -109,7 +109,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/output.git
             # code: local
-            branch: v1.0.0_pre
+            branch: v1.0.0
             requirements:
               - requirements.txt
    
@@ -126,7 +126,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.0.0_tcr
             requirements:
               - requirements.txt
 
@@ -134,7 +134,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: prep_dev_sujin
+            branch: v2.0.0
             requirements:
               - requirements.txt
 
@@ -142,7 +142,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: dev_adx_pre
+            branch: v2.0.0
             requirements:
               - requirements.txt 
     
@@ -150,7 +150,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/output.git
             # code: local
-            branch: v1.0.0_pre
+            branch: v1.0.0
             requirements:
               - requirements.txt
            
