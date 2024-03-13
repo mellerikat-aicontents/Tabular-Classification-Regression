@@ -3,8 +3,8 @@ version: 2.0.0
 
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
-    - load_train_data_path: /data001/keewon/AIA/MQL지수/trainset/light
-    - load_inference_data_path:  /data001/keewon/AIA/MQL지수/testset/light
+    - load_train_data_path: ./solution/sample_data/train
+    - load_inference_data_path:  ./solution/sample_data/test
     - save_train_artifacts_path:
     - save_inference_artifacts_path:
     - load_model_path:
@@ -24,11 +24,11 @@ user_parameters:
         
         - step: readiness
           args:
-            - drop_x_columns: [customer_idx]
-              y_column: lead_status
+            - x_columns: [input_x0,input_x1,input_x2,input_x3]
+              y_column: target
               column_types: auto
               task_type: classification
-              ignore_new_category: True
+              target_label: _major
           ui_args:
             - x_columns
             - y_column
@@ -41,7 +41,6 @@ user_parameters:
           args:
             - evaluation_metric: auto
               shapley_value: False 
-              model_list: ['rf','lgbm']
           ui_args:
             - evaluation_metric
             - shapley_value
@@ -78,7 +77,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: v1.0.0_tabular_pre # tabular 
+            branch: v1.0.0_tabular # tabular 
             requirements:
               - pandas==1.5.3
 
@@ -86,7 +85,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: v1.0.0_tcr_pre
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -94,7 +93,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: v2.0.0_pre
+            branch: prep_dev_sujin
             requirements:
               - requirements.txt
 
@@ -102,7 +101,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: v2.0.0_pre
+            branch: dev_adx_pre
             requirements:
               - requirements.txt 
     
@@ -119,7 +118,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: v1.0.0_tabular_pre # tabular 
+            branch: v1.0.0_tabular # tabular 
             requirements:
               - pandas==1.5.3
 
@@ -127,7 +126,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: v1.0.0_tcr_pre
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -135,7 +134,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: v2.0.0_pre
+            branch: prep_dev_sujin
             requirements:
               - requirements.txt
 
@@ -143,7 +142,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: v2.0.0_pre
+            branch: dev_adx_pre
             requirements:
               - requirements.txt 
     
