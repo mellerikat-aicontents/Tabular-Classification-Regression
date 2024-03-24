@@ -1,5 +1,5 @@
 name: tcr
-version: 2.0.0
+version: develop
 
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
@@ -56,6 +56,8 @@ user_parameters:
         
         - step: readiness
           args:
+            - task_type: regression
+
           ui_args:
 
         - step: preprocess
@@ -85,7 +87,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: v1.0.0_tcr
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -93,7 +95,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: v2.0.0
+            branch: develop
             requirements:
               - requirements.txt
 
@@ -101,7 +103,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: v2.0.0
+            branch: develop
             requirements:
               - requirements.txt 
     
@@ -126,7 +128,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: v1.0.0_tcr
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -134,7 +136,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: v2.0.0
+            branch: develop
             requirements:
               - requirements.txt
 
@@ -142,7 +144,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: v2.0.0
+            branch: develop
             requirements:
               - requirements.txt 
     
