@@ -35,12 +35,14 @@ user_parameters:
 
         - step: preprocess
           args:
+            - save_original_columns: True
           ui_args:
 
         - step: train
           args:
             - evaluation_metric: auto
-              shapley_value: False 
+              shapley_value: True 
+              output_type: all
           ui_args:
             - evaluation_metric
             - shapley_value
@@ -56,8 +58,6 @@ user_parameters:
         
         - step: readiness
           args:
-            - task_type: regression
-
           ui_args:
 
         - step: preprocess
@@ -181,7 +181,6 @@ ui_args_detail:
                 default: csv
                 selectable:
                   - csv
-                  # - parquet
               - name: encoding
                 description: input data의 encoding type을 입력합니다.(현재 AI Solution 등록은 utf-8만 가능합니다.)
                 type: string
@@ -210,7 +209,7 @@ ui_args_detail:
                 type: single_selection
                 default: classification
                 selectable:
-                  - got
+                  - classification
                   - regression
               - name: target_label
                 description: classification시 y_column의 어떤 class를 기준으로 모델을 평가할지 정합니다. 여러 class일 경우 ','로 구분하여 입력하세요.
@@ -233,6 +232,15 @@ ui_args_detail:
                 range:
                   - 1
                   - 1000000
+        - step: preprocess
+          args:
+              - name: save_original_columns
+                description: 전처리 결과 dataframe에 원본 dataframe을 합칠 경우 True를 입력합니다. False일 경우, 전처리한 학습 컬럼만 다음 asset으로 전달됩니다.
+                type: single_selection
+                default: True
+                selectable:
+                  - True
+                  - False    
         - step: train 
           args:
               - name: evaluation_metric
@@ -255,3 +263,11 @@ ui_args_detail:
                 selectable:
                   - False
                   - True
+              - name: output_type
+                description: output.csv에 전체 컬럼과 모델링 결과 컬럼 전체를 저장할지(all), 모델링 컬럼만 저장할지(simple) 결정합니다.
+                type: single_selection
+                default: all
+                selectable:
+                  - all
+                  - simple
+    - inference_pipeline:
