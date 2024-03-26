@@ -79,9 +79,9 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: v1.0.0_tabular # tabular 
+            branch: tabular_dev 
             requirements:
-              - pandas==1.5.3
+              - requirements.txt
 
         - step: readiness
           source:  ## git / local 지원
@@ -120,9 +120,9 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: v1.0.0_tabular # tabular 
+            branch: tabular_dev  
             requirements:
-              - pandas==1.5.3
+              - requirements.txt
 
         - step: readiness
           source:  ## git / local 지원
