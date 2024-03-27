@@ -26,22 +26,21 @@ user_parameters:
           args:
             - x_columns: [input_x0,input_x1,input_x2,input_x3]
               y_column: target
-              column_types: auto
               task_type: classification
               target_label: _major
+              column_types: auto
           ui_args:
             - x_columns
             - y_column
 
         - step: preprocess
           args:
-            - save_original_columns: True
           ui_args:
 
         - step: train
           args:
             - evaluation_metric: auto
-              shapley_value: True 
+              shapley_value: False 
               output_type: all
           ui_args:
             - evaluation_metric
@@ -219,7 +218,7 @@ ui_args_detail:
                   - 1
                   - 1000000
               - name: drop_x_columns
-                description: dataframe의 전체 컬럼을 학습 대상으로 지정하고, drop_x_columns에 입력한 컬럼을 제외합니다. 컬럼 여러개는 ','로 구분하여 입력하세요.
+                description: dataframe 전체 컬럼에서 drop_x_columns에 입력한 컬럼을 제외하여 학습 컬럼으로 사용합니다(y_column, groupkey_columns도 제외 됨). 컬럼 여러개는 ','로 구분하여 입력하세요.
                 type: string
                 default: ''
                 range:
@@ -235,7 +234,7 @@ ui_args_detail:
         - step: preprocess
           args:
               - name: save_original_columns
-                description: 전처리 결과 dataframe에 원본 dataframe을 합칠 경우 True를 입력합니다. False일 경우, 전처리한 학습 컬럼만 다음 asset으로 전달됩니다.
+                description: 원본 학습 컬럼(x_columns)를 전처리 된 학습컬럼으로 대체할지 결정합니다. True일 경우 원본 x_columns와 전처리 된 x_columns가 함께 다음 asset으로 전달됩니다. False일 경우,  원본 x_columns는 전처리 된 x_columns로 대체 되고 다음 asset으로 전달되지 않습니다.
                 type: single_selection
                 default: True
                 selectable:
@@ -246,8 +245,9 @@ ui_args_detail:
               - name: evaluation_metric
                 description: HPO시 모델을 선택하기 위한 평가 metric을 선택합니다.
                 type: single_selection
-                default: accuracy
+                default: auto
                 selectable:
+                  - auto
                   - accuracy
                   - f1
                   - recall
@@ -270,4 +270,12 @@ ui_args_detail:
                 selectable:
                   - all
                   - simple
+              - name: num_cpu_core
+                description: Multiprocessing시 사용할 CPU core 수를 입력합니다.
+                type: int
+                default: 
+                  - 3
+                range:
+                  - 1
+                  - 100000
     - inference_pipeline:
