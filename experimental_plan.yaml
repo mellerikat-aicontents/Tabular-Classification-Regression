@@ -1,5 +1,5 @@
 name: tcr
-version: develop
+version: 2.0.1
 
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
@@ -78,15 +78,17 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: tabular_dev 
+            branch: v1.0.0_tabular  
             requirements:
-              - requirements.txt
+              - pandas==1.5.3
+              - numpy==1.26.4
+              - tqdm==4.66.2
 
         - step: readiness
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.0.1_tcr
             requirements:
               - requirements.txt
 
@@ -94,7 +96,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: develop
+            branch: v2.0.1_tcr
             requirements:
               - requirements.txt
 
@@ -102,7 +104,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: develop
+            branch: v2.0.1
             requirements:
               - requirements.txt 
     
@@ -119,15 +121,17 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: tabular_dev  
+            branch: v1.0.0_tabular  
             requirements:
-              - requirements.txt
+              - pandas==1.5.3
+              - numpy==1.26.4
+              - tqdm==4.66.2
 
         - step: readiness
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.0.1_tcr
             requirements:
               - requirements.txt
 
@@ -135,7 +139,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: develop
+            branch: v2.0.1_tcr
             requirements:
               - requirements.txt
 
@@ -143,7 +147,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: develop
+            branch: v2.0.1
             requirements:
               - requirements.txt 
     
