@@ -210,13 +210,6 @@ ui_args_detail:
                 selectable:
                   - classification
                   - regression
-              - name: target_label
-                description: classification시 y_column의 어떤 class를 기준으로 모델을 평가할지 정합니다. 여러 class일 경우 ','로 구분하여 입력하세요.
-                type: string
-                default: _major
-                range:
-                  - 1
-                  - 1000000
               - name: drop_x_columns
                 description: dataframe 전체 컬럼에서 drop_x_columns에 입력한 컬럼을 제외하여 학습 컬럼으로 사용합니다(y_column, groupkey_columns도 제외 됨). 컬럼 여러개는 ','로 구분하여 입력하세요.
                 type: string
