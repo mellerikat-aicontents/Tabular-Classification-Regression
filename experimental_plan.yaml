@@ -176,21 +176,6 @@ control:
 ########
 ui_args_detail:
     - train_pipeline:
-        - step: input 
-          args:
-              - name: file_type
-                description: input data의 파일 확장자를 입력합니다.(현재 AI Solution 등록은 csv만 가능합니다.)
-                type: single_selection
-                default: csv
-                selectable:
-                  - csv
-              - name: encoding
-                description: input data의 encoding type을 입력합니다.(현재 AI Solution 등록은 utf-8만 가능합니다.)
-                type: string
-                default: utf-8
-                range:
-                  - 1
-                  - 1000000
         - step: readiness 
           args:
               - name: x_columns
@@ -207,36 +192,6 @@ ui_args_detail:
                 range:
                   - 1
                   - 1000000
-              - name: task_type
-                description: Solution 과제의 유형(classification/regression)을 입력합니다.
-                type: single_selection
-                default: classification
-                selectable:
-                  - classification
-                  - regression
-              - name: drop_x_columns
-                description: dataframe 전체 컬럼에서 drop_x_columns에 입력한 컬럼을 제외하여 학습 컬럼으로 사용합니다(y_column, groupkey_columns도 제외 됨). 컬럼 여러개는 ','로 구분하여 입력하세요.
-                type: string
-                default: ''
-                range:
-                  - 1
-                  - 1000000
-              - name: groupkey_columns
-                description: groupkey 컬럼을 입력하면 해당 컬럼의 value 값을 기준으로 dataframe을 grouping합니다. 컬럼이 여러개면 ','로 구분하여 입력합니다.
-                type: string
-                default: ''
-                range:
-                  - 1
-                  - 1000000
-        - step: preprocess
-          args:
-              - name: save_original_columns
-                description: 원본 학습 컬럼(x_columns)를 전처리 된 학습컬럼으로 대체할지 결정합니다. True일 경우 원본 x_columns와 전처리 된 x_columns가 함께 다음 asset으로 전달됩니다. False일 경우,  원본 x_columns는 전처리 된 x_columns로 대체 되고 다음 asset으로 전달되지 않습니다.
-                type: single_selection
-                default: True
-                selectable:
-                  - True
-                  - False    
         - step: train 
           args:
               - name: evaluation_metric
@@ -260,19 +215,4 @@ ui_args_detail:
                 selectable:
                   - False
                   - True
-              - name: output_type
-                description: output.csv에 전체 컬럼과 모델링 결과 컬럼 전체를 저장할지(all), 모델링 컬럼만 저장할지(simple) 결정합니다.
-                type: single_selection
-                default: all
-                selectable:
-                  - all
-                  - simple
-              - name: num_cpu_core
-                description: Multiprocessing시 사용할 CPU core 수를 입력합니다.
-                type: int
-                default: 
-                  - 3
-                range:
-                  - 1
-                  - 100000
     - inference_pipeline:
