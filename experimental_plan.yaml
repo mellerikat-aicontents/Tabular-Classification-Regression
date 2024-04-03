@@ -1,5 +1,5 @@
 name: tcr
-version: 2.0.2
+version: develop
 
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
@@ -34,6 +34,10 @@ user_parameters:
             - y_column
 
         - step: preprocess
+          args:
+          ui_args:
+
+        - step: sampling
           args:
           ui_args:
 
@@ -78,7 +82,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: v1.0.1_tabular  
+            branch: tabular_dev  
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
@@ -87,7 +91,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: v1.0.1_tcr
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -95,7 +99,15 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: v2.0.1_tcr
+            branch: tcr_dev
+            requirements:
+              - requirements.txt
+
+        - step: sampling
+          source:  ## git / local 지원
+            code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
+            # code: local
+            branch: develop
             requirements:
               - requirements.txt
 
@@ -103,7 +115,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: v2.0.1
+            branch: develop
             requirements:
               - requirements.txt 
     
@@ -111,7 +123,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/output.git
             # code: local
-            branch: v1.0.0
+            branch: output_dev
             requirements:
               - requirements.txt
    
@@ -120,7 +132,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/input.git
             # code: local
-            branch: v1.0.1_tabular  
+            branch: tabular_dev 
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
@@ -129,7 +141,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
             # code: local
-            branch: v1.0.1_tcr
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -137,7 +149,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: v2.0.1_tcr
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -145,7 +157,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: v2.0.1
+            branch: develop
             requirements:
               - requirements.txt 
     
@@ -153,7 +165,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/output.git
             # code: local
-            branch: v1.0.0
+            branch: output_dev
             requirements:
               - requirements.txt
            
