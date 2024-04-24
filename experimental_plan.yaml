@@ -1,5 +1,5 @@
 name: tcr
-version: 2.1.0
+version: 2.1.1
 
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
@@ -100,7 +100,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: v2.0.1_tcr
+            branch: v2.0.2_tcr
             requirements:
               - requirements.txt
 
@@ -108,7 +108,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
             # code: local
-            branch: v1.0.0_tabular
+            branch: v1.0.1_tabular
             requirements:
               - requirements.txt
 
@@ -116,7 +116,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: v2.1.0
+            branch: v2.1.1
             requirements:
               - requirements.txt 
     
@@ -150,7 +150,7 @@ asset_source:
           source:  ## git / local 지원
             code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
             # code: local
-            branch: v2.0.1_tcr
+            branch: v2.0.2_tcr
             requirements:
               - requirements.txt
 
@@ -158,7 +158,7 @@ asset_source:
           source:
             code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
             # code: local
-            branch: v2.1.0
+            branch: v2.1.1
             requirements:
               - requirements.txt 
     
