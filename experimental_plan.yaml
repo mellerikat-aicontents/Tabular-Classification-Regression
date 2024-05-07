@@ -39,6 +39,7 @@ user_parameters:
 
         - step: sampling
           args:
+            - data_split: {method: cross_validation, options: 3}
           ui_args:
 
         - step: train
