@@ -81,7 +81,7 @@ asset_source:
     - train_pipeline:
         - step: input
           source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/input.git
+            code: https://github.com/meerkat-ai-contents/input.git
             # code: local
             branch: v1.0.1_tabular  
             requirements:
@@ -90,7 +90,7 @@ asset_source:
 
         - step: readiness
           source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
+            code: https://github.com/meerkat-ai-contents/readiness.git
             # code: local
             branch: v1.0.2_tcr
             requirements:
@@ -98,7 +98,7 @@ asset_source:
 
         - step: preprocess
           source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
+            code: https://github.com/meerkat-ai-contents/preprocess.git
             # code: local
             branch: v2.0.2_tcr
             requirements:
@@ -106,7 +106,7 @@ asset_source:
 
         - step: sampling
           source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/sampling.git
+            code: https://github.com/meerkat-ai-contents/sampling.git
             # code: local
             branch: v1.0.1_tabular
             requirements:
@@ -114,7 +114,7 @@ asset_source:
 
         - step: train
           source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
+            code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
             # code: local
             branch: v2.1.1
             requirements:
@@ -122,7 +122,7 @@ asset_source:
     
         - step: output
           source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/output.git
+            code: https://github.com/meerkat-ai-contents/output.git
             # code: local
             branch: v1.0.0
             requirements:
@@ -131,7 +131,7 @@ asset_source:
     - inference_pipeline:
         - step: input
           source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/input.git
+            code: https://github.com/meerkat-ai-contents/input.git
             # code: local
             branch: v1.0.1_tabular 
             requirements:
@@ -140,7 +140,7 @@ asset_source:
 
         - step: readiness
           source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/readiness.git
+            code: https://github.com/meerkat-ai-contents/readiness.git
             # code: local
             branch: v1.0.2_tcr
             requirements:
@@ -148,7 +148,7 @@ asset_source:
 
         - step: preprocess
           source:  ## git / local 지원
-            code: http://mod.lge.com/hub/dxadvtech/assets/preps.git
+            code: https://github.com/meerkat-ai-contents/preprocess.git
             # code: local
             branch: v2.0.2_tcr
             requirements:
@@ -156,7 +156,7 @@ asset_source:
 
         - step: inference
           source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/tcr_ml.git
+            code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
             # code: local
             branch: v2.1.1
             requirements:
@@ -164,7 +164,7 @@ asset_source:
     
         - step: output
           source:
-            code: http://mod.lge.com/hub/dxadvtech/assets/output.git
+            code: https://github.com/meerkat-ai-contents/output.git
             # code: local
             branch: v1.0.0
             requirements:
