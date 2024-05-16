@@ -17,5 +17,3 @@
 - [데이터 구조](http://collab.lge.com/main/pages/viewpage.action?pageId=2411545716)
 - [Parameter](http://collab.lge.com/main/pages/viewpage.action?pageId=2411544796)
 - [Release note](http://collab.lge.com/main/pages/viewpage.action?pageId=2387335984)
-
-write access test
