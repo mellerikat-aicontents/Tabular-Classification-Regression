@@ -1,5 +1,5 @@
 name: tcr
-version: develop
+version: 2.1.2
 
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
@@ -80,35 +80,35 @@ user_parameters:
 asset_source:
     - train_pipeline:
         - step: input
-          source:  ## git / local 지원
+          source: 
             code: https://github.com/meerkat-ai-contents/input.git
             # code: local
-            branch: tabular_dev  
+            branch: v1.0.1_tabular    
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
 
         - step: readiness
-          source:  ## git / local 지원
+          source:  
             code: https://github.com/meerkat-ai-contents/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.0.3_tcr
             requirements:
               - requirements.txt
 
         - step: preprocess
-          source:  ## git / local 지원
+          source:  
             code: https://github.com/meerkat-ai-contents/preprocess.git
             # code: local
-            branch: tcr_dev
+            branch: v2.0.3_tcr
             requirements:
               - requirements.txt
 
         - step: sampling
-          source:  ## git / local 지원
+          source:  
             code: https://github.com/meerkat-ai-contents/sampling.git
             # code: local
-            branch: develop
+            branch: v1.0.2_tabular
             requirements:
               - requirements.txt
 
@@ -116,7 +116,7 @@ asset_source:
           source:
             code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
             # code: local
-            branch: develop
+            branch: v2.1.2
             requirements:
               - requirements.txt 
     
@@ -124,33 +124,33 @@ asset_source:
           source:
             code: https://github.com/meerkat-ai-contents/output.git
             # code: local
-            branch: output_dev
+            branch: v1.0.0
             requirements:
               - requirements.txt
    
     - inference_pipeline:
         - step: input
-          source:  ## git / local 지원
+          source:  
             code: https://github.com/meerkat-ai-contents/input.git
             # code: local
-            branch: tabular_dev 
+            branch: v1.0.1_tabular   
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
 
         - step: readiness
-          source:  ## git / local 지원
+          source:  
             code: https://github.com/meerkat-ai-contents/readiness.git
             # code: local
-            branch: tcr_dev
+            branch:  v1.0.3_tcr
             requirements:
               - requirements.txt
 
         - step: preprocess
-          source:  ## git / local 지원
+          source:   
             code: https://github.com/meerkat-ai-contents/preprocess.git
             # code: local
-            branch: tcr_dev
+            branch: v2.0.3_tcr
             requirements:
               - requirements.txt
 
@@ -158,7 +158,7 @@ asset_source:
           source:
             code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
             # code: local
-            branch: develop
+            branch: v2.1.2
             requirements:
               - requirements.txt 
     
@@ -166,7 +166,7 @@ asset_source:
           source:
             code: https://github.com/meerkat-ai-contents/output.git
             # code: local
-            branch: output_dev
+            branch: v1.0.0
             requirements:
               - requirements.txt
            
