@@ -1,19 +1,12 @@
 # Welcome to TCR !
 
-⚡ input/target data로 구성된 Tabular 형태의 데이터에 대해 분류/예측할 수 있는 AI 컨텐츠입니다. ⚡
+TCR, short for Tabular Classification/Regression, is an AI content designed to tackle classification and regression problems using tabular data. TCR provides a variety of machine learning models to solve these problems. It leverages years of experience from data analysts who have solved numerous classification and regression issues, selecting the best models and finding the optimal parameters for each. By comparing the performance of different models, TCR helps identify the best one.
 
-[![Generic badge](https://img.shields.io/badge/release-v2.0.1-green.svg?style=for-the-badge)](http://링크)
-[![Generic badge](https://img.shields.io/badge/last_update-2024.03.29-002E5F?style=for-the-badge)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![Generic badge](https://img.shields.io/badge/python-3.10-purple.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Generic badge](https://img.shields.io/badge/ALO-v2.3.1-green.svg?style=for-the-badge)](requirement링크)
-[![Generic badge](https://img.shields.io/badge/collab-blue.svg?style=for-the-badge)](http://collab.lge.com/main/pages/viewpage.action?pageId=2338397981)
-[![Generic badge](https://img.shields.io/badge/request_clm-green.svg?style=for-the-badge)](http://collab.lge.com/main/pages/viewpage.action?pageId=2157128981)
+<BR/>
 
-
-# User Guide(collab)
-- [Quick guide](http://collab.lge.com/main/pages/viewpage.action?pageId=2338397531)
-- [알고리즘](http://collab.lge.com/main/pages/viewpage.action?pageId=2411545752)
-- [데이터 구조](http://collab.lge.com/main/pages/viewpage.action?pageId=2411545716)
-- [Parameter](http://collab.lge.com/main/pages/viewpage.action?pageId=2411544796)
-- [Release note](http://collab.lge.com/main/pages/viewpage.action?pageId=2387335984)
+# User Guide
+- [Quick guide](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/)
+- [CV Features](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/features)
+- [CV Input and Artifacts](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/data)
+- [Parameter](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/parameter)
+- [Release note](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/release)
