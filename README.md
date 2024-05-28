@@ -5,8 +5,8 @@ TCR, short for Tabular Classification/Regression, is an AI content designed to t
 <BR/>
 
 # User Guide
-- [Quick guide](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/)
-- [TCR Features](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/features)
-- [TCR Input and Artifacts](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/data)
-- [Parameter](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/parameter)
-- [Release note](https://meerkat-ai.com/user_guide/data_scientist_guide/ai_contents/tcr/release)
+- [Quick guide](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/)
+- [TCR Features](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/features)
+- [TCR Input and Artifacts](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/data)
+- [Parameter](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/parameter)
+- [Release note](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/release)
