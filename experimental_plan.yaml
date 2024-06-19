@@ -1,5 +1,5 @@
 name: tcr
-version: develop
+version: 2.2
 
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
@@ -81,18 +81,18 @@ asset_source:
     - train_pipeline:
         - step: input
           source:  ## git / local 지원
-            code: https://github.com/meerkat-ai-contents/input.git
+            code: https://github.com/mellerikat-aicontents/input.git
             # code: local
-            branch: tabular_dev  
+            branch: v1.0.1_tabular  
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
 
         - step: readiness
           source:  ## git / local 지원
-            code: https://github.com/meerkat-ai-contents/readiness.git
+            code: https://github.com/mellerikat-aicontents/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.1_tcr
             requirements:
               - requirements.txt
 
@@ -100,7 +100,7 @@ asset_source:
           source:  ## git / local 지원
             code: https://github.com/meerkat-ai-contents/preprocess.git
             # code: local
-            branch: tcr_dev
+            branch: v2.1_tcr
             requirements:
               - requirements.txt
 
@@ -108,15 +108,15 @@ asset_source:
           source:  ## git / local 지원
             code: https://github.com/meerkat-ai-contents/sampling.git
             # code: local
-            branch: develop
+            branch: v1.0.2_tabular
             requirements:
               - requirements.txt
 
         - step: train
           source:
-            code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
+            code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
             # code: local
-            branch: develop
+            branch: v2.1.3
             requirements:
               - requirements.txt 
     
@@ -124,7 +124,7 @@ asset_source:
           source:
             code: https://github.com/meerkat-ai-contents/output.git
             # code: local
-            branch: output_dev
+            branch: v1.0.0
             requirements:
               - requirements.txt
    
@@ -133,7 +133,7 @@ asset_source:
           source:  ## git / local 지원
             code: https://github.com/meerkat-ai-contents/input.git
             # code: local
-            branch: tabular_dev 
+            branch: v1.0.1_tabular 
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
@@ -142,7 +142,7 @@ asset_source:
           source:  ## git / local 지원
             code: https://github.com/meerkat-ai-contents/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.1_tcr
             requirements:
               - requirements.txt
 
@@ -150,15 +150,15 @@ asset_source:
           source:  ## git / local 지원
             code: https://github.com/meerkat-ai-contents/preprocess.git
             # code: local
-            branch: tcr_dev
+            branch: v2.1_tcr
             requirements:
               - requirements.txt
 
         - step: inference
           source:
-            code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
+            code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
             # code: local
-            branch: develop
+            branch: v2.1.3
             requirements:
               - requirements.txt 
     
@@ -166,7 +166,7 @@ asset_source:
           source:
             code: https://github.com/meerkat-ai-contents/output.git
             # code: local
-            branch: output_dev
+            branch: v1.0.0
             requirements:
               - requirements.txt
            
@@ -292,8 +292,7 @@ ui_args_detail:
               - name: num_cpu_core
                 description: Multiprocessing시 사용할 CPU core 수를 입력합니다.
                 type: int
-                default: 
-                  - 3
+                default: 3
                 range:
                   - 1
                   - 100000
