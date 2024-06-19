@@ -1,5 +1,5 @@
 name: tcr
-version: 2.2
+version: 2.2.0
 
 ## 외부에서 데이터 가져오기 / 결과 저장하는 경우 해당 위치에 지정
 external_path:
