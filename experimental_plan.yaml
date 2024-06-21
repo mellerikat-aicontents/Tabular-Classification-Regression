@@ -98,7 +98,7 @@ asset_source:
 
         - step: preprocess
           source:  ## git / local 지원
-            code: https://github.com/meerkat-ai-contents/preprocess.git
+            code: https://github.com/mellerikat-aicontents/preprocess.git
             # code: local
             branch: v2.1_tcr
             requirements:
@@ -106,7 +106,7 @@ asset_source:
 
         - step: sampling
           source:  ## git / local 지원
-            code: https://github.com/meerkat-ai-contents/sampling.git
+            code: https://github.com/mellerikat-aicontents/sampling.git
             # code: local
             branch: v1.0.2_tabular
             requirements:
@@ -122,7 +122,7 @@ asset_source:
     
         - step: output
           source:
-            code: https://github.com/meerkat-ai-contents/output.git
+            code: https://github.com/mellerikat-aicontents/output.git
             # code: local
             branch: v1.0.0
             requirements:
@@ -131,7 +131,7 @@ asset_source:
     - inference_pipeline:
         - step: input
           source:  ## git / local 지원
-            code: https://github.com/meerkat-ai-contents/input.git
+            code: https://github.com/mellerikat-aicontents/input.git
             # code: local
             branch: v1.0.1_tabular 
             requirements:
@@ -140,7 +140,7 @@ asset_source:
 
         - step: readiness
           source:  ## git / local 지원
-            code: https://github.com/meerkat-ai-contents/readiness.git
+            code: https://github.com/mellerikat-aicontents/readiness.git
             # code: local
             branch: v1.1_tcr
             requirements:
@@ -148,7 +148,7 @@ asset_source:
 
         - step: preprocess
           source:  ## git / local 지원
-            code: https://github.com/meerkat-ai-contents/preprocess.git
+            code: https://github.com/mellerikat-aicontents/preprocess.git
             # code: local
             branch: v2.1_tcr
             requirements:
@@ -164,7 +164,7 @@ asset_source:
     
         - step: output
           source:
-            code: https://github.com/meerkat-ai-contents/output.git
+            code: https://github.com/mellerikat-aicontents/output.git
             # code: local
             branch: v1.0.0
             requirements:
