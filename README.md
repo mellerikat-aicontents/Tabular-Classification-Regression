@@ -8,5 +8,5 @@ TCR, short for Tabular Classification/Regression, is an AI content designed to t
 - [Quick guide](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/)
 - [TCR Features](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/features)
 - [TCR Input and Artifacts](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/data)
-- [Parameter](-https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/parameter)
+- [Parameter](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/parameter)
 - [Release note](https://mellerikat.com/user_guide/data_scientist_guide/ai_contents/tcr/release)
