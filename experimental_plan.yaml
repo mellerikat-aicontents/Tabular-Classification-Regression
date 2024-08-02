@@ -27,6 +27,7 @@ user_parameters:
               task_type: classification
               target_label: _major
               column_types: auto
+              report: True
           ui_args:
             - x_columns
             - y_column
