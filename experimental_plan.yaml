@@ -80,7 +80,7 @@ asset_source:
     - train_pipeline:
         - step: input
           source:  ## git / local   
-            code: https://github.com/meerkat-ai-contents/input.git
+            code: https://github.com/mellerikat-aicontents/input.git
             # code: local
             branch: v1.0.1_tabular  
             requirements:
@@ -89,7 +89,7 @@ asset_source:
 
         - step: readiness
           source:  ## git / local  
-            code: https://github.com/meerkat-ai-contents/readiness.git
+            code: https://github.com/mellerikat-aicontents/readiness.git
             # code: local
             branch: v1.2_tcr
             requirements:
@@ -97,7 +97,7 @@ asset_source:
 
         - step: preprocess
           source:  ## git / local   
-            code: https://github.com/meerkat-ai-contents/preprocess.git
+            code: https://github.com/mellerikat-aicontents/preprocess.git
             # code: local
             branch: v2.1.1_tcr 
             requirements:
@@ -105,7 +105,7 @@ asset_source:
 
         - step: sampling
           source:  ## git / local   
-            code: https://github.com/meerkat-ai-contents/sampling.git
+            code: hhttps://github.com/mellerikat-aicontents/sampling.git
             # code: local
             branch: v1.1_tabular
             requirements:
@@ -113,7 +113,7 @@ asset_source:
 
         - step: train
           source:  ## git / local 
-            code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
+            code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
             # code: local
             branch: v2.1.4
             requirements:
@@ -121,7 +121,7 @@ asset_source:
     
         - step: output
           source:  ## git / local 
-            code: https://github.com/meerkat-ai-contents/output.git
+            code: https://github.com/mellerikat-aicontents/output.git
             # code: local
             branch: v1.0.0
             requirements:
@@ -130,7 +130,7 @@ asset_source:
     - inference_pipeline:
         - step: input
           source:  ## git / local 
-            code: https://github.com/meerkat-ai-contents/input.git
+            code: https://github.com/mellerikat-aicontents/input.git
             # code: local
             branch: v1.0.1_tabular 
             requirements:
@@ -139,7 +139,7 @@ asset_source:
 
         - step: readiness
           source:  ## git / local 
-            code: https://github.com/meerkat-ai-contents/readiness.git
+            code: https://github.com/mellerikat-aicontents/readiness.git
             # code: local
             branch: v1.2_tcr
             requirements:
@@ -147,7 +147,7 @@ asset_source:
 
         - step: preprocess
           source:  ## git / local 
-            code: https://github.com/meerkat-ai-contents/preprocess.git
+            code: https://github.com/mellerikat-aicontents/preprocess.git
             # code: local
             branch: v2.1.1_tcr 
             requirements:
@@ -155,7 +155,7 @@ asset_source:
 
         - step: inference
           source:  ## git / local 
-            code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
+            code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
             # code: local
             branch: v2.1.4
             requirements:
@@ -163,7 +163,7 @@ asset_source:
     
         - step: output
           source:  ## git / local 
-            code: https://github.com/meerkat-ai-contents/output.git
+            code: https://github.com/mellerikat-aicontents/output.git
             # code: local
             branch: v1.0.0
             requirements:
@@ -228,6 +228,13 @@ ui_args_detail:
                 selectable:
                   - classification
                   - regression
+              - name: report
+                description: A summary CSV for the train/inference data will be generated.
+                type: single_selection
+                default: True
+                selectable:
+                  - True
+                  - False   
               - name: drop_x_columns
                 description: The columns specified in drop_x_columns will be excluded from the entire DataFrame and the remaining columns will be used for training (y_column and groupkey_columns will also be excluded). Please separate multiple columns with commas.
                 type: string
@@ -237,7 +244,6 @@ ui_args_detail:
                   - 1000000
               - name: groupkey_columns
                 description: If you enter the groupkey column, the DataFrame will be grouped based on the values of that column. If there are multiple columns, please separate them with commas.
-
                 type: string
                 default: ''
                 range:
