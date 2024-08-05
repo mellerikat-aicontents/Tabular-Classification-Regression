@@ -1,5 +1,5 @@
 name: tcr
-version: develop
+version: 2.2.1
 
 external_path:
     - load_train_data_path: ./solution/sample_data/train
@@ -82,7 +82,7 @@ asset_source:
           source:  ## git / local   
             code: https://github.com/meerkat-ai-contents/input.git
             # code: local
-            branch: tabular_dev  
+            branch: v1.0.1_tabular  
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
@@ -91,7 +91,7 @@ asset_source:
           source:  ## git / local  
             code: https://github.com/meerkat-ai-contents/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.2_tcr
             requirements:
               - requirements.txt
 
@@ -99,7 +99,7 @@ asset_source:
           source:  ## git / local   
             code: https://github.com/meerkat-ai-contents/preprocess.git
             # code: local
-            branch: tcr_dev
+            branch: v2.1.1_tcr 
             requirements:
               - requirements.txt
 
@@ -107,7 +107,7 @@ asset_source:
           source:  ## git / local   
             code: https://github.com/meerkat-ai-contents/sampling.git
             # code: local
-            branch: develop
+            branch: v1.1_tabular
             requirements:
               - requirements.txt
 
@@ -115,7 +115,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
             # code: local
-            branch: develop
+            branch: v2.1.4
             requirements:
               - requirements.txt 
     
@@ -123,7 +123,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/meerkat-ai-contents/output.git
             # code: local
-            branch: output_dev
+            branch: v1.0.0
             requirements:
               - requirements.txt
    
@@ -132,7 +132,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/meerkat-ai-contents/input.git
             # code: local
-            branch: tabular_dev 
+            branch: v1.0.1_tabular 
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
@@ -141,7 +141,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/meerkat-ai-contents/readiness.git
             # code: local
-            branch: tcr_dev
+            branch: v1.2_tcr
             requirements:
               - requirements.txt
 
@@ -149,7 +149,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/meerkat-ai-contents/preprocess.git
             # code: local
-            branch: tcr_dev
+            branch: v2.1.1_tcr 
             requirements:
               - requirements.txt
 
@@ -157,7 +157,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/meerkat-ai-contents/tcr_modeling_ml.git
             # code: local
-            branch: develop
+            branch: v2.1.4
             requirements:
               - requirements.txt 
     
@@ -165,7 +165,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/meerkat-ai-contents/output.git
             # code: local
-            branch: output_dev
+            branch: v1.0.0
             requirements:
               - requirements.txt
            
