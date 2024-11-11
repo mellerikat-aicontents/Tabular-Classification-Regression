@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>kr</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>(kr)_TCR_user_arguments_guide</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7510,13 +7510,13 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e0401d36-552c-46f1-a1c1-171fd1ac3618">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="TCR-Parameter">TCR Parameter<a class="anchor-link" href="#TCR-Parameter">¶</a></h1><div align="right">Updated 2024.08.05</div><br/>
+<h1 id="TCR-Parameter">TCR Parameter<a class="anchor-link" href="#TCR-Parameter">¶</a></h1><div align="right">Updated 2024.11.11</div><br/>
 <h2 id="experimental_plan.yaml-%EC%84%A4%EB%AA%85">experimental_plan.yaml 설명<a class="anchor-link" href="#experimental_plan.yaml-%EC%84%A4%EB%AA%85">¶</a></h2><p>내가 갖고 있는 데이터에 AI Contents를 적용하려면 데이터에 대한 정보와 사용할 Contents 기능들을 experimental_plan.yaml 파일에 기입해야 합니다. AI Contents를 solution 폴더에 설치하면 solution 폴더 아래에 contents 마다 기본으로 작성되어있는 experimental_plan.yaml 파일을 확인할 수 있습니다. 이 YAML 파일에 '데이터 정보'를 입력하고 asset마다 제공하는 'user arugments'를 수정/추가하여 ALO를 실행하면, 원하는 세팅으로 데이터 분석 모델을 생성할 수 있습니다.</p>
 <h3 id="experimental_plan.yaml-%EA%B5%AC%EC%A1%B0">experimental_plan.yaml 구조<a class="anchor-link" href="#experimental_plan.yaml-%EA%B5%AC%EC%A1%B0">¶</a></h3><p>experimental_plan.yaml에는 ALO를 구동하는데 필요한 다양한 setting값이 작성되어 있습니다. 이 setting값 중 '데이터 경로'와 'user arguments'부분을 수정하면 AI Contents를 바로 사용할 수 있습니다.</p>
 <h4 id="%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B2%BD%EB%A1%9C-%EC%9E%85%EB%A0%A5(external_path)">데이터 경로 입력(<code>external_path</code>)<a class="anchor-link" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B2%BD%EB%A1%9C-%EC%9E%85%EB%A0%A5(external_path)">¶</a></h4><ul>
@@ -8686,7 +8686,20 @@ ex) categorical_encoding: {label: [col1]}일 경우, col1을 제외한 나머지
 <li>ui_args: X</li>
 </ul>
 <hr/>
-<h3 id="Train-asset">Train asset<a class="anchor-link" href="#Train-asset">¶</a></h3><h4 id="evaluation_metric">evaluation_metric<a class="anchor-link" href="#evaluation_metric">¶</a></h4><p>HPO시 best 모델을 선정하기 위한 평가 metric을 선택합니다. Default 값인 'auto'를 사용하면 task_type이 classification일 경우 accuracy, regression일 경우 mse를 선택합니다.</p>
+<h3 id="Train-asset">Train asset<a class="anchor-link" href="#Train-asset">¶</a></h3><h4 id="evaluation_metric">evaluation_metric<a class="anchor-link" href="#evaluation_metric">¶</a></h4><p>HPO시 best 모델을 선정하기 위한 평가 metric을 선택합니다. Default 값인 'auto'를 사용하면 task_type이 classification일 경우 accuracy, regression일 경우 mse를 선택합니다.
+만약, HPO과정에서 evaluation_metric 값이 같은 모델이 여러개 등장하면, 다음과 같은 우선순위로 모델 우선순위를 정하게 됩니다.</p>
+<ul>
+<li>evaluation_metric 값이 동일할 떄:<ul>
+<li>classificaiton의 경우 accuracy, f1, recall, precision 순으로 evaluation_metric을 제외한 나머지 metric을 모델별로 비교합니다. (accuracy를 선택하면, f1, recall, precision 순으로 값 비교)</li>
+<li>regression의 경우 r2, mse, mae, rmse 순으로 evaluation_metric을 제외한 나머지 metric을 모델별로 비교합니다.</li>
+</ul>
+</li>
+<li>모든 평가 지표 값이 동일할 때:<ul>
+<li>모델의 사이즈가 작을 수록, 모델 사이즈가 유사할 때는 rf, lgbm, gbm, xgb, cb 모델 순으로 선택합니다.</li>
+</ul>
+</li>
+</ul>
+<p>단 모든 평가 지표 값이 동일할 때, 사용자가 모델을 직접 추가한 경우 사용자가 추가한 모델이 가장 우선순위가 높습니다.</p>
 <ul>
 <li>Argument type: 필수</li>
 <li>입력 type<ul>
@@ -8918,7 +8931,7 @@ ex) categorical_encoding: {label: [col1]}일 경우, col1을 제외한 나머지
 <li>ui_args: O</li>
 </ul>
 <hr/>
-<p><strong>TCR Version: 2.2.1</strong></p>
+<p><strong>TCR Version: 2.2.2</strong></p>
 </div>
 </div>
 </div>

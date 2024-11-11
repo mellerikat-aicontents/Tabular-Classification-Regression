@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>en</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>(en)_TCR_user_arguments_guide</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7510,13 +7510,13 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=abe0f8a8-6415-4f9a-92fe-92703118c676">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="TCR-Parameter">TCR Parameter<a class="anchor-link" href="#TCR-Parameter">¶</a></h1><div align="right">Updated 2024.08.05</div><br/>
+<h1 id="TCR-Parameter">TCR Parameter<a class="anchor-link" href="#TCR-Parameter">¶</a></h1><div align="right">Updated 2024.11.11</div><br/>
 <h2 id="Overview-of-experimental_plan.yaml">Overview of experimental_plan.yaml<a class="anchor-link" href="#Overview-of-experimental_plan.yaml">¶</a></h2><p>To apply AI Contents to your data, you need to provide information about the data and the functionalities you wish to use in the experimental_plan.yaml file. Once you install AI Contents in the solution folder, you can find the pre-written experimental_plan.yaml file for each content under the solution folder. By inputting 'data information' and modifying/adding 'user arguments' for each asset in this YAML file, you can execute ALO to create a data analysis model with the desired settings.</p>
 <h3 id="Structure-of-experimental_plan.yaml">Structure of experimental_plan.yaml<a class="anchor-link" href="#Structure-of-experimental_plan.yaml">¶</a></h3><p>The experimental_plan.yaml file contains various settings required to run ALO. By modifying the 'data path' and 'user arguments' parts, you can immediately use AI Contents.</p>
 <h4 id="Input-Data-Path-(external_path)">Input Data Path (<code>external_path</code>)<a class="anchor-link" href="#Input-Data-Path-(external_path)">¶</a></h4><p>The <code>external_path</code> parameter is used to specify the path of the file to be loaded or the path where the file will be saved. If <code>save_train_artifacts_path</code> and <code>save_inference_artifacts_path</code> are not specified, the modeling artifacts will be saved in the default folders <code>train_artifacts</code> and <code>inference_artifacts</code>, respectively.</p>
@@ -8682,7 +8682,20 @@ e.g., categorical_encoding: {label: [col1]} applies label encoding to col1, and 
 <li>ui_args: X      </li>
 </ul>
 <hr/>
-<h3 id="Train-asset">Train asset<a class="anchor-link" href="#Train-asset">¶</a></h3><h4 id="evaluation_metric">evaluation_metric<a class="anchor-link" href="#evaluation_metric">¶</a></h4><p>Select the evaluation metric to choose the best model during HPO. The default value 'auto' uses accuracy for classification and mse for regression.</p>
+<h3 id="Train-asset">Train asset<a class="anchor-link" href="#Train-asset">¶</a></h3><h4 id="evaluation_metric">evaluation_metric<a class="anchor-link" href="#evaluation_metric">¶</a></h4><p>Select the evaluation metric to choose the best model during HPO. The default value 'auto' uses accuracy for classification and mse for regression.
+If multiple models have the same evaluation_metric value during the HPO process, the priority of the models will be determined in the following order.</p>
+<ul>
+<li>When the evaluation_metric values are the same:<ul>
+<li>For classification, compare the other metrics in the order of accuracy, f1, recall, and precision (if accuracy is selected, compare values in the order of f1, recall, and precision).</li>
+<li>For regression, compare the other metrics in the order of r2, mse, mae, and rmse.</li>
+</ul>
+</li>
+<li>When all evaluation metric values are the same:<ul>
+<li>The smaller the model size, the higher the priority. If model sizes are similar, they will be sorted in the order of rf, lgbm, gbm, xgb, and cb models.</li>
+</ul>
+</li>
+</ul>
+<p>However, if all evaluation metric values are the same and the user has manually added a model, the user-added model will have the highest priority.</p>
 <ul>
 <li>Argument Type: Required</li>
 <li>Input Type<ul>
@@ -8914,7 +8927,7 @@ e.g., categorical_encoding: {label: [col1]} applies label encoding to col1, and 
 <li>ui_args: O</li>
 </ul>
 <hr/>
-<p><strong>TCR Version: 2.2.1</strong></p>
+<p><strong>TCR Version: 2.2.2</strong></p>
 </div>
 </div>
 </div>
