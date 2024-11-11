@@ -1,5 +1,5 @@
 name: TCR
-version: 2.2.1
+version: 2.2.2
 
 external_path:
     - load_train_data_path: ./solution/sample_data/train
@@ -99,7 +99,7 @@ asset_source:
           source:  ## git / local   
             code: https://github.com/mellerikat-aicontents/preprocess.git
             # code: local
-            branch: v2.1.1_tcr 
+            branch: v2.1.2_tcr 
             requirements:
               - requirements.txt
 
@@ -115,7 +115,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
             # code: local
-            branch: v2.1.4
+            branch: v2.1.5
             requirements:
               - requirements.txt 
     
@@ -149,7 +149,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/preprocess.git
             # code: local
-            branch: v2.1.1_tcr 
+            branch: v2.1.2_tcr 
             requirements:
               - requirements.txt
 
@@ -157,7 +157,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
             # code: local
-            branch: v2.1.4
+            branch: v2.1.5
             requirements:
               - requirements.txt 
     
