@@ -1,5 +1,5 @@
 name: TCR
-version: 2.2.2
+version: 2.2.3
 
 external_path:
     - load_train_data_path: ./solution/sample_data/train
