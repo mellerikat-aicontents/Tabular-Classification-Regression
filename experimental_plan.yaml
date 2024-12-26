@@ -107,7 +107,7 @@ asset_source:
           source:  ## git / local   
             code: https://github.com/mellerikat-aicontents/sampling.git
             # code: local
-            branch: v1.1_tabular
+            branch: v1.1.1_tabular
             requirements:
               - requirements.txt
 
