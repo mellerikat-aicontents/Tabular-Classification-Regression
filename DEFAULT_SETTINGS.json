@@ -1,0 +1,54 @@
+{
+    "input": {
+        "file_type": "csv", 
+        "encoding": "utf-8"
+    },
+
+    "readiness": {
+        "x_columns": [],
+        "drop_x_columns": [],
+        "y_column": "",
+        "column_types": "auto",
+        "task_type": "classification",
+        "groupkey_columns": [],
+        "target_label": "_major",
+        "min_rows": -1,
+        "cardinality": 50,
+        "num_cat_split": 10,
+        "ignore_new_category": false,
+
+        "categorical_columns": [],
+        "numeric_columns": [],
+        "categorical_columns_unique": {},
+        "groupkey_list": [],
+        "del_idx_list":  []
+    },
+
+    "preprocess": {
+        "default_encoding": "binary",
+        "categorical_encoding": {"binary": "all"},
+        "handle_missing": {},
+        "numeric_outlier": {},
+        "numeric_scaler": {},
+        "save_original_columns": true,
+        "missing_split_rate": 0
+    },
+
+    "sampling": {
+        "method": "cross_validation", 
+        "options": 3
+    },
+
+    "train": {
+        "shapley_value": false,
+        "shapley_sampling": 10000,
+        "model_list": ["rf", "gbm", "lgbm", "cb", "xgb"],
+        "hpo_settings": {},
+        "evaluation_metric": "auto",
+        "model_path": "",
+        "external_path": "",
+        "output_type": "all",
+        "num_cpu_core": 3,
+        "multiprocessing": false
+    }
+}

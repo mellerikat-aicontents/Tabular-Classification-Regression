@@ -1,0 +1,7 @@
+account_id: ## 000000000000
+role: ## arn:aws:iam::000000000000:role/sagemaker-role
+region: ap-northeast-2  
+ecr_repository: ## my-name-sagemaker-repo
+## s3 uri to save sagemaker artifacts 
+s3_bucket_uri: ## 's3://my-name-sagemaker-s3-bucket/'
+train_instance_type: 'ml.m5.large'
