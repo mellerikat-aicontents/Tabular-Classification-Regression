@@ -1,0 +1,21 @@
+AIC_URI: https://aicond.try-mellerikat.com/
+#CLOUD_SERVICE_ACCOUNT:
+#  TYPE: GCP # AWS
+#  CREDENTIALS: # for GCP 
+#    KEY_FILE: *.json
+#  CREDENTIALS: # for AWS 
+#    PROFILE: profile-name
+AWS_KEY_PROFILE: aws-key-profile
+GCP_CRENDENTIALS: key.json
+BUILD_METHOD: docker # docker / buildah / codebuild
+CODEBUILD_ENV_COMPUTE_TYPE: BUILD_GENERAL1_SMALL
+CODEBUILD_ENV_TYPE: LINUX_CONTAINER
+LOGIN_MODE: static
+REGION: ap-northeast-2
+REPOSITORY_TAGS: # ECR repository tags 설정: {Key:Value} 리스트 
+  - Key: Owner
+    Value: Mellerikat
+  - Key: Phase
+    Value: DEV
+VERSION: 1.1
+WORKSPACE_NAME: poc-ws
