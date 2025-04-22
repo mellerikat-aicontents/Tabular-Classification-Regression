@@ -1,92 +1,306 @@
-name: tcr
-version: 1.0.0
+name: TCR
+version: 2.2.3
 
+external_path:
+    - load_train_data_path: ./solution/sample_data/train
+    - load_inference_data_path:  ./solution/sample_data/test
+    - save_train_artifacts_path:
+    - save_inference_artifacts_path:
+    - load_model_path:
+
+external_path_permission:
+    - aws_key_profile: 
+ 
+
+user_parameters:
+    - train_pipeline:
+        - step: input 
+          args:
+            - file_type: csv
+              encoding: utf-8
+          ui_args: 
+        
+        - step: readiness
+          args:
+            - x_columns: [input_x0,input_x1,input_x2,input_x3]
+              y_column: target
+              task_type: classification
+              target_label: _major
+              column_types: auto
+              report: True
+          ui_args:
+            - x_columns
+            - y_column
+
+        - step: preprocess
+          args:
+          ui_args:
+
+        - step: sampling
+          args:
+            - data_split: {method: cross_validation, options: 3}
+          ui_args:
+
+        - step: train
+          args:
+            - evaluation_metric: auto
+              shapley_value: False 
+              output_type: all
+          ui_args:
+            - evaluation_metric
+            - shapley_value
+
+        - step: output
+          args:
+          ui_args:
+
+    - inference_pipeline:
+        - step: input  
+          args:
+          ui_args: 
+        
+        - step: readiness
+          args:
+          ui_args:
+
+        - step: preprocess
+          args:
+          ui_args:
+
+        - step: inference
+          args:
+          ui_args:
+
+        - step: output
+          args:
+          ui_args:
+
+
+asset_source:
+    - train_pipeline:
+        - step: input
+          source:  ## git / local   
+            code: https://github.com/mellerikat-aicontents/input.git
+            # code: local
+            branch: v1.0.1_tabular  
+            requirements:
+              - pandas==1.5.3
+              - numpy==1.26.4
+
+        - step: readiness
+          source:  ## git / local  
+            code: https://github.com/mellerikat-aicontents/readiness.git
+            # code: local
+            branch: v1.2_tcr
+            requirements:
+              - requirements.txt
+
+        - step: preprocess
+          source:  ## git / local   
+            code: https://github.com/mellerikat-aicontents/preprocess.git
+            # code: local
+            branch: v2.1.2_tcr 
+            requirements:
+              - requirements.txt
+
+        - step: sampling
+          source:  ## git / local   
+            code: https://github.com/mellerikat-aicontents/sampling.git
+            # code: local
+            branch: v1.1.1_tabular
+            requirements:
+              - requirements.txt
+
+        - step: train
+          source:  ## git / local 
+            code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
+            # code: local
+            branch: v2.1.5
+            requirements:
+              - requirements.txt 
+    
+        - step: output
+          source:  ## git / local 
+            code: https://github.com/mellerikat-aicontents/output.git
+            # code: local
+            branch: v1.0.0
+            requirements:
+              - requirements.txt
+   
+    - inference_pipeline:
+        - step: input
+          source:  ## git / local 
+            code: https://github.com/mellerikat-aicontents/input.git
+            # code: local
+            branch: v1.0.1_tabular 
+            requirements:
+              - pandas==1.5.3
+              - numpy==1.26.4
+
+        - step: readiness
+          source:  ## git / local 
+            code: https://github.com/mellerikat-aicontents/readiness.git
+            # code: local
+            branch: v1.2_tcr
+            requirements:
+              - requirements.txt
+
+        - step: preprocess
+          source:  ## git / local 
+            code: https://github.com/mellerikat-aicontents/preprocess.git
+            # code: local
+            branch: v2.1.2_tcr 
+            requirements:
+              - requirements.txt
+
+        - step: inference
+          source:  ## git / local 
+            code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
+            # code: local
+            branch: v2.1.5
+            requirements:
+              - requirements.txt 
+    
+        - step: output
+          source:  ## git / local 
+            code: https://github.com/mellerikat-aicontents/output.git
+            # code: local
+            branch: v1.0.0
+            requirements:
+              - requirements.txt
+           
+     
 control:
-  # 실행 이력 관리
-  # backup:        # Optional) 디스크 사용량 기준 백업 수행
-  #   type: size     # Required) 백업 방식(size, count, day)
-  #   value: 5MB     # Required)저장 용량. Default 1GB. ex) 1000000000, 1GB, 1MB, 1KB
-  backup:        # Optional) 수행 횟수 기준 백업 수행
-    type: count    # Required) 백업 방식(size, count, day)
-    value: 5       # Optional) default 1000
-  # backup:        # Optional) 마지막 실행일 기준 기간(일)동안 백업
-  #   type: day      # Required) 백업 방식(size, count, day)
-  #   value: 7       # Optional) default: 7일
+    ## 1. whether to install assets and dependency packages once or every time. 
+    - get_asset_source: once ## once, every
+    ## 2. whether to backup saved artifacts
+    - backup_artifacts: True ## True, False
+    ## 3. whether to backup log
+    - backup_log: True  ## True, False
+    ## 4. determine artifacts backup size(MB)
+    - backup_size: 1000
+    ## 5. asset data, config interfacing method - memory: (fast) / file: (saved; non-volatilizing) 
+    - interface_mode: memory ## memory, file
+    ## 6. inference artifacts compression format 
+    - save_inference_format: tar.gz ## tar.gz, zip
+    ## 7. resource check 
+    - check_resource: False ## True: measure memory, cpu / False  
 
-  check_resource: True  # Optional) 실행시 사용된 CPU, Memory resource 사용량 로그 출력. Default: False
 
-solution:
-  pip:                       # Optional) 사용자 정의 함수의 3rd Party libs 를 내려 받기 위한 설정
-    # requirements: False        # Optional) 사용자 소스코드 git 코드 이하 requirements.txt 를 설치하고 싶은 경우 True로 설정
-    requirements:             # Optional) 개별 library를 설치하고자 하는 경우
-      - numpy==1.26.4
-      - pandas==1.5.3
-      - scikit-learn
-      - scikit-learn==1.4.1post1
-      - tqdm==4.66.2
-      - matplotlib==3.8.3
-      - catboost==1.2.3
-      - lightgbm==4.3.0
-      - shap==0.44.1
-      - xgboost==2.0.3
-      - imbalanced-learn==0.12.2    
-      - category_encoders==2.6.3 
-  #     - scikit-learn --index-url https://my.local.mirror.com/simple
-  # credential:                # Optional) Credential(train/inferenece의 input, output의 파일이 S3인 경우 공통 적용되는 인증 정보)
-  #   profile_name: aws-profile-name
-  
-  function:               # Required) 사용자 정의 함수
-
-    input:
-      def: pipeline.input
-      argument:
-        file_type: csv
-        encoding: utf-8
-
-    readiness:
-      def: pipeline.readiness
-      argument:
-        x_columns: [input_x0,input_x1,input_x2,input_x3]
-        y_column: target
-        task_type: classification
-        target_label: _major
-        column_types: auto
-
-    preprocess:                # 함수 이름 -> train.pipeline의 이름으로 사용됨
-      def: pipeline.preprocess    # Required) 사용자 모듈에서 실행 대상 함수
-
-    sampling:
-      def: pipeline.sampling
-      argument:
-        data_split: {method: cross_validation, options: 3}
-
-    train:
-      def: pipeline.train
-      argument:
-        evaluation_metric: auto
-        shapley_value: False
-        output_type: all
-
-    inference:
-      def: pipeline.inference
-    # train:
-    #   def: pipeline.train
-    #   argument:
-    #     x_columns: [ 'Pclass', 'Sex', 'SibSp', 'Parch']
-    #     y_column: Survived
-    # inference:
-    #   def: pipeline.inference
-    #   argument:
-    #     x_columns: [ 'Pclass', 'Sex', 'SibSp', 'Parch']
-
-  train:
-    dataset_uri: [train_dataset/]     # 데이터 폴더, 폴더 리스트 (파일 형식 불가)
-    # dataset_uri: s3://mellerikat-test/tmp/alo/                # 예제1) S3 key(prefix) 이하 경로 모든 폴더, 파일
-    artifact_uri: train_artifact/
-    pipeline: [input, readiness, preprocess, sampling, train]   # 실행 대상 function 목록
-
-  inference:
-    dataset_uri: inference_dataset/
-    # model_uri: model_artifacts/n100_depth5.pkl  # 이미 학습된 모델을 load
-    artifact_uri: inference_artifact/ #  Optional) pipeline['artifact']['workspace'] 경로 이하에 저장된 파일에 대해 압축 및 업로드 경로 정의. default 경로 이하 inferenece.tar.gz으로 업로드 됨
-    pipeline: [input, readiness, preprocess, sampling, inference]
+########
+ui_args_detail:
+    - train_pipeline:
+        - step: input 
+          args:
+              - name: file_type
+                description: Please enter the file extension of the input data. (Currently, AI Solution registration only supports csv files.)
+                type: single_selection
+                default: csv
+                selectable:
+                  - csv
+              - name: encoding
+                description: Please enter the encoding type of the input data. (Currently, AI Solution registration only supports utf-8.)
+                type: string
+                default: utf-8
+                range:
+                  - 1
+                  - 1000000
+        - step: readiness 
+          args:
+              - name: x_columns
+                description: Please enter the names of the target x columns in the DataFrame, separated by commas.
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+              - name: y_column
+                description: Please enter the name of the y column in the DataFrame.
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+              - name: task_type
+                description: Please enter the type of the Solution task (classification/regression).
+                type: single_selection
+                default: classification
+                selectable:
+                  - classification
+                  - regression
+              - name: report
+                description: A summary CSV for the train/inference data will be generated.
+                type: single_selection
+                default: True
+                selectable:
+                  - True
+                  - False   
+              - name: drop_x_columns
+                description: The columns specified in drop_x_columns will be excluded from the entire DataFrame and the remaining columns will be used for training (y_column and groupkey_columns will also be excluded). Please separate multiple columns with commas.
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+              - name: groupkey_columns
+                description: If you enter the groupkey column, the DataFrame will be grouped based on the values of that column. If there are multiple columns, please separate them with commas.
+                type: string
+                default: ''
+                range:
+                  - 1
+                  - 1000000
+        - step: preprocess
+          args:
+              - name: save_original_columns
+                description: You need to decide whether to replace the original training columns (x_columns) with the preprocessed training columns. If set to True, both the original x_columns and the preprocessed x_columns will be passed to the next asset. If set to False, the original x_columns will be replaced by the preprocessed x_columns and will not be passed to the next asset.
+                type: single_selection
+                default: True
+                selectable:
+                  - True
+                  - False    
+        - step: train 
+          args:
+              - name: evaluation_metric
+                description: Please select the evaluation metric to choose the model during HPO (Hyperparameter Optimization).
+                type: single_selection
+                default: auto
+                selectable:
+                  - auto
+                  - accuracy
+                  - f1
+                  - recall
+                  - precision
+                  - mse
+                  - r2
+                  - mae
+                  - rmse    
+              - name: shapley_value
+                description: You need to decide whether to calculate the Shapley values and output them to output.csv.
+                type: single_selection
+                default: False
+                selectable:
+                  - False
+                  - True
+              - name: output_type
+                description: You need to decide whether to save all columns, including the modeling results, to output.csv (all), or to save only the modeling columns (simple).
+                type: single_selection
+                default: all
+                selectable:
+                  - all
+                  - simple
+              - name: multiprocessing
+                description: Please specify whether to use multiprocessing.
+                type: single_selection
+                default: True
+                selectable:
+                  - True
+                  - False
+              - name: num_cpu_core
+                description: Please enter the number of CPU cores to use for multiprocessing.
+                type: int
+                default: 
+                  - 3
+                range:
+                  - 1
+                  - 100000
+    - inference_pipeline:
