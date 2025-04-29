@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 from collections import Counter
@@ -6,8 +7,6 @@ from collections import Counter
 class readiness_check(object):
     def __init__(self, logger_method_dict):
         self.logger_method_dict = logger_method_dict
-        print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-        print(self.logger_method_dict )
     
     def train(self, config, input_data):
         config, input_data = self.convert_column_names(config, input_data)
@@ -866,5 +865,207 @@ def setting_configs(config, args, input_data, pipeline, logger, default_args):
         config['readiness'] = train_config
         config['readiness']['groupkey_columns'] = config['readiness']['original_groupkey_columns']
 
-
     return config
+
+
+def make_readiness_report(config, pipeline, input_data):
+    external_path=str(pipeline['extra_output'])
+    if pipeline['name'] == 'train':
+        if len(config['readiness']['groupkey_columns']) == 0:
+            report = make_report(config, input_data)
+            report.to_csv(external_path + '/report.csv', index=False)
+        else:
+            groups = config['readiness']['groupkey_list']
+            group_col = config['readiness']['groupkey_columns'][0]
+            for group in groups:
+                df_group = input_data[input_data[group_col] == group]
+                report_group = make_report(config, df_group, group)
+                report_group.to_csv(os.path.join(external_path , f'report_{group}.csv'), index=False)
+                report_group.to_csv(external_path + f'/report_{group}.csv', index=False)
+
+    else:
+        if len(config['readiness']['groupkey_columns']) == 0:
+            report = make_report(config, input_data)
+            report.to_csv(os.path.join(external_path , 'report.csv'), index=False)
+        else:
+            groups = config['readiness']['groupkey_list']
+            group_col = config['readiness']['groupkey_columns'][0]
+            for group in groups:
+                df_group = input_data[input_data[group_col] == group]
+                report_group = make_report(config, df_group, group=group)
+                report_group.to_csv(os.path.join(external_path , f'report_{group}.csv'), index=False)
+
+
+def make_report(config, input_data, group=None):
+    x_columns = config['readiness']['x_columns']
+    y_column = config['readiness']['y_column']
+    numeric_columns = config['readiness']['numeric_columns']
+    categorical_columns = config['readiness']['categorical_columns']
+
+    groupkey_columns = config['readiness']['groupkey_columns']
+    original_groupkey_columns = config['readiness']['original_groupkey_columns']
+    drop_x_columns = config['readiness']['drop_x_columns']
+    not_used_cols = []
+
+    new_cats = {}
+    summary = []
+    # 모든 칼럼 마다 정보 요약
+    for f in input_data.columns:  
+    
+        # 1. TCR에서의 role 정리
+        if f in [y_column]:
+            role = 'y_column'
+        elif f in x_columns:
+            role = 'x_columns'
+        elif f in original_groupkey_columns:
+            role = 'groupkey'
+            column_types = 'Groupkey'
+        elif f in groupkey_columns:
+            role = 'total_group'
+            column_types = 'Total Group'
+        else:
+            role = '-'
+            not_used_cols.append(f)
+    
+        # 2. dtype 정리
+        dtype = input_data[f].dtype
+        
+        # 3. 칼럼 타입 정리 (TCR내부에서 판단된 결과)
+        if f in [y_column]:
+            if config['readiness']['task_type'] == 'classification':
+                if config['readiness']['num_classes'] == 2:
+                    column_types = 'BinaryLabel'
+                elif config['readiness']['num_classes'] > 2: 
+                    column_types = 'MultiLabel'
+                info = input_data[f].value_counts()
+                keys = list(info.index)
+                values = list(info.values)
+                target_label = str(config['readiness']['target_label'])
+                column_types = 'BinaryLabel' +  f'(target_label: {target_label})'
+            
+                cat_info = {key: value for key, value in zip(keys, values)}
+                # cat_info['target_label'] = target_label
+                num_info = num_info = {'min': '-', 'max': '-', 'mean': '-', 'median': '-'}
+                cardinality = len(input_data[f].unique())
+            else:
+                column_types = 'Target(Regression)'
+                cat_info = 'Not Categorical'
+                num_info = num_info = {'min': '-', 'max': '-', 'mean': '-', 'median': '-'}
+            
+        if f in numeric_columns:
+            def change_to_num(x):
+                try: return np.float64(x)
+                except: return np.nan
+
+            info = input_data[f]
+            try:
+                round(info.min(), 3)
+            except:
+                info = info.apply(change_to_num)
+                
+            column_types = 'Numeric'
+            # 정보 제공
+            minimum = round(info.min(), 3)
+            maximum = round(info.max(), 3)
+            mean = round(info.mean(), 3)
+            median = round(info.median(), 3)
+            cat_info = '-'
+            num_info = {'min': minimum, 'max': maximum, 'mean': mean, 'median': median}
+            cardinality = '-'
+        
+        if f in categorical_columns:
+            column_types = 'Categorical'
+            # 정보 제공
+            info = input_data[f].value_counts()
+            keys = list(info.index)
+            values = list(info.values)
+            cat_info = {key: value for key, value in zip(keys, values)}
+            num_info = num_info = {'min': '-', 'max': '-', 'mean': '-', 'median': '-'}
+            cardinality = len(input_data[f].unique())
+
+            # 새로운 범주형 변수 값이 등장하는 지 체크 (inference report용)
+            if len(groupkey_columns) == 0: 
+                new_categories = list(set(input_data[f].dropna().unique()) - set(config['readiness']['categorical_columns_unique'][f]))
+            else:
+                new_categories = list(set(input_data[f].dropna().unique()) - set(config['readiness']['categorical_columns_unique'][group][f]))
+            if len(new_categories) > 0:
+                new_cats[f] = new_categories
+        
+        if f in drop_x_columns or f in not_used_cols:
+            column_types = '-'
+            cat_info = '-'
+            num_info = num_info = {'min': '-', 'max': '-', 'mean': '-', 'median': '-'}
+            cardinality = '-'
+        
+        # 4. 기타 정보 (결측치, cardinality)
+        if f not in groupkey_columns and f not in original_groupkey_columns:
+            missing_values = input_data[f].isnull().sum()
+            missing_ratio = round(missing_values / input_data.shape[0], 2)
+        
+        # Creating a Dict that contains all the metadata for the variable
+        f_dict = {
+            'varname': f,
+            'role': role,
+            'dtype': dtype,
+            'TCR-Column-type': column_types,
+            'categorical-info': cat_info,
+            'cardinality': cardinality,
+            'numerical-info-min': num_info['min'],
+            'numerical-info-max': num_info['max'],
+            'numerical-info-mean': num_info['mean'],
+            'numerical-info-median': num_info['median'],
+            'missing-values-num': missing_values,
+            'missing-values-ratio': missing_ratio,
+        }
+        summary.append(f_dict)
+    meta = pd.DataFrame(summary)
+
+    # 행 정렬
+    if len(groupkey_columns) == 0:
+        meta = meta.sort_values(by=['role'], key=lambda col: col.map({'y_column': 0, 'x_columns': 1, '-': 2}))
+    else:
+        meta = meta.sort_values(by=['role'], key=lambda col: col.map({'y_column': 0, 'x_columns': 1, 'groupkey': 2, 'total_group':3, '-': 4}))
+    
+    # Total Input Data 정보 (항상 첫 번째 행에 위치)
+    missing_rows_indices = input_data[input_data.isnull().any(axis=1)].index
+    missing_values = len(missing_rows_indices)
+    missing_ratio = round(missing_values / len(input_data), 2)
+    total_info = {
+        'varname': 'Total Input Data',
+        'role': 'Total Input Data',
+        'dtype': '-',
+        'TCR-Column-type': '-',
+        'categorical-info': '-',
+        'cardinality': '-',
+        'numerical-info-min': '-',
+        'numerical-info-max': '-',
+        'numerical-info-mean': '-',
+        'numerical-info-median': '-',
+        'missing-values-num': missing_values,
+        'missing-values-ratio': missing_ratio
+        }
+    new_row = pd.DataFrame([total_info])
+    meta = pd.concat([new_row, meta], ignore_index=True)
+
+    # 새로운 범주형 변수 값에 대한 정보 제공 (inference report용)
+    if new_cats:
+        # meta.loc[:, 'new categories'] = '-'
+        res = []
+        for idx, col in enumerate(list(meta['varname'].unique())):
+            if col in list(new_cats.keys()):
+                res.append(list(new_cats[col]))
+            else:
+                res.append('-')
+        meta['new-categories'] = res
+
+        desired_order = [
+            'varname', 'role', 'dtype', 'TCR-Column-type', 
+            'categorical-info', 'cardinality', 'new-categories',
+            'numerical-info-min', 'numerical-info-max', 'numerical-info-mean', 'numerical-info-median',
+            'missing-values-num', 'missing-values-ratio'
+            ]
+
+        # 칼럼 순서 재정렬
+        meta = meta.reindex(columns=desired_order)
+
+    return meta

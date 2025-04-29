@@ -50,7 +50,7 @@ def input(pipeline: dict):
 
 
 def readiness(pipeline: dict):
-    from readiness.readiness import readiness_check, setting_configs
+    from readiness.readiness import readiness_check, setting_configs, make_readiness_report
 
     logger = pipeline['logger']
     logger.debug("readiness")
@@ -71,8 +71,16 @@ def readiness(pipeline: dict):
     if pipeline['name'] == 'train':
         config, data = rdc.train(config, input_data)
         pipeline['model']['train_config'] = config['readiness']  # save model
+        print('*******************************************************')
+        print(config['readiness'])
+        print('*******************************************************')
+        print(pipeline['extra_output'])
+        if config['readiness']['report']:
+            make_readiness_report(config=config, pipeline=pipeline, input_data=input_data)
     elif pipeline['name'] == 'inference':
         config, data = rdc.inference(config, input_data)
+        if config['readiness']['report']:
+            make_readiness_report(config=config, pipeline=pipeline, input_data=input_data)
 
     return {
         'config': config,

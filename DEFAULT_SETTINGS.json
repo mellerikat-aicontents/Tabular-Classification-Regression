@@ -16,7 +16,7 @@
         "cardinality": 50,
         "num_cat_split": 10,
         "ignore_new_category": false,
-
+        "report": true,
         "categorical_columns": [],
         "numeric_columns": [],
         "categorical_columns_unique": {},
