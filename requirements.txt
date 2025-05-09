@@ -1,0 +1,13 @@
+pandas==1.5.3
+numpy==1.26.4
+numba==0.59.1
+tqdm==4.66.2
+scikit-learn==1.4.1post1
+category_encoders==2.6.3
+imbalanced-learn==0.12.2
+matplotlib==3.8.3
+catboost==1.2.3
+lightgbm==4.3.0
+shap==0.44.1
+xgboost==2.0.3
+setuptools
