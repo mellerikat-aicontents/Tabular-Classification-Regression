@@ -11,3 +11,4 @@ lightgbm==4.3.0
 shap==0.44.1
 xgboost==2.0.3
 setuptools
+mellerikat-alo
