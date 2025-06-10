@@ -1,5 +1,6 @@
-name: TCR
-version: 2.2.3
+
+name: tcr
+version: develop
 
 external_path:
     - load_train_data_path: ./solution/sample_data/train
@@ -82,7 +83,7 @@ asset_source:
           source:  ## git / local   
             code: https://github.com/mellerikat-aicontents/input.git
             # code: local
-            branch: v1.0.1_tabular  
+            branch: tabular_dev  
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
@@ -91,7 +92,7 @@ asset_source:
           source:  ## git / local  
             code: https://github.com/mellerikat-aicontents/readiness.git
             # code: local
-            branch: v1.2_tcr
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -99,7 +100,7 @@ asset_source:
           source:  ## git / local   
             code: https://github.com/mellerikat-aicontents/preprocess.git
             # code: local
-            branch: v2.1.2_tcr 
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -107,7 +108,7 @@ asset_source:
           source:  ## git / local   
             code: https://github.com/mellerikat-aicontents/sampling.git
             # code: local
-            branch: v1.1.1_tabular
+            branch: develop
             requirements:
               - requirements.txt
 
@@ -115,7 +116,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
             # code: local
-            branch: v2.1.5
+            branch: develop
             requirements:
               - requirements.txt 
     
@@ -123,7 +124,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/output.git
             # code: local
-            branch: v1.0.0
+            branch: output_dev
             requirements:
               - requirements.txt
    
@@ -132,7 +133,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/input.git
             # code: local
-            branch: v1.0.1_tabular 
+            branch: tabular_dev 
             requirements:
               - pandas==1.5.3
               - numpy==1.26.4
@@ -141,7 +142,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/readiness.git
             # code: local
-            branch: v1.2_tcr
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -149,7 +150,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/preprocess.git
             # code: local
-            branch: v2.1.2_tcr 
+            branch: tcr_dev
             requirements:
               - requirements.txt
 
@@ -157,7 +158,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/tcr_modeling_ml.git
             # code: local
-            branch: v2.1.5
+            branch: develop
             requirements:
               - requirements.txt 
     
@@ -165,7 +166,7 @@ asset_source:
           source:  ## git / local 
             code: https://github.com/mellerikat-aicontents/output.git
             # code: local
-            branch: v1.0.0
+            branch: output_dev
             requirements:
               - requirements.txt
            
@@ -228,13 +229,6 @@ ui_args_detail:
                 selectable:
                   - classification
                   - regression
-              - name: report
-                description: A summary CSV for the train/inference data will be generated.
-                type: single_selection
-                default: True
-                selectable:
-                  - True
-                  - False   
               - name: drop_x_columns
                 description: The columns specified in drop_x_columns will be excluded from the entire DataFrame and the remaining columns will be used for training (y_column and groupkey_columns will also be excluded). Please separate multiple columns with commas.
                 type: string
@@ -244,6 +238,7 @@ ui_args_detail:
                   - 1000000
               - name: groupkey_columns
                 description: If you enter the groupkey column, the DataFrame will be grouped based on the values of that column. If there are multiple columns, please separate them with commas.
+
                 type: string
                 default: ''
                 range:
